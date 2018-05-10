@@ -3,6 +3,10 @@ package team.uninortetasks.uninortetasks.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -20,11 +24,17 @@ public class SplashScreen extends AppCompatActivity {
         RealmConfiguration config = new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
         Realm.setDefaultConfiguration(config);
         TasksDB.init();
+        startApp();
     }
 
     private void startApp() {
         final Intent intent = new Intent(this, Home.class);
-        Thread load = new Thread() {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.splashanimation);
+        ImageView logo = findViewById(R.id.logo);
+        TextView appname = findViewById(R.id.appname);
+        logo.startAnimation(animation);
+        appname.startAnimation(animation);
+        new Thread() {
             @Override
             public void run() {
                 try {
@@ -35,7 +45,7 @@ public class SplashScreen extends AppCompatActivity {
                     startActivity(intent);
                 }
             }
-        };
+        }.start();
     }
 
 }
