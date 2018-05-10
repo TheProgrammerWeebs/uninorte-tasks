@@ -10,6 +10,7 @@ import javax.annotation.Nullable;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.exceptions.RealmException;
 import io.realm.exceptions.RealmPrimaryKeyConstraintException;
 
 public class TasksDB {
@@ -42,12 +43,15 @@ public class TasksDB {
     /**
      * Agrega una nueva tarea a la base de datos.
      *
-     * @param context Contexto del que se llama al método (Activity...).
-     * @param name    Nombre de la tarea.
-     * @param limit   Tiempo limite de finalización.
+     * @param context  Contexto del que se llama al método (Activity).
+     * @param name     Nombre de la tarea.
+     * @param priority Prioridad de la tarea.
+     * @param state    Estado actual de la tarea.
+     * @param type     Tipo de tarea.
+     * @param limit    Tiempo límite.
      */
-    public static void add(final Context context, String name, Date limit) {
-        final Task task = new Task(TasksDB.generateId(), name, Priority.high, State.pending, Type.goal, limit);
+    public static void add(final Context context, String name, Priority priority, State state, Type type, Date limit) {
+        final Task task = new Task(TasksDB.generateId(), name, priority, state, type, limit);
         Realm realm = Realm.getDefaultInstance();
         realm.executeTransaction(new Realm.Transaction() {
             @Override
@@ -87,8 +91,10 @@ public class TasksDB {
     }
 
     /**
-     * @param context
-     * @param id
+     * Eliminar una tarea
+     *
+     * @param context Contexto en el que se realiza la operación (Activity)
+     * @param id      ID De la tarea a eliminar
      */
     public static void remove(final Context context, final int id) {
         Realm realm = Realm.getDefaultInstance();
@@ -105,14 +111,20 @@ public class TasksDB {
     }
 
     /**
-     * @param task
+     * Editar una tarea
+     *
+     * @param task Tarea a editar, la tarea debe tener el id de la que se va a editar
      */
-    public static void edit(final Task task) {
+    public static void edit(final Context context, final Task task) {
         Realm realm = Realm.getDefaultInstance();
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                realm.copyToRealmOrUpdate(task);
+                try {
+                    realm.copyToRealmOrUpdate(task);
+                } catch (RealmException ignored) {
+                    Toast.makeText(context, "La tarea no existe.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
