@@ -12,6 +12,7 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
+        //Inicializa la conexion con la base de datos de Realm
         Realm.init(this);
 //        RealmConfiguration config = new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
 //        Realm.setDefaultConfiguration(config);
