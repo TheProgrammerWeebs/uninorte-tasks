@@ -117,16 +117,14 @@ public class TasksDB {
      */
     public static void edit(final Context context, final Task task) {
         Realm realm = Realm.getDefaultInstance();
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
+        realm.executeTransaction(r -> {
                 try {
-                    realm.copyToRealmOrUpdate(task);
+                    r.copyToRealmOrUpdate(task);
                 } catch (RealmException ignored) {
                     Toast.makeText(context, "La tarea no existe.", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        );
     }
 
 }
