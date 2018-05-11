@@ -22,6 +22,7 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
+        setSplash();
         //Inicializa la conexion con la base de datos de Realm
         Realm.init(this);
         RealmConfiguration config = new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
@@ -36,10 +37,31 @@ public class SplashScreen extends AppCompatActivity {
         ImageView logo = findViewById(R.id.logo);
         LinearLayout view = findViewById(R.id.splashb);
         TextView splashText = findViewById(R.id.splashtext);
+        logo.startAnimation(animation);
+        splashText.startAnimation(animation);
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        }.start();
+    }
+
+    private void setSplash() {
+        ImageView logo = findViewById(R.id.logo);
+        LinearLayout view = findViewById(R.id.splashb);
+        TextView splashText = findViewById(R.id.splashtext);
         int color;
         int img;
         String text;
-        switch (new Random().nextInt(5)) {
+        switch (new Random().nextInt(3)) {
             case 0:
                 color = R.color.deer;
                 img = R.drawable.deer;
@@ -55,35 +77,15 @@ public class SplashScreen extends AppCompatActivity {
                 img = R.drawable.flyingowl;
                 text = getResources().getString(R.string.flyingowl);
                 break;
-            case 3:
+            default:
                 color = R.color.rooster;
                 img = R.drawable.rooster;
                 text = getResources().getString(R.string.rooster);
-                break;
-            default:
-                color = R.color.wolf;
-                img = R.drawable.wolf;
-                splashText.setTextColor(getResources().getColor(R.color.lighttext));
-                text = getResources().getString(R.string.wolf);
         }
         view.setBackgroundColor(getResources().getColor(color));
         getWindow().setStatusBarColor(getResources().getColor(color));
         logo.setImageDrawable(getResources().getDrawable(img));
         splashText.setText(text);
-        logo.startAnimation(animation);
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    startActivity(intent);
-                    finish();
-                }
-            }
-        }.start();
     }
 
 }
