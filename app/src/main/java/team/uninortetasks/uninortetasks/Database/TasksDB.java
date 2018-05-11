@@ -53,14 +53,11 @@ public class TasksDB {
     public static void add(final Context context, String name, Priority priority, State state, Type type, Date limit) {
         final Task task = new Task(TasksDB.generateId(), name, priority, state, type, limit);
         Realm realm = Realm.getDefaultInstance();
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                try {
-                    realm.insert(task);
-                } catch (RealmPrimaryKeyConstraintException ignored) {
-                    Toast.makeText(context, "ID Ingresado ya existe.", Toast.LENGTH_SHORT).show();
-                }
+        realm.executeTransaction(realm1 -> {
+            try {
+                realm1.insert(task);
+            } catch (RealmPrimaryKeyConstraintException ignored) {
+                Toast.makeText(context, "ID Ingresado ya existe.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -98,14 +95,11 @@ public class TasksDB {
      */
     public static void remove(final Context context, final int id) {
         Realm realm = Realm.getDefaultInstance();
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                try {
-                    all.where().equalTo("id", id).findFirst().deleteFromRealm();
-                } catch (NullPointerException ignored) {
-                    Toast.makeText(context, "La tarea no existe.", Toast.LENGTH_SHORT).show();
-                }
+        realm.executeTransaction(realm1 -> {
+            try {
+                all.where().equalTo("id", id).findFirst().deleteFromRealm();
+            } catch (NullPointerException ignored) {
+                Toast.makeText(context, "La tarea no existe.", Toast.LENGTH_SHORT).show();
             }
         });
     }
