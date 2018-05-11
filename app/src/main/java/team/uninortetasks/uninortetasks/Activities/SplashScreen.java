@@ -31,9 +31,7 @@ public class SplashScreen extends AppCompatActivity {
         final Intent intent = new Intent(this, Home.class);
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.splashanimation);
         ImageView logo = findViewById(R.id.logo);
-        TextView appname = findViewById(R.id.appname);
         logo.startAnimation(animation);
-        appname.startAnimation(animation);
         new Thread() {
             @Override
             public void run() {
