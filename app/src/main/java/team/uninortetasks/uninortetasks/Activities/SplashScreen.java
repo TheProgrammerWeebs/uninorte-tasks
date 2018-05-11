@@ -22,17 +22,20 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
-        setSplash();
+        int header = setSplash();
         //Inicializa la conexion con la base de datos de Realm
         Realm.init(this);
         RealmConfiguration config = new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
         Realm.setDefaultConfiguration(config);
         TasksDB.init();
-        startApp();
+        startApp(header);
     }
 
-    private void startApp() {
+    private void startApp(int header) {
         final Intent intent = new Intent(this, Home.class);
+        Bundle params = new Bundle();
+        params.putInt("header", header);
+        intent.putExtras(params);
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.splashanimation);
         ImageView logo = findViewById(R.id.logo);
         LinearLayout view = findViewById(R.id.splashb);
@@ -54,38 +57,44 @@ public class SplashScreen extends AppCompatActivity {
         }.start();
     }
 
-    private void setSplash() {
+    private int setSplash() {
         ImageView logo = findViewById(R.id.logo);
         LinearLayout view = findViewById(R.id.splashb);
         TextView splashText = findViewById(R.id.splashtext);
         int color;
         int img;
+        int header;
         String text;
         switch (new Random().nextInt(3)) {
             case 0:
                 color = R.color.deer;
                 img = R.drawable.deer;
+                header = R.drawable.deerimg;
                 text = getResources().getString(R.string.deer);
                 break;
             case 1:
                 color = R.color.fish;
                 img = R.drawable.fish;
+                header = R.drawable.fishimg;
                 text = getResources().getString(R.string.fish);
                 break;
             case 2:
                 color = R.color.flyingowl;
                 img = R.drawable.flyingowl;
+                header = R.drawable.flyingowlimg;
                 text = getResources().getString(R.string.flyingowl);
                 break;
             default:
                 color = R.color.rooster;
                 img = R.drawable.rooster;
+                header = R.drawable.roosterimg;
                 text = getResources().getString(R.string.rooster);
         }
         view.setBackgroundColor(getResources().getColor(color));
         getWindow().setStatusBarColor(getResources().getColor(color));
         logo.setImageDrawable(getResources().getDrawable(img));
         splashText.setText(text);
+        return header;
     }
 
 }
