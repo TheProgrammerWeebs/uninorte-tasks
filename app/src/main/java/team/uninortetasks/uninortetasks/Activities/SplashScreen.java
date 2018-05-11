@@ -43,6 +43,7 @@ public class SplashScreen extends AppCompatActivity {
                     e.printStackTrace();
                 } finally {
                     startActivity(intent);
+                    finish();
                 }
             }
         }.start();
