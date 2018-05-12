@@ -13,7 +13,7 @@ import java.util.Random;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import team.uninortetasks.uninortetasks.Database.TasksDB;
+import team.uninortetasks.uninortetasks.Database.Task;
 import team.uninortetasks.uninortetasks.R;
 
 public class SplashScreen extends AppCompatActivity {
@@ -27,7 +27,7 @@ public class SplashScreen extends AppCompatActivity {
         Realm.init(this);
         RealmConfiguration config = new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
         Realm.setDefaultConfiguration(config);
-        TasksDB.init();
+        Task.init();
         startApp(header);
     }
 
