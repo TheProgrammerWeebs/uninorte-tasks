@@ -5,4 +5,7 @@
     <string name="deer">No te ganas la lealtad en un día, te la ganas día a día</string>
     <string name="fish">Un camino de mil millas comienza con un paso</string>
     <string name="rooster">La puntualidad es la educación de los reyes</string>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>
