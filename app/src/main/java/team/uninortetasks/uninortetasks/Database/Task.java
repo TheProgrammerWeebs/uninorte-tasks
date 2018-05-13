@@ -104,11 +104,14 @@ public class Task extends RealmObject {
      */
     private static int generateId() {
         Realm realm = Realm.getDefaultInstance();
-        Random random = new Random();
         int id;
+        /*Random random = new Random();
+        ;
         do {
             id = random.nextInt(9999) + 1;
-        } while (realm.where(Task.class).equalTo("id", id).count() == 0);
+        } while (realm.where(Task.class).equalTo("id", id).count() == 0);*/
+        Number maxID = realm.where(Task.class).max("id");
+        id = (maxID == null) ? 1 : maxID.intValue() + 1;
         return id;
     }
 
