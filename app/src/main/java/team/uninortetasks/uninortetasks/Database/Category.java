@@ -9,7 +9,6 @@ import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
-import io.realm.annotations.LinkingObjects;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 import io.realm.exceptions.RealmException;
@@ -21,7 +20,6 @@ public class Category extends RealmObject {
     private int id;
     @Required
     private String name;
-    @LinkingObjects("categories")
     private RealmList<Task> tasks;
 
     public Category() {
@@ -30,6 +28,12 @@ public class Category extends RealmObject {
     public Category(int id, String name) {
         this.id = id;
         this.name = name;
+        this.tasks = new RealmList<>();
+    }
+
+    public Category addTask(Task task) {
+        this.tasks.add(task);
+        return this;
     }
 
     public int getId() {
@@ -60,7 +64,7 @@ public class Category extends RealmObject {
      */
     public static void init() {
         all = Realm.getDefaultInstance()
-                .where(Category.class).findAll();
+                .where(Category.class).sort("name").findAll();
     }
 
     /**
