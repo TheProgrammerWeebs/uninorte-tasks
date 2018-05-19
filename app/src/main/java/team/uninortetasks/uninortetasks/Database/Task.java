@@ -9,8 +9,10 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import io.realm.Realm;
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
+import io.realm.annotations.LinkingObjects;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 import io.realm.exceptions.RealmException;
@@ -22,6 +24,9 @@ public class Task extends RealmObject {
     private int id;
     @Required
     private String name;
+    @Required
+    @LinkingObjects("tasks")
+    private RealmList<Category> categories;
     @Required
     private String priority;
     @Required
@@ -53,6 +58,10 @@ public class Task extends RealmObject {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public RealmList<Category> getCategories() {
+        return this.categories;
     }
 
     public Priority getPriority() {

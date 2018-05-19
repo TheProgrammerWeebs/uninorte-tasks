@@ -11,6 +11,6 @@
     <color name="fish">#bbdefb</color>
     <color name="rooster">#bfe693</color>
 
-    <color name="darktext">#384248</color>
-    <color name="lighttext">#eeeeee</color>
+    <color name="dark">#384248</color>
+    <color name="light">#eeeeee</color>
 </resources>
