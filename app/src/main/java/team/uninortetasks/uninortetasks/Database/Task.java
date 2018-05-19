@@ -23,7 +23,6 @@ public class Task extends RealmObject {
     private int id;
     @Required
     private String name;
-    @Required
     private RealmList<Category> categories;
     @Required
     private String priority;
@@ -33,7 +32,6 @@ public class Task extends RealmObject {
     private String type;
     @Required
     private Date limit;
-    @Required
     private int steps;
 
     public Task() {
@@ -118,7 +116,7 @@ public class Task extends RealmObject {
         return this;
     }
 
-    public void saveChanges(Context context) {
+    public void save(Context context) {
         edit(context, this);
     }
 

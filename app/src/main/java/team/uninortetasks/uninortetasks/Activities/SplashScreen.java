@@ -13,6 +13,7 @@ import java.util.Random;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import team.uninortetasks.uninortetasks.Database.Category;
 import team.uninortetasks.uninortetasks.Database.Task;
 import team.uninortetasks.uninortetasks.R;
 
@@ -28,6 +29,7 @@ public class SplashScreen extends AppCompatActivity {
         RealmConfiguration config = new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
         Realm.setDefaultConfiguration(config);
         Task.init();
+        Category.init();
         startApp(header);
     }
 
