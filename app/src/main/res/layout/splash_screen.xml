@@ -33,7 +33,7 @@
         android:maxLines="3"
         android:singleLine="false"
         android:text="@string/flyingowl"
-        android:textColor="@color/darktext"
+        android:textColor="@color/dark"
         android:textSize="13sp" />
 
 </LinearLayout>
