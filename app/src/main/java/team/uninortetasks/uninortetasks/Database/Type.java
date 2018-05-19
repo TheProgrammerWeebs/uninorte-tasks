@@ -5,7 +5,7 @@ public enum Type {
     goal("goal"),
     activity("activity"),
     homework("homework"),
-    otro("otro");
+    other("other");
 
     private String text;
 
@@ -17,7 +17,7 @@ public enum Type {
         for (Type t : Type.values()) {
             if (t.text.equalsIgnoreCase(type)) return t;
         }
-        return otro;
+        return other;
     }
 
     @Override
