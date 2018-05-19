@@ -3,8 +3,8 @@ package team.uninortetasks.uninortetasks.Database;
 import android.content.Context;
 import android.widget.Toast;
 
+import java.util.Arrays;
 import java.util.Date;
-import java.util.Random;
 
 import javax.annotation.Nullable;
 
@@ -12,7 +12,6 @@ import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
-import io.realm.annotations.LinkingObjects;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 import io.realm.exceptions.RealmException;
@@ -25,7 +24,6 @@ public class Task extends RealmObject {
     @Required
     private String name;
     @Required
-    @LinkingObjects("tasks")
     private RealmList<Category> categories;
     @Required
     private String priority;
@@ -35,17 +33,22 @@ public class Task extends RealmObject {
     private String type;
     @Required
     private Date limit;
+    @Required
+    private int steps;
 
     public Task() {
     }
 
-    Task(int id, String name, Priority priority, State state, Type type, Date limit) {
+    Task(int id, String name, Priority priority, State state, Type type, Date limit, int steps, Category... categories) {
         this.id = id;
         this.name = name;
         this.priority = priority.toString();
         this.state = state.toString();
         this.type = type.toString();
         this.limit = limit;
+        this.categories = new RealmList<>();
+        this.categories.addAll(Arrays.asList(categories));
+        this.steps = steps;
     }
 
     public int getId() {
@@ -56,8 +59,9 @@ public class Task extends RealmObject {
         return this.name;
     }
 
-    public void setName(String name) {
+    public Task setName(String name) {
         this.name = name;
+        return this;
     }
 
     public RealmList<Category> getCategories() {
@@ -68,32 +72,54 @@ public class Task extends RealmObject {
         return Priority.fromString(this.priority);
     }
 
-    public void setPriority(Priority priority) {
+    public Task setPriority(Priority priority) {
         this.priority = priority.toString();
+        return this;
     }
 
     public State getState() {
         return State.fromString(this.state);
     }
 
-    public void setState(State state) {
+    public Task setState(State state) {
         this.state = state.toString();
+        return this;
     }
 
     public Type getType() {
         return Type.fromString(this.type);
     }
 
-    public void setType(Type type) {
+    public Task setType(Type type) {
         this.type = type.toString();
+        return this;
     }
 
     public Date getLimit() {
         return this.limit;
     }
 
-    public void setLimit(Date limit) {
+    public Task setLimit(Date limit) {
         this.limit = limit;
+        return this;
+    }
+
+    public int getSteps() {
+        return this.steps;
+    }
+
+    public Task setSteps(int steps) {
+        this.steps = steps;
+        return this;
+    }
+
+    public Task nextStep() {
+        this.steps--;
+        return this;
+    }
+
+    public void saveChanges(Context context) {
+        edit(context, this);
     }
 
     private static RealmResults<Task> all;
@@ -102,8 +128,8 @@ public class Task extends RealmObject {
      * Inicializa la base de datos de tareas y obtiene la lista de todas las tareas registradas.
      */
     public static void init() {
-        Realm realm = Realm.getDefaultInstance();
-        all = realm.where(Task.class).findAll();
+        all = Realm.getDefaultInstance()
+                .where(Task.class).findAll();
     }
 
     /**
@@ -112,16 +138,9 @@ public class Task extends RealmObject {
      * @return ID generado.
      */
     private static int generateId() {
-        Realm realm = Realm.getDefaultInstance();
-        int id;
-        /*Random random = new Random();
-        ;
-        do {
-            id = random.nextInt(9999) + 1;
-        } while (realm.where(Task.class).equalTo("id", id).count() == 0);*/
-        Number maxID = realm.where(Task.class).max("id");
-        id = (maxID == null) ? 1 : maxID.intValue() + 1;
-        return id;
+        Number maxID = Realm.getDefaultInstance()
+                .where(Task.class).max("id");
+        return (maxID == null) ? 1 : maxID.intValue() + 1;
     }
 
     /**
@@ -133,17 +152,18 @@ public class Task extends RealmObject {
      * @param state    Estado actual de la tarea.
      * @param type     Tipo de tarea.
      * @param limit    Tiempo límite.
+     * @param steps    Número de pasos necesarios para completar la tarea;
      */
-    public static void add(final Context context, String name, Priority priority, State state, Type type, Date limit) {
-        final Task task = new Task(Task.generateId(), name, priority, state, type, limit);
-        Realm realm = Realm.getDefaultInstance();
-        realm.executeTransaction(realm1 -> {
-            try {
-                realm1.insert(task);
-            } catch (RealmPrimaryKeyConstraintException ignored) {
-                Toast.makeText(context, "ID Ingresado ya existe.", Toast.LENGTH_SHORT).show();
-            }
-        });
+    public static void add(final Context context, String name, Priority priority, State state, Type type, Date limit, int steps) {
+        final Task task = new Task(Task.generateId(), name, priority, state, type, limit, steps);
+        Realm.getDefaultInstance()
+                .executeTransaction(r -> {
+                    try {
+                        r.insert(task);
+                    } catch (RealmPrimaryKeyConstraintException ignored) {
+                        Toast.makeText(context, "ID Ingresado ya existe.", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     /**
@@ -154,12 +174,8 @@ public class Task extends RealmObject {
      */
     @Nullable
     public static Task get(int id) {
-        Realm realm = Realm.getDefaultInstance();
-        RealmResults<Task> results = realm.where(Task.class).equalTo("id", id).findAll();
-        if (!results.isEmpty()) {
-            return results.first();
-        }
-        return null;
+        return Realm.getDefaultInstance()
+                .where(Task.class).equalTo("id", id).findFirst();
     }
 
     /**
@@ -178,31 +194,32 @@ public class Task extends RealmObject {
      * @param id      ID De la tarea a eliminar
      */
     public static void remove(final Context context, final int id) {
-        Realm realm = Realm.getDefaultInstance();
-        realm.executeTransaction(realm1 -> {
-            try {
-                all.where().equalTo("id", id).findFirst().deleteFromRealm();
-            } catch (NullPointerException ignored) {
-                Toast.makeText(context, "La tarea no existe.", Toast.LENGTH_SHORT).show();
-            }
-        });
+        Realm.getDefaultInstance()
+                .executeTransaction(r -> {
+                    try {
+                        all.where().equalTo("id", id).findFirst().deleteFromRealm();
+                    } catch (NullPointerException ignored) {
+                        Toast.makeText(context, "La tarea no existe.", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     /**
      * Editar una tarea
      *
      * @param task Tarea a editar, la tarea debe tener el id de la que se va a editar
+     * @deprecated
      */
     public static void edit(final Context context, final Task task) {
-        Realm realm = Realm.getDefaultInstance();
-        realm.executeTransaction(r -> {
-                    try {
-                        r.copyToRealmOrUpdate(task);
-                    } catch (RealmException ignored) {
-                        Toast.makeText(context, "La tarea no existe.", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        );
+        Realm.getDefaultInstance()
+                .executeTransaction(r -> {
+                            try {
+                                r.copyToRealmOrUpdate(task);
+                            } catch (RealmException ignored) {
+                                Toast.makeText(context, "La tarea no existe.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                );
     }
 
 }
