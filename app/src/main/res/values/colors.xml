@@ -11,6 +11,12 @@
     <color name="fish">#bbdefb</color>
     <color name="rooster">#bfe693</color>
 
+    <color name="cyan">#32c3d6</color>
+    <color name="darkRed">#ef5350</color>
+    <color name="green">#00c853</color>
+    <color name="orange">#ff6f00</color>
+    <color name="purple">#7e57c2</color>
+
     <color name="dark">#384248</color>
     <color name="light">#eeeeee</color>
 </resources>

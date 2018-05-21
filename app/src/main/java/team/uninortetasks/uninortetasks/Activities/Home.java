@@ -24,7 +24,7 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_screen);
+        setContentView(R.layout.home_screen_old);
 
         nav = findViewById(R.id.navigator);
         root = findViewById(R.id.root);
