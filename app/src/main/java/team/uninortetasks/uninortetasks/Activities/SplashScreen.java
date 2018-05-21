@@ -34,7 +34,7 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     private void startApp(int header) {
-        final Intent intent = new Intent(this, Home.class);
+        final Intent intent = new Intent(this, HomeScreen.class);
         Bundle params = new Bundle();
         params.putInt("header", header);
         intent.putExtras(params);
