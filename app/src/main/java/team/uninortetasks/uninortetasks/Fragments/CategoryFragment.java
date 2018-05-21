@@ -1,4 +1,4 @@
-package team.uninortetasks.uninortetasks.Activities;
+package team.uninortetasks.uninortetasks.Fragments;
 
 import android.content.Context;
 import android.net.Uri;
