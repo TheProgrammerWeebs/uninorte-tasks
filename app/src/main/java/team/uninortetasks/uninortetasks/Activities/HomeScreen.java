@@ -23,4 +23,8 @@ public class HomeScreen extends AppCompatActivity {
     public void onCategoriesClick(View view) {
         startActivity(new Intent(this, CategoriesScreen.class));
     }
+
+    public void onForTodayClick(View view) {
+        startActivity(new Intent(this, ForTodayScreen.class));
+    }
 }
