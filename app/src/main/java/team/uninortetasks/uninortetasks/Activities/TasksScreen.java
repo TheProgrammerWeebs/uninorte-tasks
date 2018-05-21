@@ -49,47 +49,49 @@ public class TasksScreen extends AppCompatActivity {
         SubMenu menu = nav.getMenu().findItem(R.id.categories).getSubMenu();
         menu.clear();
         menu.add("Para hoy").setIcon(R.drawable.ic_today).setOnMenuItemClickListener(item -> {
-            Class fClass = CategoryFragment.class;
-            try {
-                Fragment f = (Fragment) fClass.newInstance();
-                getSupportFragmentManager().beginTransaction().replace(R.id.tasksContent, f).commit();
-                item.setChecked(true);
-                setTitle(item.getTitle());
-                root.closeDrawers();
-            } catch (InstantiationException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
+            loadView(null);
+            item.setChecked(true);
+            setTitle(item.getTitle());
+            root.closeDrawers();
             return true;
         });
         for (Category cat : Category.getAll()) {
-            menu.add(cat.getName()).setIcon(R.drawable.ic_cat).setOnMenuItemClickListener(item -> {
-                Class fClass = CategoryFragment.class;
-                try {
-                    Fragment f = (Fragment) fClass.newInstance();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.tasksContent, f).commit();
-                    item.setChecked(true);
-                    setTitle(item.getTitle());
-                    root.closeDrawers();
-                } catch (InstantiationException | IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-                return true;
-            });
-        }
-        menu.add(" ");
-        menu.add("Agregar categoría").setIcon(R.drawable.ic_add).setOnMenuItemClickListener(item -> {
-            Class fClass = CategoryFragment.class;
-            try {
-                Fragment f = (Fragment) fClass.newInstance();
-                getSupportFragmentManager().beginTransaction().replace(R.id.tasksContent, f).commit();
+            menu.add(cat.getName()).setIcon(R.drawable.ic_item).setOnMenuItemClickListener(item -> {
+                loadView(cat);
                 item.setChecked(true);
                 setTitle(item.getTitle());
                 root.closeDrawers();
-            } catch (InstantiationException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
+                return true;
+            });
+        }
+        nav.getMenu().add("Agregar categoría").setIcon(R.drawable.ic_add).setOnMenuItemClickListener(item -> {
+//Agregar categoria
+            root.closeDrawers();
+            return true;
+        });
+        nav.getMenu().add("Editar categoría").setIcon(R.drawable.ic_edit).setOnMenuItemClickListener(item -> {
+//Editar categoria
+            root.closeDrawers();
+            return true;
+        });
+        nav.getMenu().add("Eliminar categoría").setIcon(R.drawable.ic_delete).setOnMenuItemClickListener(item -> {
+//Eliminar categoria
+            root.closeDrawers();
             return true;
         });
         menu.setGroupCheckable(0, true, true);
+    }
+
+    private void loadView(Category category) {
+        if (category == null) {
+            //Usar @paramc ategory para cargar cada categoria
+        }
+        Class fClass = CategoryFragment.class;
+        try {
+            Fragment f = (Fragment) fClass.newInstance();
+            getSupportFragmentManager().beginTransaction().replace(R.id.tasksContent, f).commit();
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 }
