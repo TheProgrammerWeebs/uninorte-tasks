@@ -2,6 +2,7 @@ package team.uninortetasks.uninortetasks.Activities;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +25,6 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
-        setSupportActionBar(findViewById(R.id.toolbar));
 
         nav = findViewById(R.id.navigator);
         root = findViewById(R.id.root);
@@ -37,6 +37,8 @@ public class Home extends AppCompatActivity {
         root.addDrawerListener(toogle);
         toogle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        getSupportActionBar().setElevation(1);
 
         loadCategories();
     }
@@ -58,9 +60,34 @@ public class Home extends AppCompatActivity {
     private void loadCategories() {
         SubMenu menu = nav.getMenu().findItem(R.id.tasksgroup).getSubMenu();
         menu.clear();
-        menu.add("Para hoy").setIcon(R.drawable.ic_today);
+        menu.add("Para hoy").setIcon(R.drawable.ic_today).setOnMenuItemClickListener(item -> {
+            Class fClass = CategoryFragment.class;
+            try {
+                Fragment f = (Fragment) fClass.newInstance();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content, f).commit();
+                item.setChecked(true);
+                setTitle(item.getTitle());
+                root.closeDrawers();
+            } catch (InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            return true;
+        });
         for (Category cat : Category.getAll()) {
-            menu.add(cat.getName()).setIcon(R.drawable.ic_cat);
+            menu.add(cat.getName()).setIcon(R.drawable.ic_cat).setOnMenuItemClickListener(item -> {
+                Class fClass = CategoryFragment.class;
+                try {
+                    Fragment f = (Fragment) fClass.newInstance();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.content, f).commit();
+                    item.setChecked(true);
+                    setTitle(item.getTitle());
+                    root.closeDrawers();
+                } catch (InstantiationException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                return true;
+            });
         }
+        menu.setGroupCheckable(0, true, true);
     }
 }
