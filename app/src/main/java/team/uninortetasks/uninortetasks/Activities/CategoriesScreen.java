@@ -13,6 +13,7 @@ public class CategoriesScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.categories_screen);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.categories);
     }
 
     @Override

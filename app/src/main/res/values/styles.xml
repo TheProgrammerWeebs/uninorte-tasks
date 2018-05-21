@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="HomeTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="android:colorControlActivated">@color/light</item>
@@ -18,6 +18,12 @@
         <item name="colorPrimary">@color/cyan</item>
         <item name="colorPrimaryDark">#22b3c6</item>
         <item name="colorAccent">@color/cyan</item>
+    </style>
+
+    <style name="ForTodayTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/purple</item>
+        <item name="colorPrimaryDark">#6e47b2</item>
+        <item name="colorAccent">@color/purple</item>
     </style>
 
     <style name="Splash" parent="Theme.AppCompat.NoActionBar">

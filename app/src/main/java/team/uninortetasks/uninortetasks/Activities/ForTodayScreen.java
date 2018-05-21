@@ -6,14 +6,14 @@ import android.view.MenuItem;
 
 import team.uninortetasks.uninortetasks.R;
 
-public class TasksScreen extends AppCompatActivity {
+public class ForTodayScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tasks_screen);
+        setContentView(R.layout.for_today_screen);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.tasks);
+        getSupportActionBar().setTitle(R.string.for_today);
     }
 
     @Override
