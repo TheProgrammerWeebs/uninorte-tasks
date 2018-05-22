@@ -1,5 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <style name="themeDark">
+        <item name="android:colorControlNormal">@color/light</item>
+        <item name="android:colorControlActivated">@color/light</item>
+    </style>
+
     <style name="HomeTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
