@@ -65,7 +65,7 @@
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/task_dialog_name"
+        android:background="@drawable/task_dialog_name_red"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="5dp">

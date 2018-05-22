@@ -1,5 +1,8 @@
 package team.uninortetasks.uninortetasks.Activities;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -102,6 +105,9 @@ public class TasksScreen extends AppCompatActivity {
     }
 
     public void addTask(MenuItem item) {
-        Toast.makeText(this, "Add a task", Toast.LENGTH_SHORT).show();
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.add_task_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
     }
 }

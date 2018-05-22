@@ -19,4 +19,8 @@
     <string name="tasks_for_today">Tareas pendientes para hoy</string>
     <string name="tasks">Tareas</string>
     <string name="categories">Categorías</string>
+    <string name="name">Nombre</string>
+    <string name="priority">Prioridad</string>
+    <string name="type">Tipo</string>
+    <string name="limit_date">Fecha límite</string>
 </resources>
