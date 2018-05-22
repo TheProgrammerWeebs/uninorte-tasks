@@ -23,4 +23,7 @@
     <string name="priority">Prioridad</string>
     <string name="type">Tipo</string>
     <string name="limit_date">Fecha límite</string>
+    <string name="cancel">Cancelar</string>
+    <string name="create_category">Crear categoría</string>
+    <string name="category_name_hint">Nombre de la categoría</string>
 </resources>

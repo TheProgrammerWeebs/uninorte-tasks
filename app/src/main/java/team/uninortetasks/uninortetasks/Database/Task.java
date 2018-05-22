@@ -138,7 +138,7 @@ public class Task extends RealmObject {
      */
     public static void init() {
         all = Realm.getDefaultInstance()
-                .where(Task.class).findAll();
+                .where(Task.class).sort("limit").findAll();
     }
 
     /**

@@ -9,14 +9,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="18dp"
         android:background="@drawable/task_dialog"
+        android:fitsSystemWindows="true"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp">
 
         <EditText
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -37,13 +38,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/category"
-                android:textColor="@color/light" />
+                android:textColor="@color/light"
+                android:textSize="17sp" />
 
             <Spinner
+                android:id="@+id/category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:theme="@style/themeDark" />
+                android:textSize="17sp"
+                android:theme="@style/themeDark"/>
 
         </LinearLayout>
 
@@ -57,12 +61,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/priority"
-                android:textColor="@color/light" />
+                android:textColor="@color/light"
+                android:textSize="17sp" />
 
             <Spinner
+                android:id="@+id/priority"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:textSize="17sp"
                 android:theme="@style/themeDark" />
 
         </LinearLayout>
@@ -77,12 +84,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/type"
-                android:textColor="@color/light" />
+                android:textColor="@color/light"
+                android:textSize="17sp" />
 
             <Spinner
+                android:id="@+id/type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:textSize="17sp"
                 android:theme="@style/themeDark" />
 
         </LinearLayout>
@@ -96,25 +106,55 @@
             android:textColor="@color/light"
             android:textSize="16sp" />
 
-            <DatePicker
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:calendarTextColor="@color/light"
-                android:minDate=""
-                android:yearListSelectorColor="@color/light"
-                android:datePickerMode="spinner"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark"
-                android:calendarViewShown="false" />
+        <DatePicker
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:calendarTextColor="@color/light"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner"
+            android:minDate=""
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            android:yearListSelectorColor="@color/light" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/cancel"
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:background="@drawable/button_red"
+                android:text="@string/cancel"
+                android:textAllCaps="false"
+                android:textColor="@color/light" />
+
+            <Button
+                android:id="@+id/okay"
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:background="@drawable/button_green"
+                android:text="@string/add"
+                android:textAllCaps="false"
+                android:textColor="@color/light" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="250dp"
-        android:fitsSystemWindows="true"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/task_dialog_name_green"
+        android:fitsSystemWindows="true"
         android:gravity="center">
 
         <TextView

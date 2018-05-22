@@ -12,10 +12,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.Date;
+
 import team.uninortetasks.uninortetasks.Database.Category;
+import team.uninortetasks.uninortetasks.Database.Priority;
+import team.uninortetasks.uninortetasks.Database.State;
 import team.uninortetasks.uninortetasks.Database.Task;
+import team.uninortetasks.uninortetasks.Database.Type;
 import team.uninortetasks.uninortetasks.Fragments.TaskAdapter;
 import team.uninortetasks.uninortetasks.R;
 
@@ -25,6 +35,7 @@ public class TasksScreen extends AppCompatActivity {
     private ActionBarDrawerToggle toogle;
     private NavigationView nav;
     private RecyclerView list;
+    private int currentCategoryIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +90,21 @@ public class TasksScreen extends AppCompatActivity {
             });
         }
         nav.getMenu().add("Agregar categoría").setIcon(R.drawable.ic_add).setOnMenuItemClickListener(item -> {
-//Agregar categoria
+            Dialog dialog = new Dialog(this);
+            dialog.setContentView(R.layout.add_category_dialog);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            EditText categoryName = dialog.findViewById(R.id.categoryName);
+            Button btCreateCategory = dialog.findViewById(R.id.btCreate);
+            btCreateCategory.setOnClickListener(e -> {
+                String name = categoryName.getText().toString();
+                if (name.trim().isEmpty()){
+                    return;
+                }else{
+                    Category.add(this, name);
+                    dialog.cancel();
+                }
+            });
+            dialog.show();
             root.closeDrawers();
             return true;
         });
@@ -108,6 +133,26 @@ public class TasksScreen extends AppCompatActivity {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.add_task_dialog);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        final EditText name = dialog.findViewById(R.id.name);
+        final Spinner category = dialog.findViewById(R.id.category);
+        final Spinner priority = dialog.findViewById(R.id.priority);
+        final Spinner type = dialog.findViewById(R.id.type);
+        final DatePicker date = dialog.findViewById(R.id.date);
+        final Button cancel = dialog.findViewById(R.id.cancel);
+        final Button okay = dialog.findViewById(R.id.okay);
+
+        cancel.setOnClickListener(view -> {
+            dialog.cancel();
+        });
+
+        okay.setOnClickListener(view -> {
+            if (name.getText().toString().isEmpty() || priority.getSelectedItem() == null || category.getSelectedItem() == null || type.getSelectedItem() == null) {
+                return;
+            }
+            Task.add(this, name.getText().toString(), Priority.fromString(priority.getSelectedItem().toString()), State.pending, Type.fromString(type.getSelectedItem().toString()), new Date(date.getDayOfMonth(), date.getMonth(), date.getYear()), 0);
+        });
+
         dialog.show();
     }
 }
