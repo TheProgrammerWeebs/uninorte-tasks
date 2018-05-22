@@ -2,15 +2,18 @@ package team.uninortetasks.uninortetasks.Activities;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.widget.Toast;
 
 import team.uninortetasks.uninortetasks.Database.Category;
-import team.uninortetasks.uninortetasks.Fragments.CategoryFragment;
+import team.uninortetasks.uninortetasks.Database.Task;
+import team.uninortetasks.uninortetasks.Fragments.TaskAdapter;
 import team.uninortetasks.uninortetasks.R;
 
 public class TasksScreen extends AppCompatActivity {
@@ -18,6 +21,7 @@ public class TasksScreen extends AppCompatActivity {
     private DrawerLayout root;
     private ActionBarDrawerToggle toogle;
     private NavigationView nav;
+    private RecyclerView list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,7 @@ public class TasksScreen extends AppCompatActivity {
 
         nav = findViewById(R.id.categoriesBar);
         root = findViewById(R.id.tasks);
+        list = findViewById(R.id.tasksContent);
 
         toogle = new ActionBarDrawerToggle(this, root, R.string.open, R.string.close);
         root.addDrawerListener(toogle);
@@ -35,6 +40,12 @@ public class TasksScreen extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         loadCategories();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.tasks_menu, menu);
+        return true;
     }
 
     @Override
@@ -84,14 +95,13 @@ public class TasksScreen extends AppCompatActivity {
 
     private void loadView(Category category) {
         if (category == null) {
-            //Usar @paramc ategory para cargar cada categoria
+            list.setAdapter(new TaskAdapter(this, Task.tasksForToday()));
+            return;
         }
-        Class fClass = CategoryFragment.class;
-        try {
-            Fragment f = (Fragment) fClass.newInstance();
-            getSupportFragmentManager().beginTransaction().replace(R.id.tasksContent, f).commit();
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        list.setAdapter(new TaskAdapter(this, Task.getByCategory(category.getId())));
+    }
+
+    public void addTask(MenuItem item) {
+        Toast.makeText(this, "Add a task", Toast.LENGTH_SHORT).show();
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.annotation.Nullable;
@@ -33,11 +34,12 @@ public class Task extends RealmObject {
     @Required
     private Date limit;
     private int steps;
+    private int maxSteps;
 
     public Task() {
     }
 
-    Task(int id, String name, Priority priority, State state, Type type, Date limit, int steps, Category... categories) {
+    public Task(int id, String name, Priority priority, State state, Type type, Date limit, int maxSteps, Category... categories) {
         this.id = id;
         this.name = name;
         this.priority = priority.toString();
@@ -46,7 +48,8 @@ public class Task extends RealmObject {
         this.limit = limit;
         this.categories = new RealmList<>();
         this.categories.addAll(Arrays.asList(categories));
-        this.steps = steps;
+        this.steps = 0;
+        this.maxSteps = maxSteps;
     }
 
     public int getId() {
@@ -111,6 +114,14 @@ public class Task extends RealmObject {
         return this;
     }
 
+    public int getMaxSteps() {
+        return maxSteps;
+    }
+
+    public void setMaxSteps(int maxSteps) {
+        this.maxSteps = maxSteps;
+    }
+
     public Task nextStep() {
         this.steps--;
         return this;
@@ -150,10 +161,10 @@ public class Task extends RealmObject {
      * @param state    Estado actual de la tarea.
      * @param type     Tipo de tarea.
      * @param limit    Tiempo límite.
-     * @param steps    Número de pasos necesarios para completar la tarea;
+     * @param maxSteps Número de pasos necesarios para completar la tarea;
      */
-    public static void add(final Context context, String name, Priority priority, State state, Type type, Date limit, int steps) {
-        final Task task = new Task(Task.generateId(), name, priority, state, type, limit, steps);
+    public static void add(final Context context, String name, Priority priority, State state, Type type, Date limit, int maxSteps) {
+        final Task task = new Task(Task.generateId(), name, priority, state, type, limit, maxSteps);
         Realm.getDefaultInstance()
                 .executeTransaction(r -> {
                     try {
@@ -174,6 +185,25 @@ public class Task extends RealmObject {
     public static Task get(int id) {
         return Realm.getDefaultInstance()
                 .where(Task.class).equalTo("id", id).findFirst();
+    }
+
+    public static RealmList<Task> getByCategory(int id) {
+        RealmList<Task> tasks = new RealmList<>();
+        tasks.addAll(Realm.getDefaultInstance()
+                .where(Task.class).equalTo("id", id).sort("limit").findAll());
+        return tasks;
+    }
+
+    public static RealmList<Task> tasksForToday() {
+        RealmList<Task> tasks = new RealmList<>();
+        Date hoy = Calendar.getInstance().getTime();
+        for (Task task : all) {
+            Date date = task.getLimit();
+            if (hoy.getDay() == date.getDay() && hoy.getMonth() == date.getMonth() && hoy.getYear() == date.getYear()) {
+                tasks.add(task);
+            }
+        }
+        return tasks;
     }
 
     /**
