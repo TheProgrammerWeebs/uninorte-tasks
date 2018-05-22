@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import team.uninortetasks.uninortetasks.Database.Category;
-import team.uninortetasks.uninortetasks.Fragments.CategoryFragment;
 import team.uninortetasks.uninortetasks.R;
 
 public class Home extends AppCompatActivity {

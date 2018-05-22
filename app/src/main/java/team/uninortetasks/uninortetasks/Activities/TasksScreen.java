@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 
 import team.uninortetasks.uninortetasks.Database.Category;
-import team.uninortetasks.uninortetasks.Fragments.CategoryFragment;
 import team.uninortetasks.uninortetasks.R;
 
 public class TasksScreen extends AppCompatActivity {
