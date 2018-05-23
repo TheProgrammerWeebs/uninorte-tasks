@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:background="@drawable/task_dialog"
+        android:background="@drawable/background_round_dark"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:padding="5dp">
@@ -65,7 +65,7 @@
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/task_dialog_name_red"
+        android:background="@drawable/rounded_rect_red"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="5dp">

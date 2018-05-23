@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:background="@drawable/task_dialog"
+        android:background="@drawable/background_round_dark"
         android:fitsSystemWindows="true"
         android:gravity="center"
         android:orientation="vertical"
@@ -24,8 +24,6 @@
             android:layout_marginTop="25dp"
             android:hint="@string/name"
             android:textAlignment="center"
-            android:textColor="@color/light"
-            android:textColorHint="@color/light"
             android:theme="@style/themeDark" />
 
         <LinearLayout
@@ -153,7 +151,7 @@
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/task_dialog_name_green"
+        android:background="@drawable/rounded_rect_green"
         android:fitsSystemWindows="true"
         android:gravity="center">
 
