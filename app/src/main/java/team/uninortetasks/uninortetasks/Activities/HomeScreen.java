@@ -12,7 +12,7 @@ public class HomeScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_screen);
+        setContentView(R.layout.screen_home);
         setSupportActionBar(findViewById(R.id.homeToolbar));
     }
 
@@ -21,10 +21,8 @@ public class HomeScreen extends AppCompatActivity {
     }
 
     public void onCategoriesClick(View view) {
-        startActivity(new Intent(this, CategoriesScreen.class));
     }
 
     public void onForTodayClick(View view) {
-        startActivity(new Intent(this, ForTodayScreen.class));
     }
 }

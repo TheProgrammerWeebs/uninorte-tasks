@@ -20,13 +20,17 @@ public class Category extends RealmObject {
     private int id;
     @Required
     private String name;
+    private int icon;
+    private int color;
     private RealmList<Task> tasks;
 
     public Category() {
     }
 
-    public Category(int id, String name) {
+    public Category(int id, int icon, int color, String name) {
         this.id = id;
+        this.icon = icon;
+        this.color = color;
         this.name = name;
         this.tasks = new RealmList<>();
     }
@@ -46,6 +50,24 @@ public class Category extends RealmObject {
 
     public Category setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public int getIcon() {
+        return this.icon;
+    }
+
+    public Category setIcon(int icon) {
+        this.icon = icon;
+        return this;
+    }
+
+    public int getColor() {
+        return this.color;
+    }
+
+    public Category setColor(int color) {
+        this.color = color;
         return this;
     }
 
@@ -84,8 +106,8 @@ public class Category extends RealmObject {
      * @param context Contexto del que se llama al método (Activity).
      * @param name    Nombre de la tarea.
      */
-    public static void add(final Context context, String name) {
-        final Category category = new Category(Category.generateId(), name);
+    public static void add(final Context context, String name, int icon, int color) {
+        final Category category = new Category(Category.generateId(), icon, color, name);
         Realm.getDefaultInstance()
                 .executeTransaction(r -> {
                     try {

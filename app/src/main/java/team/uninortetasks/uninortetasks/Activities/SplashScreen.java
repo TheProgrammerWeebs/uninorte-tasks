@@ -22,7 +22,7 @@ public class SplashScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash_screen);
+        setContentView(R.layout.screen_splash);
         int header = setSplash();
         //Inicializa la conexion con la base de datos de Realm
         Realm.init(this);
@@ -38,7 +38,7 @@ public class SplashScreen extends AppCompatActivity {
         Bundle params = new Bundle();
         params.putInt("header", header);
         intent.putExtras(params);
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.splashanimation);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.animation_splash);
         ImageView logo = findViewById(R.id.logo);
         LinearLayout view = findViewById(R.id.splashb);
         TextView splashText = findViewById(R.id.splashtext);

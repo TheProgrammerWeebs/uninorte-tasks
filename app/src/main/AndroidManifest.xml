@@ -18,19 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Activities.Home"
-            android:theme="@style/HomeTheme" />
         <activity android:name=".Activities.HomeScreen" />
         <activity
             android:name=".Activities.TasksScreen"
             android:theme="@style/TasksTheme" />
-        <activity
-            android:name=".Activities.CategoriesScreen"
-            android:theme="@style/CategoriesTheme" />
-        <activity
-            android:name=".Activities.ForTodayScreen"
-            android:theme="@style/ForTodayTheme" />
     </application>
 
 </manifest>

@@ -71,7 +71,7 @@
                         <ImageView
                             android:layout_width="63dp"
                             android:layout_height="63dp"
-                            android:background="@drawable/dark_red_oval"
+                            android:background="@drawable/oval_dark_red"
                             android:padding="10dp"
                             android:src="@drawable/ic_tasks" />
 
@@ -113,7 +113,7 @@
                         <ImageView
                             android:layout_width="63dp"
                             android:layout_height="63dp"
-                            android:background="@drawable/cyan_oval"
+                            android:background="@drawable/oval_cyan"
                             android:padding="10dp"
                             android:src="@drawable/ic_categories" />
 
@@ -163,7 +163,7 @@
                         <ImageView
                             android:layout_width="63dp"
                             android:layout_height="63dp"
-                            android:background="@drawable/green_oval"
+                            android:background="@drawable/oval_green"
                             android:padding="10dp"
                             android:src="@drawable/ic_tasks" />
 
@@ -204,7 +204,7 @@
                         <ImageView
                             android:layout_width="63dp"
                             android:layout_height="63dp"
-                            android:background="@drawable/orange_oval"
+                            android:background="@drawable/oval_orange"
                             android:padding="10dp"
                             android:src="@drawable/ic_categories" />
 
@@ -256,7 +256,7 @@
                         <ImageView
                             android:layout_width="63dp"
                             android:layout_height="63dp"
-                            android:background="@drawable/purple_oval"
+                            android:background="@drawable/oval_purple"
                             android:padding="10dp"
                             android:src="@drawable/ic_today" />
 

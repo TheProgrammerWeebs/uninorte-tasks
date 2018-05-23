@@ -1,4 +1,4 @@
-package team.uninortetasks.uninortetasks.Fragments;
+package team.uninortetasks.uninortetasks.Others;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -12,14 +12,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import io.realm.RealmList;
-import io.realm.RealmResults;
 import team.uninortetasks.uninortetasks.Database.Task;
 import team.uninortetasks.uninortetasks.R;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
-    Context context;
-    RealmList<Task> data;
+    private Context context;
+    private RealmList<Task> data;
 
     public TaskAdapter(Context context, RealmList<Task> data) {
         this.context = context;
@@ -29,19 +28,23 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.task_banner, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.banner_task, parent, false);
         ViewHolder v = new ViewHolder(view);
         final int pos = v.getAdapterPosition();
-        v.root.setOnClickListener(vi -> {
-            showDialog(pos);
-        });
+        v.root.setOnClickListener(e -> showDialog(pos));
         return v;
     }
 
     private void showDialog(int pos) {
+
+
+
+
+
+
         Task task = data.get(pos);
         Dialog dialog = new Dialog(context);
-        dialog.setContentView(R.layout.task_dialog);
+        dialog.setContentView(R.layout.dialog_task);
         TextView name = dialog.findViewById(R.id.name);
         TextView state = dialog.findViewById(R.id.state);
         TextView type = dialog.findViewById(R.id.type);
@@ -56,6 +59,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+
+
+
+
+
+
         holder.name.setText(data.get(position).getName());
         holder.priority.setText(data.get(position).getPriority().toString());
         holder.state.setText(data.get(position).getState().toString());
