@@ -22,22 +22,34 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="TasksTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="redTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/darkRed</item>
-        <item name="colorPrimaryDark">#df4340</item>
+        <item name="colorPrimaryDark">@color/darkRed2</item>
         <item name="colorAccent">@color/darkRed</item>
     </style>
 
-    <style name="CategoriesTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="cyanTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/cyan</item>
-        <item name="colorPrimaryDark">#22b3c6</item>
+        <item name="colorPrimaryDark">@color/cyan2</item>
         <item name="colorAccent">@color/cyan</item>
     </style>
 
-    <style name="ForTodayTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="purpleTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/purple</item>
-        <item name="colorPrimaryDark">#6e47b2</item>
+        <item name="colorPrimaryDark">@color/purple2</item>
         <item name="colorAccent">@color/purple</item>
+    </style>
+
+    <style name="greenTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryDark">@color/green2</item>
+        <item name="colorAccent">@color/green</item>
+    </style>
+
+    <style name="orangeTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorPrimaryDark">@color/orange2</item>
+        <item name="colorAccent">@color/orange</item>
     </style>
 
     <style name="Splash" parent="Theme.AppCompat.NoActionBar">

@@ -13,13 +13,21 @@
 
     <color name="teal">#008e76</color>
 
+    <color name="yellow">#ffab00</color>
+    <color name="yellow2">#ef9b00</color>
     <color name="cyan">#32c3d6</color>
+    <color name="cyan2">#22b3c6</color>
     <color name="darkRed">#ef5350</color>
+    <color name="darkRed2">#df4340</color>
     <color name="green">#00c853</color>
+    <color name="green2">#00b843</color>
     <color name="orange">#ff6f00</color>
+    <color name="orange2">#ef5f00</color>
     <color name="purple">#7e57c2</color>
+    <color name="purple2">#6e47b2</color>
 
     <color name="dark">#384248</color>
+    <color name="dark2">#283238</color>
     <color name="light">#eeeeee</color>
 
 </resources>

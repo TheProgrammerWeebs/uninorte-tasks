@@ -18,7 +18,7 @@ import team.uninortetasks.uninortetasks.R;
 
 public class AddCategory extends Fragment {
 
-    private OnFragmentInteractionListener listener;
+    private OnAddCategoryListener listener;
 
     private BottomSheetBehavior colors;
     private BottomSheetBehavior icons;
@@ -28,6 +28,7 @@ public class AddCategory extends Fragment {
     private ImageView selectedIcon;
     private EditText name;
     private int color;
+    private int color2;
     private int icon;
 
     public AddCategory() {
@@ -48,6 +49,7 @@ public class AddCategory extends Fragment {
     private void initialize(View view) {
         icon = R.drawable.ic_item;
         color = R.color.darkRed;
+        color = R.color.darkRed2;
 
         colorsLayout = view.findViewById(R.id.colorSelector);
         iconsLayout = view.findViewById(R.id.iconSelector);
@@ -89,11 +91,11 @@ public class AddCategory extends Fragment {
             colors.setState(BottomSheetBehavior.STATE_HIDDEN);
         });
 
-        red.setOnClickListener(getDefaultColorListener(R.drawable.oval_dark_red, R.color.darkRed));
-        orange.setOnClickListener(getDefaultColorListener(R.drawable.oval_orange, R.color.orange));
-        green.setOnClickListener(getDefaultColorListener(R.drawable.oval_green, R.color.green));
-        cyan.setOnClickListener(getDefaultColorListener(R.drawable.oval_cyan, R.color.cyan));
-        purple.setOnClickListener(getDefaultColorListener(R.drawable.oval_purple, R.color.purple));
+        red.setOnClickListener(getDefaultColorListener(R.drawable.oval_dark_red, R.color.darkRed, R.color.darkRed2));
+        orange.setOnClickListener(getDefaultColorListener(R.drawable.oval_orange, R.color.orange, R.color.orange2));
+        green.setOnClickListener(getDefaultColorListener(R.drawable.oval_green, R.color.green, R.color.green2));
+        cyan.setOnClickListener(getDefaultColorListener(R.drawable.oval_cyan, R.color.cyan, R.color.cyan2));
+        purple.setOnClickListener(getDefaultColorListener(R.drawable.oval_purple, R.color.purple, R.color.purple2));
         backColors.setOnClickListener(e -> colors.setState(BottomSheetBehavior.STATE_HIDDEN));
 
         icon1.setOnClickListener(getDefaultIconClickListener(R.drawable.ic_item));
@@ -107,19 +109,19 @@ public class AddCategory extends Fragment {
         icon9.setOnClickListener(getDefaultIconClickListener(R.drawable.ic_home));
         backIcons.setOnClickListener(e -> icons.setState(BottomSheetBehavior.STATE_HIDDEN));
 
-        view.findViewById(R.id.cancelButton).setOnClickListener(e -> listener.onAddingFinished());
+        view.findViewById(R.id.cancelButton).setOnClickListener(e -> listener.onAddingCanceled());
         view.findViewById(R.id.createButton).setOnClickListener(e -> {
             String name = this.name.getText().toString().trim();
             if (name.isEmpty()) return;
-            Category.add(getContext(), name, this.icon, this.color);
-            listener.onAddingFinished();
+            listener.onAddingOkay(Category.add(getContext(), name, this.icon, this.color, this.color2));
         });
     }
 
-    private View.OnClickListener getDefaultColorListener(int drawable, int color) {
+    private View.OnClickListener getDefaultColorListener(int drawable, int color, int color2) {
         return (e -> {
             selectedColor.setBackground(getResources().getDrawable(drawable));
             this.color = color;
+            this.color2 = color2;
             colors.setState(BottomSheetBehavior.STATE_HIDDEN);
         });
     }
@@ -135,7 +137,7 @@ public class AddCategory extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        listener = (OnFragmentInteractionListener) context;
+        listener = (OnAddCategoryListener) context;
     }
 
     @Override
@@ -144,7 +146,9 @@ public class AddCategory extends Fragment {
         listener = null;
     }
 
-    public interface OnFragmentInteractionListener {
-        public void onAddingFinished();
+    public interface OnAddCategoryListener {
+        public void onAddingOkay(Category category);
+
+        public void onAddingCanceled();
     }
 }

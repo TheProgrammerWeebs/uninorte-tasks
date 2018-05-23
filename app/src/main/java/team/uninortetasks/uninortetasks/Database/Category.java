@@ -3,6 +3,8 @@ package team.uninortetasks.uninortetasks.Database;
 import android.content.Context;
 import android.widget.Toast;
 
+import java.io.Serializable;
+
 import javax.annotation.Nullable;
 
 import io.realm.Realm;
@@ -14,23 +16,25 @@ import io.realm.annotations.Required;
 import io.realm.exceptions.RealmException;
 import io.realm.exceptions.RealmPrimaryKeyConstraintException;
 
-public class Category extends RealmObject {
+public class Category extends RealmObject implements Serializable {
 
     @PrimaryKey
     private int id;
     @Required
     private String name;
     private int icon;
+    private int color2;
     private int color;
     private RealmList<Task> tasks;
 
     public Category() {
     }
 
-    public Category(int id, int icon, int color, String name) {
+    public Category(int id, int icon, int color, int color2, String name) {
         this.id = id;
         this.icon = icon;
         this.color = color;
+        this.color2 = color2;
         this.name = name;
         this.tasks = new RealmList<>();
     }
@@ -38,6 +42,10 @@ public class Category extends RealmObject {
     public Category addTask(Task task) {
         this.tasks.add(task);
         return this;
+    }
+
+    public int getPositionInList() {
+        return all.indexOf(this);
     }
 
     public int getId() {
@@ -68,6 +76,15 @@ public class Category extends RealmObject {
 
     public Category setColor(int color) {
         this.color = color;
+        return this;
+    }
+
+    public int getColor2() {
+        return this.color2;
+    }
+
+    public Category setColor2(int color2) {
+        this.color2 = color2;
         return this;
     }
 
@@ -106,8 +123,8 @@ public class Category extends RealmObject {
      * @param context Contexto del que se llama al método (Activity).
      * @param name    Nombre de la tarea.
      */
-    public static void add(final Context context, String name, int icon, int color) {
-        final Category category = new Category(Category.generateId(), icon, color, name);
+    public static Category add(final Context context, String name, int icon, int color, int color2) {
+        final Category category = new Category(Category.generateId(), icon, color, color2, name);
         Realm.getDefaultInstance()
                 .executeTransaction(r -> {
                     try {
@@ -116,6 +133,7 @@ public class Category extends RealmObject {
                         Toast.makeText(context, "ID Ingresado ya existe.", Toast.LENGTH_SHORT).show();
                     }
                 });
+        return category;
     }
 
     /**
