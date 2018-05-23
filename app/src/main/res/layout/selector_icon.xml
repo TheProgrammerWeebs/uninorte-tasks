@@ -16,7 +16,15 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="23dp"
+            android:background="@color/dark"
+            android:src="@drawable/ic_back" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,9 +37,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/icon1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
+        android:clickable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -44,16 +54,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="@string/default_icon"
+            android:text="@string/icon_1_default"
             android:textColor="@color/light"
             android:textSize="17sp" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/icon2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
+        android:clickable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -73,9 +85,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/icon3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
+        android:clickable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -95,9 +109,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/icon4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
+        android:clickable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -117,9 +133,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/icon5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
+        android:clickable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -139,9 +157,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/icon6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
+        android:clickable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -161,9 +181,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/icon7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
+        android:clickable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -183,9 +205,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/icon8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
+        android:clickable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -205,9 +229,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/icon9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
+        android:clickable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 

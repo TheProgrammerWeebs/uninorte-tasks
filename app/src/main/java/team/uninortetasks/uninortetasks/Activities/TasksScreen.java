@@ -56,6 +56,7 @@ public class TasksScreen extends AppCompatActivity implements AddCategory.OnFrag
     private void loadCategories() {
         SubMenu menu = nav.getMenu().findItem(R.id.categories).getSubMenu();
         menu.clear();
+        nav.getMenu().removeItem();
         menu.add(R.string.for_today).setIcon(R.drawable.ic_today).setOnMenuItemClickListener(item -> {
             getSupportActionBar().setTitle(R.string.for_today);
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.darkRed)));
@@ -77,11 +78,7 @@ public class TasksScreen extends AppCompatActivity implements AddCategory.OnFrag
             });
         }
         nav.getMenu().add("Agregar categoría").setIcon(R.drawable.ic_add).setOnMenuItemClickListener(item -> {
-
-
             getSupportFragmentManager().beginTransaction().replace(R.id.tasksContent, new AddCategory()).commit();
-
-
             root.closeDrawers();
             return true;
         });
@@ -117,6 +114,6 @@ public class TasksScreen extends AppCompatActivity implements AddCategory.OnFrag
 
     @Override
     public void onAddingFinished() {
-
+        loadCategories();
     }
 }

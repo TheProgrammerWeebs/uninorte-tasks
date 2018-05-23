@@ -16,7 +16,15 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="23dp"
+            android:background="@color/dark"
+            android:src="@drawable/ic_back" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,75 +37,35 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/red"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
+        android:clickable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <View
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/oval_purple" />
+            android:background="@drawable/oval_dark_red" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="@string/purple"
+            android:text="@string/red_default"
             android:textColor="@color/light"
             android:textSize="17sp" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/orange"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <View
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/oval_cyan" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="@string/cyan"
-            android:textColor="@color/light"
-            android:textSize="17sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <View
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/oval_green" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="@string/green"
-            android:textColor="@color/light"
-            android:textSize="17sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
+        android:clickable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -117,22 +85,72 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/green"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
+        android:clickable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <View
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/oval_dark_red" />
+            android:background="@drawable/oval_green" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="@string/red"
+            android:text="@string/green"
+            android:textColor="@color/light"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/cyan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/oval_cyan" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/cyan"
+            android:textColor="@color/light"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/purple"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/oval_purple" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/purple"
             android:textColor="@color/light"
             android:textSize="17sp" />
 

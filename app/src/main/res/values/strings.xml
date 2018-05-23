@@ -13,8 +13,6 @@
     <string name="task">Tarea</string>
     <string name="add">Agregar</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="for_today">Para hoy</string>
     <string name="tasks_for_today">Tareas pendientes para hoy</string>
     <string name="tasks">Tareas</string>
@@ -28,11 +26,10 @@
     <string name="category_name_hint">Nombre de la categoría</string>
     <string name="add_category">Agregar categoría</string>
     <string name="color">Color</string>
-    <string name="icon">Icono</string>
+    <string name="icon">Ícono</string>
     <string name="select_category_name">Seleccione un nombre para la categoría</string>
     <string name="select_color">Seleccione un color</string>
-    <string name="cyan">Cyan</string>
-    <string name="red">Rojo</string>
+    <string name="cyan">Cyan</string>Î
     <string name="green">Verde</string>
     <string name="orange">Naranja</string>
     <string name="purple">Púrpura</string>
@@ -46,4 +43,8 @@
     <string name="icon_7">Ícono 7</string>
     <string name="icon_8">Ícono 8</string>
     <string name="icon_9">Ícono 9</string>
+    <string name="icon_1_default">Ícono 1 (por defecto)</string>
+    <string name="red_default">Rojo (por defecto)</string>
+    <string name="edit_category">Editar categoría</string>
+    <string name="delete_category">Eliminar categoría</string>
 </resources>

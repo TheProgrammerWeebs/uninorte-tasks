@@ -25,6 +25,7 @@
                 android:theme="@style/themeLight" />
 
             <EditText
+                android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/name"
@@ -50,10 +51,11 @@
                         android:text="@string/color" />
 
                     <View
+                        android:id="@+id/selectedColor"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_marginStart="10dp"
-                        android:background="@color/darkRed" />
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/oval_dark_red" />
 
                 </LinearLayout>
 
@@ -64,9 +66,10 @@
                     android:gravity="center">
 
                     <ImageView
+                        android:id="@+id/selectedIcon"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginEnd="5dp"
                         android:src="@drawable/ic_item"
                         android:tint="@color/dark" />
 
@@ -80,6 +83,32 @@
                 </LinearLayout>
 
             </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/cancelButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:background="@drawable/background_button_transparent"
+                    android:text="@string/cancel" />
+
+                <Button
+                    android:id="@+id/createButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/background_button_red"
+                    android:elevation="3dp"
+                    android:padding="8dp"
+                    android:text="@string/create_category"
+                    android:textColor="@color/light" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

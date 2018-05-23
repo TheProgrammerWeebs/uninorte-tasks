@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="@string/categories"
-        android:id="@+id/categories">
+    <item
+        android:id="@+id/categories"
+        android:title="@string/categories">
         <menu>
 
         </menu>
     </item>
+    <item android:title="@string/add_category" />
+    <item android:title="@string/edit_category" />
+    <item android:title="@string/delete_category" />
 </menu>
