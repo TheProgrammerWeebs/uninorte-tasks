@@ -10,7 +10,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -67,10 +66,10 @@ public class TasksScreen extends AppCompatActivity implements AddCategory.OnAddC
     }
 
     private void loadCategories() {
-        SubMenu menu = nav.getMenu().findItem(R.id.categories).getSubMenu();
+        Menu menu = nav.getMenu();
         menu.clear();
         menu.add(R.string.for_today).setIcon(R.drawable.ic_today).setOnMenuItemClickListener(item -> {
-            currentCategoryIndex = -1;
+
             actionBar.setTitle(R.string.for_today);
             window.setStatusBarColor(getResources().getColor(R.color.darkRed2));
             actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.darkRed)));
@@ -79,11 +78,14 @@ public class TasksScreen extends AppCompatActivity implements AddCategory.OnAddC
             root.closeDrawers();
             return true;
         }).setChecked(currentCategoryIndex == -1);
+        System.out.println("........................." + currentCategoryIndex);
         int pos = 0;
         for (Category cat : Category.getAll()) {
             final int temp = pos;
             menu.add(cat.getName()).setIcon(cat.getIcon()).setOnMenuItemClickListener(item -> {
+
                 currentCategoryIndex = temp;
+                System.out.println("Seteado a " + currentCategoryIndex);
                 actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(cat.getColor())));
                 window.setStatusBarColor(getResources().getColor(cat.getColor2()));
                 actionBar.setTitle(cat.getName());
@@ -92,9 +94,14 @@ public class TasksScreen extends AppCompatActivity implements AddCategory.OnAddC
                 root.closeDrawers();
                 return true;
             }).setChecked(currentCategoryIndex == pos);
+            System.out.println("........................." + currentCategoryIndex);
+            System.out.println("........................." + pos);
             pos++;
         }
-        nav.getMenu().findItem(R.id.add).setOnMenuItemClickListener(item -> {
+        menu.setGroupCheckable(0, true, true);
+
+        menu.add("");
+        menu.add(R.string.add_category).setIcon(R.drawable.ic_add).setOnMenuItemClickListener(item -> {
             actionBar.setTitle(R.string.add_category);
             window.setStatusBarColor(getResources().getColor(R.color.dark2));
             actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.dark)));
@@ -102,7 +109,7 @@ public class TasksScreen extends AppCompatActivity implements AddCategory.OnAddC
             root.closeDrawers();
             return true;
         });
-        nav.getMenu().findItem(R.id.edit).setOnMenuItemClickListener(item -> {
+        menu.add(R.string.edit_category).setIcon(R.drawable.ic_edit).setOnMenuItemClickListener(item -> {
 
             actionBar.setTitle(R.string.edit_category);
             window.setStatusBarColor(getResources().getColor(R.color.dark2));
@@ -110,7 +117,7 @@ public class TasksScreen extends AppCompatActivity implements AddCategory.OnAddC
             root.closeDrawers();
             return true;
         });
-        nav.getMenu().findItem(R.id.delete).setOnMenuItemClickListener(item -> {
+        menu.add(R.string.delete_category).setIcon(R.drawable.ic_delete).setOnMenuItemClickListener(item -> {
 
             actionBar.setTitle(R.string.delete_category);
             window.setStatusBarColor(getResources().getColor(R.color.dark2));
@@ -118,14 +125,13 @@ public class TasksScreen extends AppCompatActivity implements AddCategory.OnAddC
             root.closeDrawers();
             return true;
         });
-        menu.setGroupCheckable(0, true, true);
     }
 
     private void loadView(Category category) {
         if (category == null) {
 
         } else {
-            fragmentManager.beginTransaction().replace(R.id.tasksContent, TasksCategory.newInstance(category));
+            //fragmentManager.beginTransaction().replace(R.id.tasksContent, TasksCategory.newInstance(category));
         }
 
     }
@@ -138,8 +144,9 @@ public class TasksScreen extends AppCompatActivity implements AddCategory.OnAddC
     public void onAddingOkay(Category category) {
         Toast.makeText(this, "Categoría agregada con éxito", Toast.LENGTH_SHORT).show();
         currentCategoryIndex = category.getPositionInList();
+        System.out.println("Nueva posicion " + currentCategoryIndex);
         loadCategories();
-        loadView(Category.getAll().get(currentCategoryIndex));
+        //loadView(Category.getAll().get(currentCategoryIndex - 1));
     }
 
     @Override
@@ -147,6 +154,7 @@ public class TasksScreen extends AppCompatActivity implements AddCategory.OnAddC
         if (currentCategoryIndex >= 0) {
             loadView(Category.getAll().get(currentCategoryIndex));
         } else {
+            currentCategoryIndex = -1;
             loadView(null);
         }
     }

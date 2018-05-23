@@ -45,7 +45,14 @@ public class Category extends RealmObject implements Serializable {
     }
 
     public int getPositionInList() {
-        return all.indexOf(this);
+        int pos = 0;
+        for (Category c : all) {
+            if (c.getId() == id) {
+                return pos;
+            }
+            pos++;
+        }
+        return -1;
     }
 
     public int getId() {

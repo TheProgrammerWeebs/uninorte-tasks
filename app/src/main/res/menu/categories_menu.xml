@@ -1,22 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/categories"
-        android:title="@string/categories">
-        <menu>
-
-        </menu>
-    </item>
-    <item
-        android:id="@+id/add"
-        android:icon="@drawable/ic_add"
-        android:title="@string/add_category" />
-    <item
-        android:id="@+id/edit"
-        android:icon="@drawable/ic_edit"
-        android:title="@string/edit_category" />
-    <item
-        android:id="@+id/delete"
-        android:icon="@drawable/ic_delete"
-        android:title="@string/delete_category" />
+    
 </menu>
