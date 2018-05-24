@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/colorSelector"
+    android:id="@+id/prioritySelector"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -14,7 +14,6 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/darkRed2"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
         android:paddingEnd="16dp"
         android:paddingStart="16dp">
 
@@ -29,15 +28,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/select_color"
+            android:text="@string/select_priority"
             android:textColor="@color/light"
             android:textSize="20sp"
             android:textStyle="bold" />
 
+
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/red"
+        android:id="@+id/high"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/darkRed"
@@ -58,14 +58,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="@string/red_default"
+            android:text="@string/high_priority_default"
             android:textColor="@color/light"
             android:textSize="17sp" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/orange"
+        android:id="@+id/medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/orange"
@@ -86,17 +86,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="@string/orange"
+            android:text="@string/medium_priority"
             android:textColor="@color/light"
             android:textSize="17sp" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/green"
+        android:id="@+id/low"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/green"
+        android:background="@color/yellow"
         android:clickable="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -114,64 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="@string/green"
-            android:textColor="@color/light"
-            android:textSize="17sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/cyan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/cyan"
-        android:clickable="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingBottom="6dp"
-        android:paddingEnd="15dp"
-        android:paddingStart="15dp"
-        android:paddingTop="6dp">
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_item" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="@string/cyan"
-            android:textColor="@color/light"
-            android:textSize="17sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/purple"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/purple"
-        android:clickable="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingBottom="6dp"
-        android:paddingEnd="15dp"
-        android:paddingStart="15dp"
-        android:paddingTop="6dp">
-
-        <ImageView
-
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_item" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="@string/purple"
+            android:text="@string/low_priority"
             android:textColor="@color/light"
             android:textSize="17sp" />
 

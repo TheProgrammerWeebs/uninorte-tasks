@@ -1,8 +1,8 @@
 package team.uninortetasks.uninortetasks.Fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,8 +14,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
-import team.uninortetasks.uninortetasks.Activities.TasksScreen;
 import team.uninortetasks.uninortetasks.Database.Category;
 import team.uninortetasks.uninortetasks.R;
 
@@ -43,7 +43,7 @@ public class AddCategory extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_category, container, false);
         initialize(view);
         return view;
@@ -85,18 +85,15 @@ public class AddCategory extends Fragment {
         colors.setState(BottomSheetBehavior.STATE_HIDDEN);
         icons.setState(BottomSheetBehavior.STATE_HIDDEN);
 
+        final InputMethodManager input = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         color.setOnClickListener(e -> {
             colors.setState(BottomSheetBehavior.STATE_EXPANDED);
             icons.setState(BottomSheetBehavior.STATE_HIDDEN);
-            //Esconder el teclado
-            final InputMethodManager input = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             input.hideSoftInputFromWindow(getView().getWindowToken(), 0);
         });
         icon.setOnClickListener(e -> {
             icons.setState(BottomSheetBehavior.STATE_EXPANDED);
             colors.setState(BottomSheetBehavior.STATE_HIDDEN);
-            //Esconder el teclado
-            final InputMethodManager input = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             input.hideSoftInputFromWindow(getView().getWindowToken(), 0);
         });
 
@@ -117,12 +114,15 @@ public class AddCategory extends Fragment {
         icon8.setOnClickListener(getDefaultIconClickListener(R.drawable.ic_gym));
         icon9.setOnClickListener(getDefaultIconClickListener(R.drawable.ic_home));
         backIcons.setOnClickListener(e -> icons.setState(BottomSheetBehavior.STATE_HIDDEN));
+
         view.findViewById(R.id.cancelButton).setOnClickListener(e -> listener.onAddingCanceled());
         view.findViewById(R.id.createButton).setOnClickListener(e -> {
             String name = this.name.getText().toString().trim();
-            if (name.isEmpty()) return;
+            if (name.isEmpty()) {
+                Toast.makeText(getContext(), "Seleccione un nombre para la categoría", Toast.LENGTH_SHORT).show();
+                return;
+            }
             listener.onAddingOkay(Category.add(getContext(), name, this.icon, this.color, this.color2));
-            //startActivity(new Intent(getActivity(), TasksScreen.class));
         });
     }
 
@@ -156,7 +156,8 @@ public class AddCategory extends Fragment {
     }
 
     public interface OnAddCategoryListener {
-        public void onAddingOkay(Category category);
-        public void onAddingCanceled();
+        void onAddingOkay(Category category);
+
+        void onAddingCanceled();
     }
 }

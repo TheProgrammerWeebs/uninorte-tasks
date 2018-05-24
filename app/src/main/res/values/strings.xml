@@ -50,4 +50,21 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="select_priority">Seleccione nivel de prioridad</string>
+    <string name="high_priority_default">Prioridad alta (por defecto)</string>
+    <string name="medium_priority">Prioridad media</string>
+    <string name="low_priority">Prioridad baja</string>
+    <string name="goal_default">Meta (por defecto)</string>
+    <string name="goal">Meta</string>
+
+    <string name="homework">Tarea</string>
+    <string name="other">Otra</string>
+    <string name="select_type">Seleccione un tipo</string>
+    <string name="select_task_name">Seleccione un nombre para la tarea</string>
+    <string name="priority_level">Nivel de prioridad</string>
+    <string name="high_priority">Prioridad alta</string>
+    <string name="task_type">Tipo de tarea</string>
+    <string name="diary_task">Tarea diaria</string>
+    <string name="unique_task">Tarea úncica</string>
+    <string name="limit_date">Fecha límite</string>
 </resources>

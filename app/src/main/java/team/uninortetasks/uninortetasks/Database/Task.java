@@ -33,19 +33,23 @@ public class Task extends RealmObject {
     private String type;
     @Required
     private Date limit;
+    private boolean isTimeLimit;
+    private boolean haveSteps;
     private int steps;
     private int maxSteps;
 
     public Task() {
     }
 
-    public Task(int id, String name, Priority priority, State state, Type type, Date limit, int maxSteps, Category... categories) {
+    public Task(int id, String name, Priority priority, State state, Type type, Date limit, boolean isTimeLimit, boolean haveSteps, int maxSteps, Category... categories) {
         this.id = id;
         this.name = name;
         this.priority = priority.toString();
         this.state = state.toString();
         this.type = type.toString();
         this.limit = limit;
+        this.isTimeLimit = isTimeLimit;
+        this.haveSteps = haveSteps;
         this.categories = new RealmList<>();
         this.categories.addAll(Arrays.asList(categories));
         this.steps = 0;
@@ -102,6 +106,24 @@ public class Task extends RealmObject {
 
     public Task setLimit(Date limit) {
         this.limit = limit;
+        return this;
+    }
+
+    public boolean isTimeLimit() {
+        return isTimeLimit;
+    }
+
+    public Task setTimeLimit(boolean timeLimit) {
+        this.isTimeLimit = timeLimit;
+        return this;
+    }
+
+    public boolean haveStepes() {
+        return haveSteps;
+    }
+
+    public Task setHaveSteps(boolean haveSteps) {
+        this.haveSteps = haveSteps;
         return this;
     }
 
@@ -163,8 +185,17 @@ public class Task extends RealmObject {
      * @param limit    Tiempo límite.
      * @param maxSteps Número de pasos necesarios para completar la tarea;
      */
-    public static void add(final Context context, String name, Priority priority, State state, Type type, Date limit, int maxSteps) {
-        final Task task = new Task(Task.generateId(), name, priority, state, type, limit, maxSteps);
+    public static void add(
+            final Context context,
+            String name,
+            Priority priority,
+            State state,
+            Type type,
+            Date limit,
+            boolean timeLimit,
+            boolean haveSteps,
+            int maxSteps) {
+        final Task task = new Task(Task.generateId(), name, priority, state, type, limit, timeLimit, haveSteps, maxSteps);
         Realm.getDefaultInstance()
                 .executeTransaction(r -> {
                     try {
