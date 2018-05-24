@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -85,10 +86,16 @@ public class AddCategory extends Fragment {
         color.setOnClickListener(e -> {
             colors.setState(BottomSheetBehavior.STATE_EXPANDED);
             icons.setState(BottomSheetBehavior.STATE_HIDDEN);
+            //Esconder el teclado
+            final InputMethodManager input = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            input.hideSoftInputFromWindow(getView().getWindowToken(), 0);
         });
         icon.setOnClickListener(e -> {
             icons.setState(BottomSheetBehavior.STATE_EXPANDED);
             colors.setState(BottomSheetBehavior.STATE_HIDDEN);
+            //Esconder el teclado
+            final InputMethodManager input = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            input.hideSoftInputFromWindow(getView().getWindowToken(), 0);
         });
 
         red.setOnClickListener(getDefaultColorListener(R.drawable.oval_dark_red, R.color.darkRed, R.color.darkRed2));

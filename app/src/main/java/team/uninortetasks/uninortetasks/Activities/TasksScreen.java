@@ -83,7 +83,6 @@ public class TasksScreen extends AppCompatActivity implements AddCategory.OnAddC
         for (Category cat : Category.getAll()) {
             final int temp = pos;
             menu.add(cat.getName()).setIcon(cat.getIcon()).setOnMenuItemClickListener(item -> {
-
                 currentCategoryIndex = temp;
                 System.out.println("Seteado a " + currentCategoryIndex);
                 actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(cat.getColor())));
