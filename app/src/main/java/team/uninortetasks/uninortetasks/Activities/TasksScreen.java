@@ -69,7 +69,6 @@ public class TasksScreen extends AppCompatActivity implements AddCategory.OnAddC
         Menu menu = nav.getMenu();
         menu.clear();
         menu.add(R.string.for_today).setIcon(R.drawable.ic_today).setOnMenuItemClickListener(item -> {
-
             actionBar.setTitle(R.string.for_today);
             window.setStatusBarColor(getResources().getColor(R.color.darkRed2));
             actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.darkRed)));

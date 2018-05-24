@@ -1,6 +1,7 @@
 package team.uninortetasks.uninortetasks.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import team.uninortetasks.uninortetasks.Activities.TasksScreen;
 import team.uninortetasks.uninortetasks.Database.Category;
 import team.uninortetasks.uninortetasks.R;
 
@@ -50,7 +52,7 @@ public class AddCategory extends Fragment {
     private void initialize(View view) {
         icon = R.drawable.ic_item;
         color = R.color.darkRed;
-        color = R.color.darkRed2;
+        color2 = R.color.darkRed2;
 
         colorsLayout = view.findViewById(R.id.colorSelector);
         iconsLayout = view.findViewById(R.id.iconSelector);
@@ -115,12 +117,12 @@ public class AddCategory extends Fragment {
         icon8.setOnClickListener(getDefaultIconClickListener(R.drawable.ic_gym));
         icon9.setOnClickListener(getDefaultIconClickListener(R.drawable.ic_home));
         backIcons.setOnClickListener(e -> icons.setState(BottomSheetBehavior.STATE_HIDDEN));
-
         view.findViewById(R.id.cancelButton).setOnClickListener(e -> listener.onAddingCanceled());
         view.findViewById(R.id.createButton).setOnClickListener(e -> {
             String name = this.name.getText().toString().trim();
             if (name.isEmpty()) return;
             listener.onAddingOkay(Category.add(getContext(), name, this.icon, this.color, this.color2));
+            //startActivity(new Intent(getActivity(), TasksScreen.class));
         });
     }
 
@@ -155,7 +157,6 @@ public class AddCategory extends Fragment {
 
     public interface OnAddCategoryListener {
         public void onAddingOkay(Category category);
-
         public void onAddingCanceled();
     }
 }
