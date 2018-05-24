@@ -50,7 +50,7 @@ public class AddCategory extends Fragment {
     private void initialize(View view) {
         icon = R.drawable.ic_item;
         color = R.color.darkRed;
-        color = R.color.darkRed2;
+        color2 = R.color.darkRed2;
 
         colorsLayout = view.findViewById(R.id.colorSelector);
         iconsLayout = view.findViewById(R.id.iconSelector);
