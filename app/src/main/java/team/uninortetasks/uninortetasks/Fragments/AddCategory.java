@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import team.uninortetasks.uninortetasks.Database.Category;
 import team.uninortetasks.uninortetasks.R;
@@ -117,7 +118,10 @@ public class AddCategory extends Fragment {
         view.findViewById(R.id.cancelButton).setOnClickListener(e -> listener.onAddingCanceled());
         view.findViewById(R.id.createButton).setOnClickListener(e -> {
             String name = this.name.getText().toString().trim();
-            if (name.isEmpty()) return;
+            if (name.isEmpty()) {
+                Toast.makeText(getContext(), "Seleccione un nombre para la categoría", Toast.LENGTH_SHORT).show();
+                return;
+            }
             listener.onAddingOkay(Category.add(getContext(), name, this.icon, this.color, this.color2));
         });
     }
@@ -153,6 +157,7 @@ public class AddCategory extends Fragment {
 
     public interface OnAddCategoryListener {
         void onAddingOkay(Category category);
+
         void onAddingCanceled();
     }
 }

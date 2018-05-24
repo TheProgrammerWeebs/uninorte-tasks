@@ -15,10 +15,14 @@ import android.widget.Toast;
 
 import team.uninortetasks.uninortetasks.Database.Category;
 import team.uninortetasks.uninortetasks.Fragments.AddCategory;
+import team.uninortetasks.uninortetasks.Fragments.AddTask;
 import team.uninortetasks.uninortetasks.Fragments.TasksCategory;
 import team.uninortetasks.uninortetasks.R;
 
-public class TasksScreen extends AppCompatActivity implements AddCategory.OnAddCategoryListener, TasksCategory.OnTasksCategoryListener {
+public class TasksScreen extends AppCompatActivity implements
+        AddCategory.OnAddCategoryListener,
+        TasksCategory.OnTasksCategoryListener,
+        AddTask.OnAddTaskListener {
 
     private DrawerLayout root;
     private ActionBarDrawerToggle toogle;
@@ -130,13 +134,17 @@ public class TasksScreen extends AppCompatActivity implements AddCategory.OnAddC
         if (category == null) {
 
         } else {
-            //fragmentManager.beginTransaction().replace(R.id.tasksContent, TasksCategory.newInstance(category));
+            fragmentManager.beginTransaction().replace(R.id.tasksContent, TasksCategory.newInstance(category)).commit();
         }
 
     }
 
     public void addTask(MenuItem item) {
-
+        if (currentCategoryIndex == -1) {
+            Toast.makeText(this, "Seleccione primero una categoría", Toast.LENGTH_SHORT).show();
+        } else {
+            fragmentManager.beginTransaction().replace(R.id.tasksContent, AddTask.newInstance(Category.getAll().get(currentCategoryIndex))).commit();
+        }
     }
 
     @Override
@@ -145,7 +153,7 @@ public class TasksScreen extends AppCompatActivity implements AddCategory.OnAddC
         currentCategoryIndex = category.getPositionInList();
         System.out.println("Nueva posicion " + currentCategoryIndex);
         loadCategories();
-        //loadView(Category.getAll().get(currentCategoryIndex - 1));
+        loadView(Category.getAll().get(currentCategoryIndex));
     }
 
     @Override
@@ -160,6 +168,11 @@ public class TasksScreen extends AppCompatActivity implements AddCategory.OnAddC
 
     @Override
     public void onDisplayTask(Category category) {
+
+    }
+
+    @Override
+    public void onAddingFinished() {
 
     }
 }

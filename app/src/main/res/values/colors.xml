@@ -19,6 +19,7 @@
     <color name="cyan2">#22b3c6</color>
     <color name="darkRed">#ef5350</color>
     <color name="darkRed2">#df4340</color>
+    <color name="darkRed3">#962121</color>
     <color name="green">#00c853</color>
     <color name="green2">#00b843</color>
     <color name="orange">#ff6f00</color>
@@ -29,5 +30,6 @@
     <color name="dark">#384248</color>
     <color name="dark2">#283238</color>
     <color name="light">#eeeeee</color>
+    <color name="light2">#d6d6d6</color>
 
 </resources>
