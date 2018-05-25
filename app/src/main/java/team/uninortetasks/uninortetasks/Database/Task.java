@@ -3,8 +3,6 @@ package team.uninortetasks.uninortetasks.Database;
 import android.content.Context;
 import android.widget.Toast;
 
-import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -14,17 +12,21 @@ import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
+import io.realm.annotations.LinkingObjects;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 import io.realm.exceptions.RealmException;
 import io.realm.exceptions.RealmPrimaryKeyConstraintException;
 
-public class Task extends RealmObject implements Serializable {
+public class Task extends RealmObject {
 
     @PrimaryKey
     private int id;
     @Required
     private String name;
+    @LinkingObjects("task")
+    private RealmList<Note> notes;
+    @Required
     private Category category;
     @Required
     private String priority;
@@ -36,13 +38,14 @@ public class Task extends RealmObject implements Serializable {
     private Date limit;
     private boolean isTimeLimit;
     private boolean haveSteps;
+    private boolean diaryTask;
     private int steps;
     private int maxSteps;
 
     public Task() {
     }
 
-    public Task(int id, String name, Priority priority, State state, Type type, Date limit, boolean isTimeLimit, boolean haveSteps, int maxSteps, Category category) {
+    public Task(int id, String name, Priority priority, State state, Type type, Date limit, boolean isTimeLimit, boolean haveSteps, boolean diaryTask, int maxSteps, Category category) {
         this.id = id;
         this.name = name;
         this.priority = priority.toString();
@@ -51,10 +54,15 @@ public class Task extends RealmObject implements Serializable {
         this.limit = limit;
         this.isTimeLimit = isTimeLimit;
         this.haveSteps = haveSteps;
-        this.category = new RealmList<>();
-        this.categories.addAll(Arrays.asList(categories));
+        this.diaryTask = diaryTask;
+        this.category = category;
         this.steps = 0;
         this.maxSteps = maxSteps;
+    }
+
+    public Task addNote(Note note) {
+        this.notes.add(note);
+        return this;
     }
 
     public int getId() {
@@ -70,8 +78,8 @@ public class Task extends RealmObject implements Serializable {
         return this;
     }
 
-    public RealmList<Category> getCategories() {
-        return this.categories;
+    public Category getCategory() {
+        return this.category;
     }
 
     public Priority getPriority() {
@@ -125,6 +133,15 @@ public class Task extends RealmObject implements Serializable {
 
     public Task setHaveSteps(boolean haveSteps) {
         this.haveSteps = haveSteps;
+        return this;
+    }
+
+    public boolean isDiaryTask() {
+        return this.diaryTask;
+    }
+
+    public Task setDiaryTask(boolean diaryTask) {
+        this.diaryTask = diaryTask;
         return this;
     }
 
@@ -195,8 +212,10 @@ public class Task extends RealmObject implements Serializable {
             Date limit,
             boolean timeLimit,
             boolean haveSteps,
-            int maxSteps) {
-        final Task task = new Task(Task.generateId(), name, priority, state, type, limit, timeLimit, haveSteps, maxSteps);
+            boolean diaryTask,
+            int maxSteps,
+            Category category) {
+        final Task task = new Task(Task.generateId(), name, priority, state, type, limit, timeLimit, haveSteps, diaryTask, maxSteps, category);
         Realm.getDefaultInstance()
                 .executeTransaction(r -> {
                     try {

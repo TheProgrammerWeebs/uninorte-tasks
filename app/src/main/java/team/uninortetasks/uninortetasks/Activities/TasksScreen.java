@@ -21,8 +21,7 @@ import team.uninortetasks.uninortetasks.R;
 
 public class TasksScreen extends AppCompatActivity implements
         AddCategory.OnAddCategoryListener,
-        TasksCategory.OnTasksCategoryListener,
-        AddTask.OnAddTaskListener {
+        TasksCategory.OnTasksCategoryListener {
 
     private DrawerLayout root;
     private ActionBarDrawerToggle toogle;
@@ -170,8 +169,4 @@ public class TasksScreen extends AppCompatActivity implements
 
     }
 
-    @Override
-    public void onAddingFinished() {
-
-    }
 }
