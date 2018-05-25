@@ -67,13 +67,13 @@
     <string name="diary_task">Tarea diaria</string>
     <string name="unique_task">Tarea única</string>
 
-    <string name="monday">Lunes</string>
-    <string name="tuesday">Martes</string>
-    <string name="wednesday">Miércoles</string>
-    <string name="thursday">Jueves</string>
-    <string name="friday">Viernes</string>
-    <string name="saturday">Sábado</string>
-    <string name="sunday">Domingo</string>
+    <string name="monday">lunes</string>
+    <string name="tuesday">martes</string>
+    <string name="wednesday">miércoles</string>
+    <string name="thursday">jueves</string>
+    <string name="friday">viernes</string>
+    <string name="saturday">sábado</string>
+    <string name="sunday">domingo</string>
 
     <string name="january">enero</string>
     <string name="february">febrero</string>

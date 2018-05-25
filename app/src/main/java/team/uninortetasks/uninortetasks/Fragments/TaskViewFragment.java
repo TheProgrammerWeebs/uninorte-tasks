@@ -63,6 +63,7 @@ public class TaskViewFragment extends Fragment {
         this.taskDate = view.findViewById(R.id.task_date);
         taskName.setText(task.getName());
         String dia = "";
+        String mes = "";
         Calendar sieteDias = Calendar.getInstance();
         sieteDias.add(Calendar.DATE, 7);
         if (isDateInRange(task.getLimit(), Calendar.getInstance().getTime(), sieteDias.getTime())) {
@@ -89,6 +90,8 @@ public class TaskViewFragment extends Fragment {
                     dia = getString(R.string.saturday);
                     break;
             }
+
+
         }
         this.taskDate.setText(dia);
     }
