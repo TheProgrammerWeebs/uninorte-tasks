@@ -20,7 +20,6 @@ public class Note extends RealmObject {
     private String title;
     @Required
     private String content;
-    @Required
     private Task task;
 
     public Note() {

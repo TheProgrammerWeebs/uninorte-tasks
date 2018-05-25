@@ -27,6 +27,7 @@ public class AddCategory extends Fragment {
     private BottomSheetBehavior icons;
     private LinearLayout colorsLayout;
     private LinearLayout iconsLayout;
+
     private View selectedColor;
     private ImageView selectedIcon;
     private EditText name;
