@@ -7,17 +7,23 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import team.uninortetasks.uninortetasks.Database.Task;
 import team.uninortetasks.uninortetasks.R;
 
 
 public class TaskViewFragment extends Fragment {
-    private Task task;
 
+    private Task task;
+    private TextView taskName;
+    private TextView taskDate;
 
     public TaskViewFragment() {
-        // Required empty public constructor
+
     }
 
     public static TaskViewFragment newInstance(Task task) {
@@ -53,6 +59,21 @@ public class TaskViewFragment extends Fragment {
     }
 
     private void initialize(View view){
+        this.taskName = view.findViewById(R.id.task_name);
+        this.taskDate = view.findViewById(R.id.task_date);
+        taskName.setText(task.getName());
+        Calendar sieteDias = Calendar.getInstance();
+        sieteDias.add(Calendar.DATE, 7);
+        if (isDateInRange(task.getLimit(), Calendar.getInstance().getTime(), sieteDias.getTime())){
+            String dia = "";
+            switch (task.getLimit().getDay()){
+                case 0:
+                    break;
+            }
+        }
+    }
 
+    private boolean isDateInRange(Date date, Date first, Date last){
+        return (date.before(last) && date.after(first));
     }
 }
