@@ -46,6 +46,7 @@
                 android:padding="5dp">
 
                 <Button
+                    android:id="@+id/priorityButton"
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:background="@drawable/background_button_light"
@@ -54,6 +55,7 @@
                     android:text="@string/priority_level" />
 
                 <TextView
+                    android:id="@+id/priorityLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|end"
@@ -72,6 +74,7 @@
                 android:padding="5dp">
 
                 <Button
+                    android:id="@+id/typeButton"
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:background="@drawable/background_button_light"
@@ -80,6 +83,7 @@
                     android:text="@string/task_type" />
 
                 <TextView
+                    android:id="@+id/typeLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|end"
@@ -90,6 +94,18 @@
 
             </FrameLayout>
 
+            <EditText
+                android:id="@+id/goal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:hint="@string/goal"
+                android:inputType="number"
+                android:paddingEnd="7dp"
+                android:paddingStart="7dp"
+                android:singleLine="true"
+                android:theme="@style/themeLight" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -98,6 +114,7 @@
                 android:orientation="vertical">
 
                 <RadioGroup
+                    android:id="@+id/diaryOrUnique"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="7dp"
@@ -133,47 +150,54 @@
                         android:rowCount="3">
 
                         <CheckBox
+                            android:id="@+id/monday"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="Lunes" />
+                            android:text="@string/monday" />
 
                         <CheckBox
+                            android:id="@+id/tuesday"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="Martes" />
+                            android:text="@string/tuesday" />
 
                         <CheckBox
+                            android:id="@+id/wednesday"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Miércoles" />
+                            android:text="@string/wednesday" />
 
                         <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="Jueves" />
-
-                        <CheckBox
+                            android:id="@+id/thursday"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="Viernes" />
+                            android:text="@string/thursday" />
 
                         <CheckBox
+                            android:id="@+id/friday"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="Sábado" />
+                            android:text="@string/friday" />
+
+                        <CheckBox
+                            android:id="@+id/saturday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/saturday" />
 
                     </GridLayout>
 
                     <CheckBox
+                        android:id="@+id/sunday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Domingo" />
+                        android:text="@string/sunday" />
 
                 </LinearLayout>
 
@@ -189,15 +213,17 @@
                         android:padding="8dp">
 
                         <Button
+                            android:id="@+id/dateButton"
                             android:layout_width="wrap_content"
                             android:layout_height="35dp"
                             android:background="@drawable/background_button_light"
+                            android:hapticFeedbackEnabled="true"
                             android:paddingEnd="8dp"
                             android:paddingStart="8dp"
-                            android:hapticFeedbackEnabled="true"
                             android:text="@string/limit_date" />
 
                         <TextView
+                            android:id="@+id/dateLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical|end"
