@@ -58,22 +58,45 @@ public class TaskViewFragment extends Fragment {
         super.onDetach();
     }
 
-    private void initialize(View view){
+    private void initialize(View view) {
         this.taskName = view.findViewById(R.id.task_name);
         this.taskDate = view.findViewById(R.id.task_date);
         taskName.setText(task.getName());
+        String dia = "";
+        String mes = "";
         Calendar sieteDias = Calendar.getInstance();
         sieteDias.add(Calendar.DATE, 7);
-        if (isDateInRange(task.getLimit(), Calendar.getInstance().getTime(), sieteDias.getTime())){
-            String dia = "";
-            switch (task.getLimit().getDay()){
+        if (isDateInRange(task.getLimit(), Calendar.getInstance().getTime(), sieteDias.getTime())) {
+            switch (task.getLimit().getDay()) {
                 case 0:
+                    dia = getString(R.string.sunday);
+                    break;
+                case 1:
+                    dia = getString(R.string.monday);
+                    break;
+                case 2:
+                    dia = getString(R.string.tuesday);
+                    break;
+                case 3:
+                    dia = getString(R.string.wednesday);
+                    break;
+                case 4:
+                    dia = getString(R.string.thursday);
+                    break;
+                case 5:
+                    dia = getString(R.string.friday);
+                    break;
+                case 6:
+                    dia = getString(R.string.saturday);
                     break;
             }
+
+
         }
+        this.taskDate.setText(dia);
     }
 
-    private boolean isDateInRange(Date date, Date first, Date last){
+    private boolean isDateInRange(Date date, Date first, Date last) {
         return (date.before(last) && date.after(first));
     }
 }
