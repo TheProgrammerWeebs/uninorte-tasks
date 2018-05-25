@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="60dp"
+    android:background="@drawable/rect_task_view"
     android:orientation="vertical"
-    android:background="@drawable/rect_task_view">
+    tools:context=".Fragments.TaskViewFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
         <View
             android:id="@+id/rect_priority"
             android:layout_width="3dp"
             android:layout_height="match_parent"
-            android:background="@color/darkRed"/>
+            android:background="@color/darkRed" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

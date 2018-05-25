@@ -61,9 +61,8 @@ public class TaskView extends LinearLayout {
                 task.getPriority() == Priority.medium ? R.color.yellow:
                                                         R.color.deer));
         taskName.setText(task.getName());
-        taskDate.setText(task.getLimit().toString());
+        //taskDate.setText(task.getLimit().toString());
     }
-
 
 
 }
