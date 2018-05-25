@@ -21,7 +21,8 @@ import team.uninortetasks.uninortetasks.R;
 
 public class TasksScreen extends AppCompatActivity implements
         AddCategory.OnAddCategoryListener,
-        TasksCategory.OnTasksCategoryListener {
+        TasksCategory.OnTasksCategoryListener,
+        AddTask.OnAddingTaskListener {
 
     private DrawerLayout root;
     private ActionBarDrawerToggle toogle;
@@ -72,6 +73,7 @@ public class TasksScreen extends AppCompatActivity implements
         Menu menu = nav.getMenu();
         menu.clear();
         menu.add(R.string.for_today).setIcon(R.drawable.ic_today).setOnMenuItemClickListener(item -> {
+            currentCategoryIndex = -1;
             actionBar.setTitle(R.string.for_today);
             window.setStatusBarColor(getResources().getColor(R.color.darkRed2));
             actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.darkRed)));
@@ -169,4 +171,8 @@ public class TasksScreen extends AppCompatActivity implements
 
     }
 
+    @Override
+    public void addingFinished(Category category) {
+        loadView(category);
+    }
 }

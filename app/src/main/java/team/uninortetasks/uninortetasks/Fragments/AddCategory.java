@@ -88,14 +88,14 @@ public class AddCategory extends Fragment {
 
         final InputMethodManager input = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         color.setOnClickListener(e -> {
-            colors.setState(BottomSheetBehavior.STATE_EXPANDED);
-            icons.setState(BottomSheetBehavior.STATE_HIDDEN);
             input.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            icons.setState(BottomSheetBehavior.STATE_HIDDEN);
+            colors.setState(BottomSheetBehavior.STATE_EXPANDED);
         });
         icon.setOnClickListener(e -> {
-            icons.setState(BottomSheetBehavior.STATE_EXPANDED);
-            colors.setState(BottomSheetBehavior.STATE_HIDDEN);
             input.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            colors.setState(BottomSheetBehavior.STATE_HIDDEN);
+            icons.setState(BottomSheetBehavior.STATE_EXPANDED);
         });
 
         red.setOnClickListener(getDefaultColorListener(R.drawable.oval_dark_red, R.color.darkRed, R.color.darkRed2));

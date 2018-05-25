@@ -55,7 +55,7 @@
     <string name="low_priority">Prioridad baja</string>
     <string name="goal_default">Meta (por defecto)</string>
     <string name="goal">Meta</string>
-
+    <string name="activity">Actividad</string>
     <string name="homework">Tarea</string>
     <string name="other">Otra</string>
     <string name="select_type">Seleccione un tipo</string>
@@ -83,7 +83,10 @@
     <string name="july">julio</string>
     <string name="august">agosto</string>
     <string name="september">septiembre</string>
-    <string name="october">julio</string>
+    <string name="october">octubre</string>
     <string name="november">noviembre</string>
     <string name="december">diciembre</string>
+
+    <string name="of">de</string>
+    <string name="of2">del</string>
 </resources>

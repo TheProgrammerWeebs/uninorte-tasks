@@ -1,5 +1,6 @@
 package team.uninortetasks.uninortetasks.Fragments;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
@@ -13,25 +14,34 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import team.uninortetasks.uninortetasks.Database.Category;
+import team.uninortetasks.uninortetasks.Database.Month;
 import team.uninortetasks.uninortetasks.Database.Priority;
+import team.uninortetasks.uninortetasks.Database.State;
+import team.uninortetasks.uninortetasks.Database.Task;
 import team.uninortetasks.uninortetasks.Database.Type;
 import team.uninortetasks.uninortetasks.R;
 
 public class AddTask extends Fragment {
 
+    private OnAddingTaskListener listener;
+
+    private Calendar today = Calendar.getInstance();
+
     private Category category;
     private BottomSheetBehavior priorities;
     private BottomSheetBehavior types;
-    private LinearLayout priorityLayout;
-    private LinearLayout typeLayout;
+    private View priorityLayout;
+    private View typeLayout;
 
     private View dateLayout;
     private View daysLayout;
@@ -48,6 +58,8 @@ public class AddTask extends Fragment {
     private CheckBox[] days;
     private Button dateButton;
     private TextView dateLabel;
+    private Button createButton;
+    private Button cancelButton;
 
     private Priority priority;
     private Type type;
@@ -81,10 +93,22 @@ public class AddTask extends Fragment {
     }
 
     private void initialize(View view) {
-        days = new CheckBox[7];
+        today.add(Calendar.DAY_OF_YEAR, 1);
 
         show = AnimationUtils.loadAnimation(getContext(), R.anim.animation_show);
         hide = AnimationUtils.loadAnimation(getContext(), R.anim.animation_hide);
+
+        DatePickerDialog datePicker = new DatePickerDialog(
+                getContext(),
+                (view1, year, month, dayOfMonth) -> {
+                    limit = new Date(year, month, dayOfMonth);
+                    dateLabel.setText(dayOfMonth + " " + getResources().getString(R.string.of) + " " + getResources().getString(Month.fromInt(month).getTextResource()) + " " + getResources().getString(R.string.of) + " " + year);
+                },
+                today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH)
+        );
+        datePicker.getDatePicker().setMinDate(today.getTimeInMillis());
+
+        days = new CheckBox[7];
 
         priority = Priority.high;
         type = Type.goal;
@@ -105,6 +129,8 @@ public class AddTask extends Fragment {
         diary = diaryOrUnique.findViewById(R.id.diary);
         unique = diaryOrUnique.findViewById(R.id.unique);
 
+        dateLabel.setText(today.get(Calendar.DAY_OF_MONTH) + " " + getResources().getString(R.string.of) + " " + getResources().getString(Month.fromInt(today.get(Calendar.MONTH)).getTextResource()) + " " + getResources().getString(R.string.of2) + " " + today.get(Calendar.YEAR));
+
         daysLayout = view.findViewById(R.id.daysLayout);
         dateLayout = view.findViewById(R.id.dateLayout);
 
@@ -115,6 +141,9 @@ public class AddTask extends Fragment {
         days[4] = view.findViewById(R.id.thursday);
         days[5] = view.findViewById(R.id.friday);
         days[6] = view.findViewById(R.id.saturday);
+
+        createButton = view.findViewById(R.id.createButton);
+        cancelButton = view.findViewById(R.id.cancelButton);
 
         priorities = BottomSheetBehavior.from(priorityLayout);
         types = BottomSheetBehavior.from(typeLayout);
@@ -134,17 +163,26 @@ public class AddTask extends Fragment {
         View homework = typeLayout.findViewById(R.id.homework);
         View other = typeLayout.findViewById(R.id.other);
 
+        diary.setEnabled(false);
+        unique.setEnabled(false);
 
         final InputMethodManager input = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        //No se expande con teclado abierto
+
         priorityButton.setOnClickListener(e -> {
-            priorities.setState(BottomSheetBehavior.STATE_EXPANDED);
             types.setState(BottomSheetBehavior.STATE_HIDDEN);
+            priorities.setState(BottomSheetBehavior.STATE_EXPANDED);
             input.hideSoftInputFromWindow(getView().getWindowToken(), 0);
         });
         typeButton.setOnClickListener(e -> {
-            types.setState(BottomSheetBehavior.STATE_EXPANDED);
             priorities.setState(BottomSheetBehavior.STATE_HIDDEN);
+            types.setState(BottomSheetBehavior.STATE_EXPANDED);
             input.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+        });
+
+        dateButton.setOnClickListener(e -> {
+            datePicker.show();
         });
 
         high.setOnClickListener(e -> {
@@ -164,30 +202,62 @@ public class AddTask extends Fragment {
         });
 
         goal.setOnClickListener(e -> {
+            diary.setEnabled(false);
+            unique.setEnabled(false);
             types.setState(BottomSheetBehavior.STATE_HIDDEN);
             type = Type.goal;
-            goalEditText.setVisibility(View.VISIBLE);
-            diaryOrUnique.setVisibility(View.INVISIBLE);
-            daysLayout.setVisibility(View.INVISIBLE);
-            dateLayout.setVisibility(View.VISIBLE);
+            animate(goalEditText, View.VISIBLE);
+            animate(daysLayout, View.INVISIBLE);
+            animate(dateLayout, View.VISIBLE);
+            typeLabel.setText(R.string.goal);
         });
-        activity.setOnClickListener(e -> diary.setChecked(true));
-        homework.setOnClickListener(e -> diary.setChecked(true));
-        other.setOnClickListener(e -> diary.setChecked(true));
+        activity.setOnClickListener(e -> {
+            if (!diary.isEnabled()) diary.setChecked(true);
+            diary.setEnabled(true);
+            unique.setEnabled(true);
+            types.setState(BottomSheetBehavior.STATE_HIDDEN);
+            type = Type.activity;
+            animate(goalEditText, View.INVISIBLE);
+            typeLabel.setText(R.string.activity);
+        });
+        homework.setOnClickListener(e -> {
+            if (!diary.isEnabled()) diary.setChecked(true);
+            diary.setEnabled(true);
+            unique.setEnabled(true);
+            types.setState(BottomSheetBehavior.STATE_HIDDEN);
+            type = Type.homework;
+            animate(goalEditText, View.INVISIBLE);
+            typeLabel.setText(R.string.homework);
+        });
+        other.setOnClickListener(e -> {
+            if (!diary.isEnabled()) diary.setChecked(true);
+            diary.setEnabled(true);
+            unique.setEnabled(true);
+            types.setState(BottomSheetBehavior.STATE_HIDDEN);
+            type = Type.other;
+            animate(goalEditText, View.INVISIBLE);
+            typeLabel.setText(R.string.other);
+        });
         diary.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            diaryOrUnique.setVisibility(View.VISIBLE);
+            animate(diaryOrUnique, View.VISIBLE);
             if (isChecked) {
                 animate(daysLayout, View.VISIBLE);
                 animate(dateLayout, View.INVISIBLE);
             }
         });
         unique.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            diaryOrUnique.setVisibility(View.VISIBLE);
+            animate(diaryOrUnique, View.VISIBLE);
             if (isChecked) {
                 animate(dateLayout, View.VISIBLE);
                 animate(daysLayout, View.INVISIBLE);
             }
         });
+
+        createButton.setOnClickListener(e -> {
+            if (!taskAdded()) return;
+            listener.addingFinished(category);
+        });
+        cancelButton.setOnClickListener(e -> listener.addingFinished(category));
     }
 
     private void animate(View view, int state) {
@@ -205,13 +275,65 @@ public class AddTask extends Fragment {
         }
     }
 
+    private boolean taskAdded() {
+        String name = this.name.getText().toString().trim();
+        String goalStr = goalEditText.getText().toString().trim();
+        if (name.isEmpty()) {
+            Toast.makeText(getContext(), "Complete el campo de nombre", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (goalStr.isEmpty()) {
+            Toast.makeText(getContext(), "Complete el campo de meta", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (type != Type.goal && diary.isChecked()) {
+            boolean oneChecked = false;
+            for (int i = 0; i < 7; i++) {
+                if (this.days[i].isChecked()) {
+                    oneChecked = true;
+                    break;
+                }
+            }
+            if (!oneChecked) {
+                Toast.makeText(getContext(), "Seleccione por lo menos un día", Toast.LENGTH_SHORT).show();
+            }
+        }
+        int goal = Integer.parseInt(goalStr);
+        ArrayList<Integer> days = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            if (this.days[i].isChecked()) {
+                days.add(i);
+            }
+        }
+        Task.add(
+                getContext(),
+                name,
+                this.priority,
+                State.pending,
+                this.type,
+                limit,
+                (this.type == Type.goal),
+                (this.diary.isChecked()),
+                goal,
+                category,
+                days
+        );
+        return true;
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        listener = (OnAddingTaskListener) context;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
+        listener = null;
+    }
+
+    public interface OnAddingTaskListener {
+        void addingFinished(Category category);
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -37,7 +38,6 @@ public class Task extends RealmObject implements Serializable {
     private String type;
     @Required
     private Date limit;
-    private boolean isTimeLimit;
     private boolean haveSteps;
     private boolean diaryTask;
     private int steps;
@@ -47,14 +47,13 @@ public class Task extends RealmObject implements Serializable {
         notes = null;
     }
 
-    public Task(int id, String name, Priority priority, State state, Type type, Date limit, boolean isTimeLimit, boolean haveSteps, boolean diaryTask, int maxSteps, Category category) {
+    public Task(int id, String name, Priority priority, State state, Type type, Date limit, boolean haveSteps, boolean diaryTask, int maxSteps, Category category) {
         this.id = id;
         this.name = name;
         this.priority = priority.toString();
         this.state = state.toString();
         this.type = type.toString();
         this.limit = limit;
-        this.isTimeLimit = isTimeLimit;
         this.haveSteps = haveSteps;
         this.diaryTask = diaryTask;
         this.category = category;
@@ -132,15 +131,6 @@ public class Task extends RealmObject implements Serializable {
 
     public Task setLimit(Date limit) {
         this.limit = limit;
-        return this;
-    }
-
-    public boolean isTimeLimit() {
-        return isTimeLimit;
-    }
-
-    public Task setTimeLimit(boolean timeLimit) {
-        this.isTimeLimit = timeLimit;
         return this;
     }
 
@@ -227,19 +217,18 @@ public class Task extends RealmObject implements Serializable {
             State state,
             Type type,
             Date limit,
-            boolean timeLimit,
             boolean haveSteps,
             boolean diaryTask,
             int maxSteps,
             Category category,
-            Day... days) {
-        final Task task = new Task(Task.generateId(), name, priority, state, type, limit, timeLimit, haveSteps, diaryTask, maxSteps, category);
+            ArrayList<Integer> days) {
+        final Task task = new Task(Task.generateId(), name, priority, state, type, limit, haveSteps, diaryTask, maxSteps, category);
         Realm.getDefaultInstance()
                 .executeTransaction(r -> {
                     try {
                         r.insert(task);
-                        for (Day i : days) {
-                            task.addDay(i.toInt());
+                        for (int i : days) {
+                            task.addDay(i);
                         }
                     } catch (RealmPrimaryKeyConstraintException ignored) {
                         Toast.makeText(context, "ID Ingresado ya existe.", Toast.LENGTH_SHORT).show();
