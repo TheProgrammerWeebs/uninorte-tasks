@@ -11,6 +11,8 @@
     <color name="fish">#bbdefb</color>
     <color name="rooster">#bfe693</color>
 
+    <color name="white">#ffffff</color>
+
     <color name="teal">#008e76</color>
 
     <color name="yellow">#ffab00</color>
@@ -20,6 +22,7 @@
     <color name="darkRed">#ef5350</color>
     <color name="darkRed2">#df4340</color>
     <color name="darkRed3">#962121</color>
+    <color name="darkRedPressed">#de4240</color>
     <color name="green">#00c853</color>
     <color name="green2">#00b843</color>
     <color name="orange">#ff6f00</color>
@@ -29,7 +32,9 @@
 
     <color name="dark">#384248</color>
     <color name="dark2">#283238</color>
+    <color name="darkPressed">#273137</color>
     <color name="light">#eeeeee</color>
     <color name="light2">#d6d6d6</color>
+    <color name="lightPressed">#c0c0c0</color>
 
 </resources>

@@ -25,7 +25,7 @@ public class Task extends RealmObject implements Serializable {
     private int id;
     @Required
     private String name;
-    private RealmList<Category> categories;
+    private Category category;
     @Required
     private String priority;
     @Required
@@ -42,7 +42,7 @@ public class Task extends RealmObject implements Serializable {
     public Task() {
     }
 
-    public Task(int id, String name, Priority priority, State state, Type type, Date limit, boolean isTimeLimit, boolean haveSteps, int maxSteps, Category... categories) {
+    public Task(int id, String name, Priority priority, State state, Type type, Date limit, boolean isTimeLimit, boolean haveSteps, int maxSteps, Category category) {
         this.id = id;
         this.name = name;
         this.priority = priority.toString();
@@ -51,7 +51,7 @@ public class Task extends RealmObject implements Serializable {
         this.limit = limit;
         this.isTimeLimit = isTimeLimit;
         this.haveSteps = haveSteps;
-        this.categories = new RealmList<>();
+        this.category = new RealmList<>();
         this.categories.addAll(Arrays.asList(categories));
         this.steps = 0;
         this.maxSteps = maxSteps;
