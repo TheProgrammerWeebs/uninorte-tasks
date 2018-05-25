@@ -3,6 +3,7 @@ package team.uninortetasks.uninortetasks.Database;
 import android.content.Context;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -18,7 +19,7 @@ import io.realm.annotations.Required;
 import io.realm.exceptions.RealmException;
 import io.realm.exceptions.RealmPrimaryKeyConstraintException;
 
-public class Task extends RealmObject {
+public class Task extends RealmObject implements Serializable {
 
     @PrimaryKey
     private int id;
