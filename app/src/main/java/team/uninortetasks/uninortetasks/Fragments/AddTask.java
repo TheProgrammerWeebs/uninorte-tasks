@@ -193,7 +193,7 @@ public class AddTask extends Fragment {
         medium.setOnClickListener(e -> {
             priorities.setState(BottomSheetBehavior.STATE_HIDDEN);
             priority = Priority.medium;
-            priorityLabel.setText(R.string.medium_priority);
+            priorityLabel.setText(R.string.medium_priority_short);
         });
         low.setOnClickListener(e -> {
             priorities.setState(BottomSheetBehavior.STATE_HIDDEN);
@@ -282,7 +282,7 @@ public class AddTask extends Fragment {
             Toast.makeText(getContext(), "Complete el campo de nombre", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (goalStr.isEmpty()) {
+        if (type == Type.goal && goalStr.isEmpty()) {
             Toast.makeText(getContext(), "Complete el campo de meta", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -296,6 +296,7 @@ public class AddTask extends Fragment {
             }
             if (!oneChecked) {
                 Toast.makeText(getContext(), "Seleccione por lo menos un día", Toast.LENGTH_SHORT).show();
+                return false;
             }
         }
         int goal = Integer.parseInt(goalStr);
@@ -311,11 +312,11 @@ public class AddTask extends Fragment {
                 this.priority,
                 State.pending,
                 this.type,
-                limit,
+                this.limit,
                 (this.type == Type.goal),
                 (this.diary.isChecked()),
                 goal,
-                category,
+                this.category,
                 days
         );
         return true;
