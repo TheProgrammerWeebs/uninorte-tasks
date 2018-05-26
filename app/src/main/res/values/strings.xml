@@ -90,5 +90,6 @@
 
     <string name="of">de</string>
     <string name="of2">del</string>
-    <string name="delete">ELIMINAR</string>
+    <string name="select_your_type">Selecciona el tipo de soñador que eres:</string>
+    <string name="dream_calculator">Calculadora de sueño</string>
 </resources>

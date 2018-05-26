@@ -245,6 +245,7 @@
                     android:layout_height="170dp"
                     android:layout_margin="7dp"
                     android:clickable="true"
+                    android:onClick="onDreamCalculatorClick"
                     android:foreground="?attr/selectableItemBackground"
                     app:cardElevation="4dp">
 
@@ -257,23 +258,22 @@
                         <ImageView
                             android:layout_width="63dp"
                             android:layout_height="63dp"
-                            android:background="@drawable/oval_orange"
                             android:padding="10dp"
-                            android:src="@drawable/ic_categories" />
+                            android:src="@drawable/calculadora" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="7dp"
                             android:layout_marginTop="3dp"
-                            android:text="@string/categories"
-                            android:textSize="17sp"
+                            android:text="@string/dream_calculator"
+                            android:textSize="13sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/tasks_for_today"
+                            android:text="Calcula cuánto vas a dormir y cuánto necesitas dormir"
                             android:textAlignment="center"
                             android:textSize="12sp" />
 

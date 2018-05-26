@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="valores_array">
+        <item>León</item>
+        <item>Lobo</item>
+        <item>Oso</item>
+        <item>Cheetah</item>
+    </string-array>
+    
+</resources>
