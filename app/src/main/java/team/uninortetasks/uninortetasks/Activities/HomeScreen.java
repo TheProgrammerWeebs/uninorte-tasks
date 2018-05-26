@@ -20,6 +20,7 @@ public class HomeScreen extends AppCompatActivity {
         startActivity(new Intent(this, TasksScreen.class));
     }
 
+
     public void onCategoriesClick(View view) {
     }
 

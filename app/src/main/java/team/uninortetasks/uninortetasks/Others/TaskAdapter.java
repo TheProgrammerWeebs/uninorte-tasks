@@ -36,12 +36,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     }
 
     private void showDialog(int pos) {
-
-
-
-
-
-
         Task task = data.get(pos);
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_task);
@@ -53,7 +47,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         TextView progress = dialog.findViewById(R.id.progress);
         Button report = dialog.findViewById(R.id.report);
         report.setEnabled(task.getMaxSteps() > task.getSteps());
-
         dialog.show();
     }
 
