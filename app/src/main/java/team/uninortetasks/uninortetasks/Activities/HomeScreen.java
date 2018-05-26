@@ -20,7 +20,7 @@ public class HomeScreen extends AppCompatActivity {
         startActivity(new Intent(this, TasksScreen.class));
     }
 
-    public void onCategoriesClick(View view) {
+    public void onCategoriesClick(View view) { startActivity(new Intent(this, DreamCalculatorScreen.class));
     }
 
     public void onForTodayClick(View view) {
