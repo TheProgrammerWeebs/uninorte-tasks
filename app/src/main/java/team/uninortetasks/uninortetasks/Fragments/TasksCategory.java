@@ -1,9 +1,11 @@
 package team.uninortetasks.uninortetasks.Fragments;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,9 +46,26 @@ public class TasksCategory extends Fragment {
 
     private void initialize(View view) {
         tasksList = view.findViewById(R.id.tasksList);
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
 
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+
+            }
+
+            @Override
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive){
+
+            }
+        };
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(tasksList);
         tasksList.setAdapter(new TaskAdapter(getContext(), category.getTasks()));
     }
+
 
     @Override
     public void onAttach(Context context) {
