@@ -64,13 +64,15 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         notifyItemInserted(position);
     }
 
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         private FrameLayout root;
+        private FrameLayout foreground;
         private TextView taskName;
         private TextView priority;
-        //private TextView state;
         private TextView taskDate;
+
+        //private TextView state;
+
         //private TextView progress;
 
         public ViewHolder(View itemView) {
@@ -82,6 +84,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             //state = itemView.findViewById(R.id.state);
             //date = itemView.findViewById(R.id.date);
             //progress = itemView.findViewById(R.id.progress);
+        }
+
+        public FrameLayout getForeground() {
+            return foreground;
         }
     }
 
