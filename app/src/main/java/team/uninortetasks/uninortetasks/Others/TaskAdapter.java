@@ -43,7 +43,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         holder.taskName.setText(data.get(position).getName());
         holder.taskDate.setText(getDate(data.get(position)));
         holder.priority.setBackgroundColor(data.get(position).getPriority().getColor());
@@ -87,7 +86,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
         public ViewHolder(View itemView) {
             super(itemView);
-            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             taskName = itemView.findViewById(R.id.task_name);
             taskDate = itemView.findViewById(R.id.task_date);
             priority = itemView.findViewById(R.id.priority);
