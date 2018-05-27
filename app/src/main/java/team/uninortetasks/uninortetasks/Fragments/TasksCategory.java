@@ -61,15 +61,9 @@ public class TasksCategory extends Fragment implements RecyclerItemTouchHelper.R
     private void initialize(View view) {
         System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa - task category");
         Category category = Category.get(categoryId);
-//        int id, String name, Priority priority, State state, Type type, Date limit, boolean haveSteps, boolean diaryTask, int maxSteps, Category category
-//        Realm realm = Realm.getDefaultInstance();
-//        realm.beginTransaction();
-//        category.getTasks().add(new Task(1, "probar", Priority.high, State.pending, Type.homework, new Date(), false, false, 0, category));
-//        realm.commitTransaction();
         tasksList = view.findViewById(R.id.tasksList);
         coordinatorLayout = view.findViewById(R.id.coordinator_layout);
         adapter = new TaskAdapter(getContext(), category.getTasks());
-        System.out.println(category.getTasks().isEmpty());
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getActivity().getApplicationContext());
         tasksList.setLayoutManager(manager);
         tasksList.setItemAnimator(new DefaultItemAnimator());
@@ -93,13 +87,16 @@ public class TasksCategory extends Fragment implements RecyclerItemTouchHelper.R
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+        System.out.println("Swiped");
         if (viewHolder instanceof TaskAdapter.ViewHolder) {
+            System.out.println("Is a viewholder");
             Category category = Category.get(categoryId);
             int deletedPosition = viewHolder.getAdapterPosition();
             Task task = category.getTasks().get(deletedPosition);
             String name = task.getName();
             adapter.removeTask(deletedPosition);
             Snackbar snackbar = Snackbar.make(coordinatorLayout, name + getString(R.string.deleted), Snackbar.LENGTH_LONG);
+            snackbar.show();
             snackbar.setAction(getString(R.string.undo), view -> adapter.restoreTask(task, deletedPosition));
         }
     }
