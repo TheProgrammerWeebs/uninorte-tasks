@@ -23,7 +23,7 @@
             android:textColor="@color/light" />
 
         <TextView
-            android:id="@+id/priority"
+            android:id="@+id/task_priority"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Priority"
