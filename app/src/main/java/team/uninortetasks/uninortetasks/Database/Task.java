@@ -109,7 +109,8 @@ public class Task extends RealmObject {
         Realm.getDefaultInstance()
                 .executeTransaction(r -> {
                     try {
-                        r.insert(task);
+                        r.copyToRealm(task);
+                        category.addTask(task);
                         for (int i : days) {
                             task.addDay(i);
                         }
