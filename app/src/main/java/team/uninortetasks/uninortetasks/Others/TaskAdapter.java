@@ -31,7 +31,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.banner_task, parent, false);
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        View view = LayoutInflater.from(context).inflate(R.layout.task_view_layout, parent, false);
         ViewHolder v = new ViewHolder(view);
         final int pos = v.getAdapterPosition();
         v.root.setOnClickListener(e -> showDialog(pos));
@@ -40,6 +41,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         holder.taskName.setText(data.get(position).getName());
         holder.taskDate.setText(getDate(data.get(position)));
         holder.priority.setBackgroundColor(data.get(position).getPriority().getColor());
@@ -77,10 +79,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
         public ViewHolder(View itemView) {
             super(itemView);
+            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
             taskName = itemView.findViewById(R.id.task_name);
             taskDate = itemView.findViewById(R.id.task_date);
             priority = itemView.findViewById(R.id.priority);
             root = itemView.findViewById(R.id.parent);
+            foreground = itemView.findViewById(R.id.foreground);
             //state = itemView.findViewById(R.id.state);
             //date = itemView.findViewById(R.id.date);
             //progress = itemView.findViewById(R.id.progress);

@@ -54,6 +54,7 @@ public class TasksCategory extends Fragment implements RecyclerItemTouchHelper.R
     }
 
     private void initialize(View view) {
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa - task category");
         tasksList = view.findViewById(R.id.tasksList);
         coordinatorLayout = view.findViewById(R.id.coordinator_layout);
         adapter = new TaskAdapter(getContext(), category.getTasks());

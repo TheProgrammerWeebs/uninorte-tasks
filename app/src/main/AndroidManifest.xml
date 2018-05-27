@@ -14,7 +14,6 @@
             android:theme="@style/Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -22,6 +21,8 @@
         <activity
             android:name=".Activities.TasksScreen"
             android:theme="@style/redTheme" />
+        <activity android:name=".Activities.DreamCalculatorScreen"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 
 </manifest>
