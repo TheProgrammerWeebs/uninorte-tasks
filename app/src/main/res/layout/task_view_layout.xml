@@ -14,7 +14,7 @@
             android:id="@+id/image_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
             android:layout_centerInParent="true"
             android:layout_margin="10dp"
             android:src="@drawable/ic_delete" />
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/image_delete"
+            android:layout_toRightOf="@+id/image_delete"
             android:text="@string/delete"
             android:textColor="@color/white"
             android:textStyle="bold" />
@@ -51,6 +51,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text=""
+            android:textColor="@color/dark"
             android:textSize="16dp" />
 
         <TextView
@@ -61,8 +62,10 @@
             android:layout_marginBottom="6dp"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/priority"
-            android:text="" />
+            android:text=""
+            android:textColor="@color/dark" />
 
     </RelativeLayout>
+
 
 </FrameLayout>

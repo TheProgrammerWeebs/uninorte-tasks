@@ -75,7 +75,7 @@ public class TasksCategory extends Fragment implements RecyclerItemTouchHelper.R
         tasksList.setItemAnimator(new DefaultItemAnimator());
         tasksList.addItemDecoration(new DividerItemDecoration(this.getContext(), DividerItemDecoration.VERTICAL));
         tasksList.setAdapter(adapter);
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.RIGHT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(tasksList);
     }
 
