@@ -45,7 +45,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.taskName.setText(data.get(position).getName());
         holder.taskDate.setText(getDate(data.get(position)));
-        holder.priority.setBackgroundColor(data.get(position).getPriority().getColor());
+        holder.priority.setBackgroundColor(context.getResources().getColor(data.get(position).getPriority().getColor()));
         //holder.priority.setText(data.get(position).getPriority().toString());
         //holder.state.setText(data.get(position).getState().toString());
         //holder.date.setText(data.get(position).getLimit().toString());
@@ -57,7 +57,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         return data.size();
     }
 
-    public void removeTask(int position){
+    public void removeTask(int position) {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         data.remove(position);
@@ -65,7 +65,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         this.notifyItemRemoved(position);
     }
 
-    public void restoreTask(Task task, int position){
+    public void restoreTask(Task task, int position) {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         data.add(position, task);
@@ -101,12 +101,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         }
     }
 
-    private String getDate(Task task){
+    private String getDate(Task task) {
         String dia = "";
         String mes = "";
         Calendar sieteDias = Calendar.getInstance();
         sieteDias.add(Calendar.DATE, 7);
-        if (task.getLimit().equals(new Date())){
+        if (task.getLimit().equals(new Date())) {
             dia = "hoy";
         } else if (isDateInRange(task.getLimit(), Calendar.getInstance().getTime(), sieteDias.getTime())) {
             switch (task.getLimit().getDay()) {
@@ -132,9 +132,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                     dia = context.getString(R.string.saturday);
                     break;
             }
-        }else{
+        } else {
             dia = task.getLimit().getDate() + " de ";
-            switch (task.getLimit().getMonth()){
+            switch (task.getLimit().getMonth()) {
                 case 0:
                     mes = context.getString(R.string.january);
                     break;
@@ -179,6 +179,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     private boolean isDateInRange(Date date, Date first, Date last) {
         return (date.before(last) && date.after(first));
     }
+
     private void showDialog(int pos) {
         Task task = data.get(pos);
         Dialog dialog = new Dialog(context);

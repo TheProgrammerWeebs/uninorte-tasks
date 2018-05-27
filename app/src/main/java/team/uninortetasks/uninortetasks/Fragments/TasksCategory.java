@@ -1,6 +1,5 @@
 package team.uninortetasks.uninortetasks.Fragments;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -61,11 +60,11 @@ public class TasksCategory extends Fragment implements RecyclerItemTouchHelper.R
     }
 
     private void initialize(View view) {
-//        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa - task category");
+        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa - task category");
 //        int id, String name, Priority priority, State state, Type type, Date limit, boolean haveSteps, boolean diaryTask, int maxSteps, Category category
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
-        category.getTasks().add(new Task(1, "xdxdxdxd", Priority.high, State.pending, Type.homework, new Date() ,false, false, 0, category));
+        category.getTasks().add(new Task(1, "probar", Priority.high, State.pending, Type.homework, new Date() ,false, false, 0, category));
         realm.commitTransaction();
         tasksList = view.findViewById(R.id.tasksList);
         coordinatorLayout = view.findViewById(R.id.coordinator_layout);
@@ -76,7 +75,7 @@ public class TasksCategory extends Fragment implements RecyclerItemTouchHelper.R
         tasksList.setItemAnimator(new DefaultItemAnimator());
         tasksList.addItemDecoration(new DividerItemDecoration(this.getContext(), DividerItemDecoration.VERTICAL));
         tasksList.setAdapter(adapter);
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, this);
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(tasksList);
     }
 
