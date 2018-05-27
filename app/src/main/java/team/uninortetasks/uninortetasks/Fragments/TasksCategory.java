@@ -30,7 +30,7 @@ import team.uninortetasks.uninortetasks.R;
 public class TasksCategory extends Fragment implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
 
     private Category category;
-    private OnTasksCategoryListener mListener;
+    transient private OnTasksCategoryListener mListener;
     private RecyclerView tasksList;
     private TaskAdapter adapter;
     private CoordinatorLayout coordinatorLayout;
