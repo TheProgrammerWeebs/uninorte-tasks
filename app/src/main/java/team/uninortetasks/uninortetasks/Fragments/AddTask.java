@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -40,8 +41,8 @@ public class AddTask extends Fragment {
     private Category category;
     private BottomSheetBehavior priorities;
     private BottomSheetBehavior types;
-    private View priorityLayout;
-    private View typeLayout;
+    private LinearLayout priorityLayout;
+    private LinearLayout typeLayout;
 
     private View dateLayout;
     private View daysLayout;
@@ -93,8 +94,6 @@ public class AddTask extends Fragment {
     }
 
     private void initialize(View view) {
-        today.add(Calendar.DAY_OF_YEAR, 1);
-
         show = AnimationUtils.loadAnimation(getContext(), R.anim.animation_show);
         hide = AnimationUtils.loadAnimation(getContext(), R.anim.animation_hide);
 
@@ -171,19 +170,17 @@ public class AddTask extends Fragment {
         //No se expande con teclado abierto
 
         priorityButton.setOnClickListener(e -> {
-            types.setState(BottomSheetBehavior.STATE_HIDDEN);
-            priorities.setState(BottomSheetBehavior.STATE_EXPANDED);
             input.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                types.setState(BottomSheetBehavior.STATE_HIDDEN);
+                priorities.setState(BottomSheetBehavior.STATE_EXPANDED);
         });
         typeButton.setOnClickListener(e -> {
-            priorities.setState(BottomSheetBehavior.STATE_HIDDEN);
-            types.setState(BottomSheetBehavior.STATE_EXPANDED);
             input.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+                priorities.setState(BottomSheetBehavior.STATE_HIDDEN);
+                types.setState(BottomSheetBehavior.STATE_EXPANDED);
         });
 
-        dateButton.setOnClickListener(e -> {
-            datePicker.show();
-        });
+        dateButton.setOnClickListener(e -> datePicker.show());
 
         high.setOnClickListener(e -> {
             priorities.setState(BottomSheetBehavior.STATE_HIDDEN);
@@ -278,6 +275,7 @@ public class AddTask extends Fragment {
     private boolean taskAdded() {
         String name = this.name.getText().toString().trim();
         String goalStr = goalEditText.getText().toString().trim();
+        int goal;
         if (name.isEmpty()) {
             Toast.makeText(getContext(), "Complete el campo de nombre", Toast.LENGTH_SHORT).show();
             return false;
@@ -285,6 +283,12 @@ public class AddTask extends Fragment {
         if (type == Type.goal && goalStr.isEmpty()) {
             Toast.makeText(getContext(), "Complete el campo de meta", Toast.LENGTH_SHORT).show();
             return false;
+        } else {
+            if (type == Type.goal) {
+                goal = Integer.parseInt(goalStr);
+            } else {
+                goal = 0;
+            }
         }
         if (type != Type.goal && diary.isChecked()) {
             boolean oneChecked = false;
@@ -299,7 +303,6 @@ public class AddTask extends Fragment {
                 return false;
             }
         }
-        int goal = Integer.parseInt(goalStr);
         ArrayList<Integer> days = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
             if (this.days[i].isChecked()) {
@@ -319,6 +322,7 @@ public class AddTask extends Fragment {
                 this.category,
                 days
         );
+        Toast.makeText(getContext(), "Tarea agregada exitosamente", Toast.LENGTH_SHORT).show();
         return true;
     }
 

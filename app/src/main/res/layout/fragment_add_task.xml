@@ -6,14 +6,13 @@
     android:orientation="vertical"
     tools:context=".Fragments.AddTask">
 
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <!--<android.support.v4.widget.NestedScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="30dp">
 
@@ -123,14 +122,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="30dp"
-                    android:text="@string/diary_task" />
+                    android:text="@string/diary_task"
+                    android:theme="@style/themeLight" />
 
                 <RadioButton
                     android:id="@+id/unique"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="@string/unique_task" />
+                    android:text="@string/unique_task"
+                    android:theme="@style/themeLight" />
 
             </RadioGroup>
 
@@ -157,41 +158,47 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="@string/monday" />
+                            android:text="@string/monday"
+                            android:theme="@style/themeLight" />
 
                         <CheckBox
                             android:id="@+id/tuesday"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="@string/tuesday" />
+                            android:text="@string/tuesday"
+                            android:theme="@style/themeLight" />
 
                         <CheckBox
                             android:id="@+id/wednesday"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/wednesday" />
+                            android:text="@string/wednesday"
+                            android:theme="@style/themeLight" />
 
                         <CheckBox
                             android:id="@+id/thursday"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="@string/thursday" />
+                            android:text="@string/thursday"
+                            android:theme="@style/themeLight" />
 
                         <CheckBox
                             android:id="@+id/friday"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="@string/friday" />
+                            android:text="@string/friday"
+                            android:theme="@style/themeLight" />
 
                         <CheckBox
                             android:id="@+id/saturday"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="@string/saturday" />
+                            android:text="@string/saturday"
+                            android:theme="@style/themeLight" />
 
                     </GridLayout>
 
@@ -200,42 +207,37 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/sunday" />
+                        android:text="@string/sunday"
+                        android:theme="@style/themeLight" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/dateLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <Button
+                        android:id="@+id/dateButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:background="@drawable/background_button_light"
+                        android:hapticFeedbackEnabled="true"
+                        android:paddingEnd="8dp"
+                        android:paddingStart="8dp"
+                        android:text="@string/limit_date" />
+
+                    <TextView
+                        android:id="@+id/dateLabel"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical"
-                        android:padding="8dp">
-
-                        <Button
-                            android:id="@+id/dateButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="35dp"
-                            android:background="@drawable/background_button_light"
-                            android:hapticFeedbackEnabled="true"
-                            android:paddingEnd="8dp"
-                            android:paddingStart="8dp"
-                            android:text="@string/limit_date" />
-
-                        <TextView
-                            android:id="@+id/dateLabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text=""
-                            android:textSize="20sp"
-                            android:textStyle="italic" />
-
-                    </LinearLayout>
+                        android:layout_marginTop="5dp"
+                        android:text=""
+                        android:textSize="20sp"
+                        android:textStyle="italic" />
 
                 </LinearLayout>
 
@@ -244,7 +246,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:gravity="center">
 
                 <Button
@@ -259,17 +261,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:layout_marginStart="15dp"
-                    android:background="@drawable/background_button_dark"
                     android:elevation="3dp"
                     android:padding="8dp"
+                    android:textColor="@color/dark"
                     android:text="@string/create_category"
-                    android:textColor="@color/light" />
+                    android:textStyle="bold"
+                    style="?attr/buttonBarPositiveButtonStyle"/>
 
             </LinearLayout>
 
         </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+    <!--</android.support.v4.widget.NestedScrollView>-->
 
     <include layout="@layout/selector_priority" />
 

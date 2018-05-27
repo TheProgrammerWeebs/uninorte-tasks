@@ -23,18 +23,16 @@ public class Category extends RealmObject implements Serializable {
     @Required
     private String name;
     private int icon;
-    private int color2;
-    private int color;
+    private int style;
     private RealmList<Task> tasks;
 
     public Category() {
     }
 
-    public Category(int id, int icon, int color, int color2, String name) {
+    public Category(int id, int icon, int style, String name) {
         this.id = id;
         this.icon = icon;
-        this.color = color;
-        this.color2 = color2;
+        this.style = style;
         this.name = name;
         this.tasks = new RealmList<>();
     }
@@ -77,21 +75,12 @@ public class Category extends RealmObject implements Serializable {
         return this;
     }
 
-    public int getColor() {
-        return this.color;
+    public int getStyle() {
+        return this.style;
     }
 
-    public Category setColor(int color) {
-        this.color = color;
-        return this;
-    }
-
-    public int getColor2() {
-        return this.color2;
-    }
-
-    public Category setColor2(int color2) {
-        this.color2 = color2;
+    public Category setStyle(int style) {
+        this.style = style;
         return this;
     }
 
@@ -130,8 +119,8 @@ public class Category extends RealmObject implements Serializable {
      * @param context Contexto del que se llama al método (Activity).
      * @param name    Nombre de la tarea.
      */
-    public static Category add(final Context context, String name, int icon, int color, int color2) {
-        final Category category = new Category(Category.generateId(), icon, color, color2, name);
+    public static Category add(final Context context, String name, int icon, int style) {
+        final Category category = new Category(Category.generateId(), icon, style, name);
         Realm.getDefaultInstance()
                 .executeTransaction(r -> {
                     try {

@@ -35,6 +35,7 @@ public class TasksScreen extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.redTheme);
         setContentView(R.layout.screen_tasks);
 
         actionBar = getSupportActionBar();
@@ -75,8 +76,7 @@ public class TasksScreen extends AppCompatActivity implements
         menu.add(R.string.for_today).setIcon(R.drawable.ic_today).setOnMenuItemClickListener(item -> {
             currentCategoryIndex = -1;
             actionBar.setTitle(R.string.for_today);
-            window.setStatusBarColor(getResources().getColor(R.color.darkRed2));
-            actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.darkRed)));
+            setStyle(R.style.redTheme);
             loadView(null);
             item.setChecked(true);
             root.closeDrawers();
@@ -89,8 +89,7 @@ public class TasksScreen extends AppCompatActivity implements
             menu.add(cat.getName()).setIcon(cat.getIcon()).setOnMenuItemClickListener(item -> {
                 currentCategoryIndex = temp;
                 System.out.println("Seteado a " + currentCategoryIndex);
-                actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(cat.getColor())));
-                window.setStatusBarColor(getResources().getColor(cat.getColor2()));
+                setStyle(cat.getStyle());
                 actionBar.setTitle(cat.getName());
                 loadView(cat);
                 item.setChecked(true);
@@ -106,8 +105,7 @@ public class TasksScreen extends AppCompatActivity implements
         menu.add("");
         menu.add(R.string.add_category).setIcon(R.drawable.ic_add).setOnMenuItemClickListener(item -> {
             actionBar.setTitle(R.string.add_category);
-            window.setStatusBarColor(getResources().getColor(R.color.dark2));
-            actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.dark)));
+            setStyle(R.style.themeDark);
             fragmentManager.beginTransaction().replace(R.id.tasksContent, new AddCategory()).commit();
             root.closeDrawers();
             return true;
@@ -115,19 +113,41 @@ public class TasksScreen extends AppCompatActivity implements
         menu.add(R.string.edit_category).setIcon(R.drawable.ic_edit).setOnMenuItemClickListener(item -> {
 
             actionBar.setTitle(R.string.edit_category);
-            window.setStatusBarColor(getResources().getColor(R.color.dark2));
-            actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.dark)));
             root.closeDrawers();
             return true;
         });
         menu.add(R.string.delete_category).setIcon(R.drawable.ic_delete).setOnMenuItemClickListener(item -> {
 
             actionBar.setTitle(R.string.delete_category);
-            window.setStatusBarColor(getResources().getColor(R.color.dark2));
-            actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.dark)));
             root.closeDrawers();
             return true;
         });
+    }
+
+    private void setStyle(int resource) {
+        setTheme(resource);
+        switch (resource) {
+            case R.style.greenTheme:
+                window.setStatusBarColor(getResources().getColor(R.color.green2));
+                actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.green)));
+                break;
+            case R.style.redTheme:
+                window.setStatusBarColor(getResources().getColor(R.color.darkRed2));
+                actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.darkRed)));
+                break;
+            case R.style.cyanTheme:
+                window.setStatusBarColor(getResources().getColor(R.color.cyan2));
+                actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.cyan)));
+                break;
+            case R.style.purpleTheme:
+                window.setStatusBarColor(getResources().getColor(R.color.purple2));
+                actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.purple)));
+                break;
+            case R.style.orangeTheme:
+                window.setStatusBarColor(getResources().getColor(R.color.orange2));
+                actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.orange)));
+                break;
+        }
     }
 
     private void loadView(Category category) {

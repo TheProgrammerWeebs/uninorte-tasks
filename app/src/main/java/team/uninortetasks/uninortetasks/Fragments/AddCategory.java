@@ -31,8 +31,7 @@ public class AddCategory extends Fragment {
     private View selectedColor;
     private ImageView selectedIcon;
     private EditText name;
-    private int color;
-    private int color2;
+    private int style;
     private int icon;
 
     public AddCategory() {
@@ -52,8 +51,7 @@ public class AddCategory extends Fragment {
 
     private void initialize(View view) {
         icon = R.drawable.ic_item;
-        color = R.color.darkRed;
-        color2 = R.color.darkRed2;
+        style = R.style.redTheme;
 
         colorsLayout = view.findViewById(R.id.colorSelector);
         iconsLayout = view.findViewById(R.id.iconSelector);
@@ -98,11 +96,11 @@ public class AddCategory extends Fragment {
             icons.setState(BottomSheetBehavior.STATE_EXPANDED);
         });
 
-        red.setOnClickListener(getDefaultColorListener(R.drawable.oval_dark_red, R.color.darkRed, R.color.darkRed2));
-        orange.setOnClickListener(getDefaultColorListener(R.drawable.oval_orange, R.color.orange, R.color.orange2));
-        green.setOnClickListener(getDefaultColorListener(R.drawable.oval_green, R.color.green, R.color.green2));
-        cyan.setOnClickListener(getDefaultColorListener(R.drawable.oval_cyan, R.color.cyan, R.color.cyan2));
-        purple.setOnClickListener(getDefaultColorListener(R.drawable.oval_purple, R.color.purple, R.color.purple2));
+        red.setOnClickListener(getDefaultColorListener(R.drawable.oval_dark_red, R.style.redTheme));
+        orange.setOnClickListener(getDefaultColorListener(R.drawable.oval_orange, R.style.orangeTheme));
+        green.setOnClickListener(getDefaultColorListener(R.drawable.oval_green, R.style.greenTheme));
+        cyan.setOnClickListener(getDefaultColorListener(R.drawable.oval_cyan, R.style.cyanTheme));
+        purple.setOnClickListener(getDefaultColorListener(R.drawable.oval_purple, R.style.purpleTheme));
         backColors.setOnClickListener(e -> colors.setState(BottomSheetBehavior.STATE_HIDDEN));
 
         icon1.setOnClickListener(getDefaultIconClickListener(R.drawable.ic_item));
@@ -123,15 +121,14 @@ public class AddCategory extends Fragment {
                 Toast.makeText(getContext(), "Seleccione un nombre para la categoría", Toast.LENGTH_SHORT).show();
                 return;
             }
-            listener.onAddingOkay(Category.add(getContext(), name, this.icon, this.color, this.color2));
+            listener.onAddingOkay(Category.add(getContext(), name, this.icon, this.style));
         });
     }
 
-    private View.OnClickListener getDefaultColorListener(int drawable, int color, int color2) {
+    private View.OnClickListener getDefaultColorListener(int drawable, int style) {
         return (e -> {
             selectedColor.setBackground(getResources().getDrawable(drawable));
-            this.color = color;
-            this.color2 = color2;
+            this.style = style;
             colors.setState(BottomSheetBehavior.STATE_HIDDEN);
         });
     }
