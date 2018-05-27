@@ -15,8 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Date;
+
+import io.realm.Realm;
 import team.uninortetasks.uninortetasks.Database.Category;
+import team.uninortetasks.uninortetasks.Database.Priority;
+import team.uninortetasks.uninortetasks.Database.State;
 import team.uninortetasks.uninortetasks.Database.Task;
+import team.uninortetasks.uninortetasks.Database.Type;
 import team.uninortetasks.uninortetasks.Others.RecyclerItemTouchHelper;
 import team.uninortetasks.uninortetasks.Others.TaskAdapter;
 import team.uninortetasks.uninortetasks.R;
@@ -55,9 +61,15 @@ public class TasksCategory extends Fragment implements RecyclerItemTouchHelper.R
 
     private void initialize(View view) {
         System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa - task category");
+//        int id, String name, Priority priority, State state, Type type, Date limit, boolean haveSteps, boolean diaryTask, int maxSteps, Category category
+//        Realm realm = Realm.getDefaultInstance();
+//        realm.beginTransaction();
+//        category.getTasks().add(new Task(1, "probar", Priority.high, State.pending, Type.homework, new Date() ,false, false, 0, category));
+//        realm.commitTransaction();
         tasksList = view.findViewById(R.id.tasksList);
         coordinatorLayout = view.findViewById(R.id.coordinator_layout);
         adapter = new TaskAdapter(getContext(), category.getTasks());
+        System.out.println(category.getTasks().isEmpty());
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getActivity().getApplicationContext());
         tasksList.setLayoutManager(manager);
         tasksList.setItemAnimator(new DefaultItemAnimator());

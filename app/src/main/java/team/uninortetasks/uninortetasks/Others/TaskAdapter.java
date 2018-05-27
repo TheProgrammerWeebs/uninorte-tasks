@@ -9,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.Date;
 
+import io.realm.Realm;
 import io.realm.RealmList;
 import team.uninortetasks.uninortetasks.Database.Task;
 import team.uninortetasks.uninortetasks.R;
@@ -57,20 +59,26 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     }
 
     public void removeTask(int position){
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
         data.remove(position);
+        realm.commitTransaction();
         this.notifyItemRemoved(position);
     }
 
     public void restoreTask(Task task, int position){
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
         data.add(position, task);
+        realm.commitTransaction();
         notifyItemInserted(position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private FrameLayout root;
-        private FrameLayout foreground;
+        private RelativeLayout foreground;
         private TextView taskName;
-        private TextView priority;
+        private View priority;
         private TextView taskDate;
 
         //private TextView state;
@@ -90,7 +98,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             //progress = itemView.findViewById(R.id.progress);
         }
 
-        public FrameLayout getForeground() {
+        public RelativeLayout getForeground() {
             return foreground;
         }
     }
