@@ -38,7 +38,7 @@ public class AddTask extends Fragment {
 
     private Calendar today = Calendar.getInstance();
 
-    private Category category;
+    private int categoryId;
     private BottomSheetBehavior priorities;
     private BottomSheetBehavior types;
     private LinearLayout priorityLayout;
@@ -75,7 +75,7 @@ public class AddTask extends Fragment {
     public static AddTask newInstance(Category category) {
         AddTask fragment = new AddTask();
         Bundle args = new Bundle();
-        args.putSerializable("category", category);
+        args.putInt("category", category.getId());
         fragment.setArguments(args);
         return fragment;
     }
@@ -83,7 +83,7 @@ public class AddTask extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.category = (Category) getArguments().getSerializable("category");
+        this.categoryId = getArguments().getInt("category");
     }
 
     @Override
@@ -171,13 +171,13 @@ public class AddTask extends Fragment {
 
         priorityButton.setOnClickListener(e -> {
             input.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                types.setState(BottomSheetBehavior.STATE_HIDDEN);
-                priorities.setState(BottomSheetBehavior.STATE_EXPANDED);
+            types.setState(BottomSheetBehavior.STATE_HIDDEN);
+            priorities.setState(BottomSheetBehavior.STATE_EXPANDED);
         });
         typeButton.setOnClickListener(e -> {
             input.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                priorities.setState(BottomSheetBehavior.STATE_HIDDEN);
-                types.setState(BottomSheetBehavior.STATE_EXPANDED);
+            priorities.setState(BottomSheetBehavior.STATE_HIDDEN);
+            types.setState(BottomSheetBehavior.STATE_EXPANDED);
         });
 
         dateButton.setOnClickListener(e -> datePicker.show());
@@ -252,9 +252,9 @@ public class AddTask extends Fragment {
 
         createButton.setOnClickListener(e -> {
             if (!taskAdded()) return;
-            listener.addingFinished(category);
+            listener.addingFinished(Category.get(categoryId));
         });
-        cancelButton.setOnClickListener(e -> listener.addingFinished(category));
+        cancelButton.setOnClickListener(e -> listener.addingFinished(Category.get(categoryId)));
     }
 
     private void animate(View view, int state) {
@@ -319,7 +319,7 @@ public class AddTask extends Fragment {
                 (this.type == Type.goal),
                 (this.diary.isChecked()),
                 goal,
-                this.category,
+                Category.get(categoryId),
                 days
         );
         Toast.makeText(getContext(), "Tarea agregada exitosamente", Toast.LENGTH_SHORT).show();

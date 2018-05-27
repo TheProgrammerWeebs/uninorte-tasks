@@ -1,7 +1,6 @@
 package team.uninortetasks.uninortetasks.Fragments;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -29,8 +28,8 @@ import team.uninortetasks.uninortetasks.R;
 
 public class TasksCategory extends Fragment implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
 
-    private Category category;
-    transient private OnTasksCategoryListener mListener;
+    private int categoryId;
+    private OnTasksCategoryListener mListener;
     private RecyclerView tasksList;
     private TaskAdapter adapter;
     private CoordinatorLayout coordinatorLayout;
@@ -41,7 +40,7 @@ public class TasksCategory extends Fragment implements RecyclerItemTouchHelper.R
     public static TasksCategory newInstance(Category category) {
         TasksCategory fragment = new TasksCategory();
         Bundle args = new Bundle();
-        args.putSerializable("category", category);
+        args.putInt("category", category.getId());
         fragment.setArguments(args);
         return fragment;
     }
@@ -49,7 +48,7 @@ public class TasksCategory extends Fragment implements RecyclerItemTouchHelper.R
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        category = (Category) getArguments().getSerializable("category");
+        categoryId = getArguments().getInt("category");
     }
 
     @Override
@@ -61,10 +60,11 @@ public class TasksCategory extends Fragment implements RecyclerItemTouchHelper.R
 
     private void initialize(View view) {
         System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa - task category");
+        Category category = Category.get(categoryId);
 //        int id, String name, Priority priority, State state, Type type, Date limit, boolean haveSteps, boolean diaryTask, int maxSteps, Category category
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
-        category.getTasks().add(new Task(1, "probar", Priority.high, State.pending, Type.homework, new Date() ,false, false, 0, category));
+        category.getTasks().add(new Task(1, "probar", Priority.high, State.pending, Type.homework, new Date(), false, false, 0, category));
         realm.commitTransaction();
         tasksList = view.findViewById(R.id.tasksList);
         coordinatorLayout = view.findViewById(R.id.coordinator_layout);
@@ -93,7 +93,8 @@ public class TasksCategory extends Fragment implements RecyclerItemTouchHelper.R
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-        if (viewHolder instanceof TaskAdapter.ViewHolder){
+        if (viewHolder instanceof TaskAdapter.ViewHolder) {
+            Category category = Category.get(categoryId);
             int deletedPosition = viewHolder.getAdapterPosition();
             Task task = category.getTasks().get(deletedPosition);
             String name = task.getName();

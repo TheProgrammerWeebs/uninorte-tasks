@@ -3,7 +3,6 @@ package team.uninortetasks.uninortetasks.Database;
 import android.content.Context;
 import android.widget.Toast;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,14 +19,15 @@ import io.realm.annotations.Required;
 import io.realm.exceptions.RealmException;
 import io.realm.exceptions.RealmPrimaryKeyConstraintException;
 
-public class Task extends RealmObject implements Serializable {
+public class Task extends RealmObject {
 
+    private static RealmResults<Task> all;
+    @LinkingObjects("task")
+    private final RealmResults<Note> notes;
     @PrimaryKey
     private int id;
     @Required
     private String name;
-    @LinkingObjects("task")
-    private final RealmResults<Note> notes;
     private RealmList<Integer> days;
     private Category category;
     @Required
@@ -62,123 +62,6 @@ public class Task extends RealmObject implements Serializable {
         this.days = new RealmList<>();
         notes = null;
     }
-
-    public Task addNote(Note note) {
-        this.notes.add(note);
-        return this;
-    }
-
-    public Task addDay(int day) {
-        days.add(day);
-        return this;
-    }
-
-    public int getId() {
-        return this.id;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public Task setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public RealmResults<Note> getNotes() {
-        return this.notes;
-    }
-
-    public Day[] getDays() {
-        return Day.toArray(this.days);
-    }
-
-    public Category getCategory() {
-        return this.category;
-    }
-
-    public Priority getPriority() {
-        return Priority.fromString(this.priority);
-    }
-
-    public Task setPriority(Priority priority) {
-        this.priority = priority.toString();
-        return this;
-    }
-
-    public State getState() {
-        return State.fromString(this.state);
-    }
-
-    public Task setState(State state) {
-        this.state = state.toString();
-        return this;
-    }
-
-    public Type getType() {
-        return Type.fromString(this.type);
-    }
-
-    public Task setType(Type type) {
-        this.type = type.toString();
-        return this;
-    }
-
-    public Date getLimit() {
-        return this.limit;
-    }
-
-    public Task setLimit(Date limit) {
-        this.limit = limit;
-        return this;
-    }
-
-    public boolean haveStepes() {
-        return haveSteps;
-    }
-
-    public Task setHaveSteps(boolean haveSteps) {
-        this.haveSteps = haveSteps;
-        return this;
-    }
-
-    public boolean isDiaryTask() {
-        return this.diaryTask;
-    }
-
-    public Task setDiaryTask(boolean diaryTask) {
-        this.diaryTask = diaryTask;
-        return this;
-    }
-
-    public int getSteps() {
-        return this.steps;
-    }
-
-    public Task setSteps(int steps) {
-        this.steps = steps;
-        return this;
-    }
-
-    public int getMaxSteps() {
-        return maxSteps;
-    }
-
-    public void setMaxSteps(int maxSteps) {
-        this.maxSteps = maxSteps;
-    }
-
-    public Task nextStep() {
-        this.steps--;
-        return this;
-    }
-
-    public void save(Context context) {
-        edit(context, this);
-    }
-
-    private static RealmResults<Task> all;
 
     /**
      * Inicializa la base de datos de tareas y obtiene la lista de todas las tareas registradas.
@@ -309,6 +192,121 @@ public class Task extends RealmObject implements Serializable {
                             }
                         }
                 );
+    }
+
+    public Task addNote(Note note) {
+        this.notes.add(note);
+        return this;
+    }
+
+    public Task addDay(int day) {
+        days.add(day);
+        return this;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Task setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public RealmResults<Note> getNotes() {
+        return this.notes;
+    }
+
+    public Day[] getDays() {
+        return Day.toArray(this.days);
+    }
+
+    public Category getCategory() {
+        return this.category;
+    }
+
+    public Priority getPriority() {
+        return Priority.fromString(this.priority);
+    }
+
+    public Task setPriority(Priority priority) {
+        this.priority = priority.toString();
+        return this;
+    }
+
+    public State getState() {
+        return State.fromString(this.state);
+    }
+
+    public Task setState(State state) {
+        this.state = state.toString();
+        return this;
+    }
+
+    public Type getType() {
+        return Type.fromString(this.type);
+    }
+
+    public Task setType(Type type) {
+        this.type = type.toString();
+        return this;
+    }
+
+    public Date getLimit() {
+        return this.limit;
+    }
+
+    public Task setLimit(Date limit) {
+        this.limit = limit;
+        return this;
+    }
+
+    public boolean haveStepes() {
+        return haveSteps;
+    }
+
+    public Task setHaveSteps(boolean haveSteps) {
+        this.haveSteps = haveSteps;
+        return this;
+    }
+
+    public boolean isDiaryTask() {
+        return this.diaryTask;
+    }
+
+    public Task setDiaryTask(boolean diaryTask) {
+        this.diaryTask = diaryTask;
+        return this;
+    }
+
+    public int getSteps() {
+        return this.steps;
+    }
+
+    public Task setSteps(int steps) {
+        this.steps = steps;
+        return this;
+    }
+
+    public int getMaxSteps() {
+        return maxSteps;
+    }
+
+    public void setMaxSteps(int maxSteps) {
+        this.maxSteps = maxSteps;
+    }
+
+    public Task nextStep() {
+        this.steps--;
+        return this;
+    }
+
+    public void save(Context context) {
+        edit(context, this);
     }
 
 }

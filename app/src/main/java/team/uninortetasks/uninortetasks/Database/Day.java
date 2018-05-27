@@ -17,10 +17,6 @@ public enum Day {
         this.day = day;
     }
 
-    public int toInt() {
-        return day;
-    }
-
     public static Day fromInt(int day) {
         switch (day) {
             case 0:
@@ -48,5 +44,9 @@ public enum Day {
             pos++;
         }
         return days;
+    }
+
+    public int toInt() {
+        return day;
     }
 }

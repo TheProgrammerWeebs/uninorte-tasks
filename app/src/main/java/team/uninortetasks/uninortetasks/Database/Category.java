@@ -3,8 +3,6 @@ package team.uninortetasks.uninortetasks.Database;
 import android.content.Context;
 import android.widget.Toast;
 
-import java.io.Serializable;
-
 import javax.annotation.Nullable;
 
 import io.realm.Realm;
@@ -16,8 +14,9 @@ import io.realm.annotations.Required;
 import io.realm.exceptions.RealmException;
 import io.realm.exceptions.RealmPrimaryKeyConstraintException;
 
-public class Category extends RealmObject implements Serializable {
+public class Category extends RealmObject {
 
+    private static RealmResults<Category> all;
     @PrimaryKey
     private int id;
     @Required
@@ -36,63 +35,6 @@ public class Category extends RealmObject implements Serializable {
         this.name = name;
         this.tasks = new RealmList<>();
     }
-
-    public Category addTask(Task task) {
-        this.tasks.add(task);
-        return this;
-    }
-
-    public int getPositionInList() {
-        int pos = 0;
-        for (Category c : all) {
-            if (c.getId() == id) {
-                return pos;
-            }
-            pos++;
-        }
-        return -1;
-    }
-
-    public int getId() {
-        return this.id;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public Category setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public int getIcon() {
-        return this.icon;
-    }
-
-    public Category setIcon(int icon) {
-        this.icon = icon;
-        return this;
-    }
-
-    public int getStyle() {
-        return this.style;
-    }
-
-    public Category setStyle(int style) {
-        this.style = style;
-        return this;
-    }
-
-    public RealmList<Task> getTasks() {
-        return this.tasks;
-    }
-
-    public void save(Context context) {
-        edit(context, this);
-    }
-
-    private static RealmResults<Category> all;
 
     /**
      * Inicializa la base de datos de tareas y obtiene la lista de todas las tareas registradas.
@@ -186,6 +128,61 @@ public class Category extends RealmObject implements Serializable {
                             }
                         }
                 );
+    }
+
+    public Category addTask(Task task) {
+        this.tasks.add(task);
+        return this;
+    }
+
+    public int getPositionInList() {
+        int pos = 0;
+        for (Category c : all) {
+            if (c.getId() == id) {
+                return pos;
+            }
+            pos++;
+        }
+        return -1;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Category setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public int getIcon() {
+        return this.icon;
+    }
+
+    public Category setIcon(int icon) {
+        this.icon = icon;
+        return this;
+    }
+
+    public int getStyle() {
+        return this.style;
+    }
+
+    public Category setStyle(int style) {
+        this.style = style;
+        return this;
+    }
+
+    public RealmList<Task> getTasks() {
+        return this.tasks;
+    }
+
+    public void save(Context context) {
+        edit(context, this);
     }
 
 }
