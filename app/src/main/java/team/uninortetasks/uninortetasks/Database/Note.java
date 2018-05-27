@@ -14,6 +14,7 @@ import io.realm.exceptions.RealmPrimaryKeyConstraintException;
 
 public class Note extends RealmObject {
 
+    private static RealmResults<Note> all;
     @PrimaryKey
     private int id;
     @Required
@@ -31,43 +32,6 @@ public class Note extends RealmObject {
         this.content = content;
         this.task = task;
     }
-
-    public int getId() {
-        return this.id;
-    }
-
-    public String getTitle() {
-        return this.title;
-    }
-
-    public Note setTitle(String title) {
-        this.title = title;
-        return this;
-    }
-
-    public String getContent() {
-        return this.content;
-    }
-
-    public Note setContent(String content) {
-        this.content = content;
-        return this;
-    }
-
-    public Task getTask() {
-        return this.task;
-    }
-
-    public Note setTask(Task task) {
-        this.task = task;
-        return this;
-    }
-
-    public void Save(Context context) {
-        edit(context, this);
-    }
-
-    private static RealmResults<Note> all;
 
     public static void init(Context context) {
         all = Realm.getDefaultInstance()
@@ -129,5 +93,40 @@ public class Note extends RealmObject {
                             }
                         }
                 );
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public Note setTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public String getContent() {
+        return this.content;
+    }
+
+    public Note setContent(String content) {
+        this.content = content;
+        return this;
+    }
+
+    public Task getTask() {
+        return this.task;
+    }
+
+    public Note setTask(Task task) {
+        this.task = task;
+        return this;
+    }
+
+    public void Save(Context context) {
+        edit(context, this);
     }
 }
