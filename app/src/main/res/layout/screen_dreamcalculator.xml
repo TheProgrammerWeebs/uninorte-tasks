@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:textColor="?attr/textColor"
         android:text="@string/select_your_type"
         android:textSize="20dp" />
 
@@ -28,7 +29,9 @@
             android:id="@+id/type_of_dreamer_Spinner"
             android:layout_width="match_parent"
             android:layout_height="68dp"
-            android:layout_marginHorizontal="20dp"
+            android:textColor="?attr/textColor"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginTop="50dp" />
     </LinearLayout>
 

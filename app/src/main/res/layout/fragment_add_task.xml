@@ -7,270 +7,280 @@
     tools:context=".Fragments.AddTask">
 
     <!--<android.support.v4.widget.NestedScrollView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingEnd="30dp"
+        android:paddingStart="30dp"
+        android:paddingTop="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/select_task_name"
+            android:textColor="?attr/textColor"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/name"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="30dp">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:hint="@string/name"
+            android:inputType="textPersonName"
+            android:paddingEnd="7dp"
+            android:paddingStart="7dp"
+            android:singleLine="true"
+            android:textColor="?attr/textColor"
+            android:textColorHint="?attr/textColorHint" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <Button
+                android:id="@+id/priorityButton"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@drawable/background_button_light"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:text="@string/priority_level"
+                android:textColor="?attr/textColor" />
 
             <TextView
+                android:id="@+id/priorityLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@string/select_task_name"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginStart="10dp"
+                android:text="@string/high_priority"
+                android:textColor="?attr/textColor"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:theme="@style/themeLight" />
+                android:textStyle="italic" />
 
-            <EditText
-                android:id="@+id/name"
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <Button
+                android:id="@+id/typeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@drawable/background_button_light"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:text="@string/task_type"
+                android:textColor="?attr/textColor" />
+
+            <TextView
+                android:id="@+id/typeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginStart="10dp"
+                android:text="@string/goal"
+                android:textColor="?attr/textColor"
+                android:textSize="20sp"
+                android:textStyle="italic" />
+
+        </FrameLayout>
+
+        <EditText
+            android:id="@+id/goal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="5dp"
+            android:hint="@string/goal"
+            android:inputType="number"
+            android:paddingEnd="7dp"
+            android:paddingStart="7dp"
+            android:singleLine="true"
+            android:textColor="?attr/textColor"
+            android:textColorHint="?attr/textColorHint" />
+
+        <RadioGroup
+            android:id="@+id/diaryOrUnique"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:background="@drawable/background_group_2"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp">
+
+            <RadioButton
+                android:id="@+id/diary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:text="@string/diary_task"
+                android:textColor="?attr/textColor" />
+
+            <RadioButton
+                android:id="@+id/unique"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/unique_task"
+                android:textColor="?attr/textColor" />
+
+        </RadioGroup>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/daysLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/name"
-                android:inputType="textPersonName"
-                android:paddingEnd="7dp"
-                android:paddingStart="7dp"
-                android:singleLine="true"
-                android:theme="@style/themeLight" />
+                android:orientation="vertical"
+                android:padding="4dp"
+                android:visibility="invisible">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <Button
-                    android:id="@+id/priorityButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:background="@drawable/background_button_light"
-                    android:paddingEnd="8dp"
-                    android:paddingStart="8dp"
-                    android:text="@string/priority_level" />
-
-                <TextView
-                    android:id="@+id/priorityLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/high_priority"
-                    android:textSize="20sp"
-                    android:textStyle="italic" />
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <Button
-                    android:id="@+id/typeButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:background="@drawable/background_button_light"
-                    android:paddingEnd="8dp"
-                    android:paddingStart="8dp"
-                    android:text="@string/task_type" />
-
-                <TextView
-                    android:id="@+id/typeLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/goal"
-                    android:textSize="20sp"
-                    android:textStyle="italic" />
-
-            </FrameLayout>
-
-            <EditText
-                android:id="@+id/goal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="5dp"
-                android:hint="@string/goal"
-                android:inputType="number"
-                android:paddingEnd="7dp"
-                android:paddingStart="7dp"
-                android:singleLine="true"
-                android:theme="@style/themeLight" />
-
-            <RadioGroup
-                android:id="@+id/diaryOrUnique"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:background="@drawable/background_group_2"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingBottom="3dp"
-                android:paddingTop="3dp">
-
-                <RadioButton
-                    android:id="@+id/diary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="30dp"
-                    android:text="@string/diary_task"
-                    android:theme="@style/themeLight" />
-
-                <RadioButton
-                    android:id="@+id/unique"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="@string/unique_task"
-                    android:theme="@style/themeLight" />
-
-            </RadioGroup>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:id="@+id/daysLayout"
+                <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="4dp"
-                    android:visibility="invisible">
-
-                    <GridLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:columnCount="3"
-                        android:rowCount="3">
-
-                        <CheckBox
-                            android:id="@+id/monday"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/monday"
-                            android:theme="@style/themeLight" />
-
-                        <CheckBox
-                            android:id="@+id/tuesday"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/tuesday"
-                            android:theme="@style/themeLight" />
-
-                        <CheckBox
-                            android:id="@+id/wednesday"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/wednesday"
-                            android:theme="@style/themeLight" />
-
-                        <CheckBox
-                            android:id="@+id/thursday"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/thursday"
-                            android:theme="@style/themeLight" />
-
-                        <CheckBox
-                            android:id="@+id/friday"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/friday"
-                            android:theme="@style/themeLight" />
-
-                        <CheckBox
-                            android:id="@+id/saturday"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/saturday"
-                            android:theme="@style/themeLight" />
-
-                    </GridLayout>
+                    android:columnCount="3"
+                    android:rowCount="3">
 
                     <CheckBox
-                        android:id="@+id/sunday"
+                        android:id="@+id/monday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/sunday"
-                        android:theme="@style/themeLight" />
+                        android:text="@string/monday"
+                        android:textColor="?attr/textColor" />
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/dateLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-
-                    <Button
-                        android:id="@+id/dateButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="35dp"
-                        android:background="@drawable/background_button_light"
-                        android:hapticFeedbackEnabled="true"
-                        android:paddingEnd="8dp"
-                        android:paddingStart="8dp"
-                        android:text="@string/limit_date" />
-
-                    <TextView
-                        android:id="@+id/dateLabel"
+                    <CheckBox
+                        android:id="@+id/tuesday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text=""
-                        android:textSize="20sp"
-                        android:textStyle="italic" />
+                        android:layout_gravity="center"
+                        android:text="@string/tuesday"
+                        android:textColor="?attr/textColor" />
 
-                </LinearLayout>
+                    <CheckBox
+                        android:id="@+id/wednesday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wednesday"
+                        android:textColor="?attr/textColor" />
 
-            </FrameLayout>
+                    <CheckBox
+                        android:id="@+id/thursday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/thursday"
+                        android:textColor="?attr/textColor" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:gravity="center">
+                    <CheckBox
+                        android:id="@+id/friday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/friday"
+                        android:textColor="?attr/textColor" />
 
-                <Button
-                    android:id="@+id/cancelButton"
+                    <CheckBox
+                        android:id="@+id/saturday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/saturday"
+                        android:textColor="?attr/textColor" />
+
+                </GridLayout>
+
+                <CheckBox
+                    android:id="@+id/sunday"
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:background="@drawable/background_button_transparent"
-                    android:text="@string/cancel" />
-
-                <Button
-                    android:id="@+id/createButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:layout_marginStart="15dp"
-                    android:elevation="3dp"
-                    android:padding="8dp"
-                    android:textColor="@color/dark"
-                    android:text="@string/create_category"
-                    android:textStyle="bold"
-                    style="?attr/buttonBarPositiveButtonStyle"/>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/sunday"
+                    android:textColor="?attr/textColor" />
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/dateLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <Button
+                    android:id="@+id/dateButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:background="@drawable/background_button_light"
+                    android:paddingEnd="8dp"
+                    android:paddingStart="8dp"
+                    android:text="@string/limit_date"
+                    android:textColor="?attr/textColor" />
+
+                <TextView
+                    android:id="@+id/dateLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text=""
+                    android:textColor="?attr/textColor"
+                    android:textSize="20sp"
+                    android:textStyle="italic" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@drawable/background_button_transparent"
+                android:text="@string/cancel"
+                android:textColor="?attr/textColor" />
+
+            <Button
+                android:id="@+id/createButton"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/background_button_styled"
+                android:elevation="3dp"
+                android:padding="8dp"
+                android:text="@string/create_category"
+                android:textColor="?attr/textColor2" />
+
         </LinearLayout>
+
+    </LinearLayout>
 
     <!--</android.support.v4.widget.NestedScrollView>-->
 

@@ -1,30 +1,33 @@
 package team.uninortetasks.uninortetasks.Activities;
 
-import android.content.Intent;
-import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.os.Bundle;
 
+import team.uninortetasks.uninortetasks.Fragments.DashboardFragment;
+import team.uninortetasks.uninortetasks.Fragments.ForToday;
+import team.uninortetasks.uninortetasks.Others.TabsAdapter;
 import team.uninortetasks.uninortetasks.R;
 
 public class HomeScreen extends AppCompatActivity {
+
+    ViewPager viewPager;
+    TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_home);
-        setSupportActionBar(findViewById(R.id.homeToolbar));
-    }
+        viewPager = findViewById(R.id.viewPager);
+        tabLayout = findViewById(R.id.tabLayout);
+        TabsAdapter adapter = new TabsAdapter(getSupportFragmentManager());
 
-    public void onTasksClick(View view) {
-        startActivity(new Intent(this, TasksScreen.class));
-    }
+        adapter.addFragment(new DashboardFragment(), getResources().getString(R.string.all));
+        adapter.addFragment(new ForToday(), getResources().getString(R.string.for_today));
+        adapter.addFragment(new ForToday(), getResources().getString(R.string.for_today));
 
-    public void onDreamCalculatorClick(View view) { startActivity(new Intent(this, DreamCalculatorScreen.class));
-    }
-    public void onCategoriesClick(View view) {
-
-    }
-    public void onForTodayClick(View view) {
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }

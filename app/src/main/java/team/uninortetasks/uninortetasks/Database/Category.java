@@ -23,7 +23,7 @@ public class Category extends RealmObject {
     private String name;
     private int icon;
     private int style;
-    private RealmList<Task> tasks;
+    private RealmList<Task> tasks;int a;
 
     public Category() {
     }

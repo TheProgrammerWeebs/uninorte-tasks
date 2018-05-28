@@ -13,9 +13,11 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.widget.Toast;
 
+import io.realm.exceptions.RealmException;
 import team.uninortetasks.uninortetasks.Database.Category;
 import team.uninortetasks.uninortetasks.Fragments.AddCategory;
 import team.uninortetasks.uninortetasks.Fragments.AddTask;
+import team.uninortetasks.uninortetasks.Fragments.NoCategories;
 import team.uninortetasks.uninortetasks.Fragments.TasksCategory;
 import team.uninortetasks.uninortetasks.R;
 
@@ -30,19 +32,19 @@ public class TasksScreen extends AppCompatActivity implements
     private ActionBar actionBar;
     private Window window;
     private FragmentManager fragmentManager;
-    private int currentCategoryIndex = -1;
+    private int currentCategoryIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.redTheme);
+        if (Category.getAll().isEmpty()) {
+            currentCategoryIndex = -1;
+        }
         setContentView(R.layout.screen_tasks);
 
         actionBar = getSupportActionBar();
         window = getWindow();
         fragmentManager = getSupportFragmentManager();
-
-        actionBar.setTitle(R.string.tasks);
 
         nav = findViewById(R.id.categoriesBar);
         root = findViewById(R.id.tasks);
@@ -73,40 +75,33 @@ public class TasksScreen extends AppCompatActivity implements
     private void loadCategories() {
         Menu menu = nav.getMenu();
         menu.clear();
-        menu.add(R.string.for_today).setIcon(R.drawable.ic_today).setOnMenuItemClickListener(item -> {
-            currentCategoryIndex = -1;
-            actionBar.setTitle(R.string.for_today);
-            setStyle(R.style.redTheme);
-            loadView(null);
-            item.setChecked(true);
-            root.closeDrawers();
-            return true;
-        }).setChecked(currentCategoryIndex == -1);
-        System.out.println("........................." + currentCategoryIndex);
         int pos = 0;
-        for (Category cat : Category.getAll()) {
-            final int temp = pos;
-            menu.add(cat.getName()).setIcon(cat.getIcon()).setOnMenuItemClickListener(item -> {
-                currentCategoryIndex = temp;
-                System.out.println("Seteado a " + currentCategoryIndex);
-                setStyle(cat.getStyle());
-                actionBar.setTitle(cat.getName());
-                loadView(cat);
-                item.setChecked(true);
-                root.closeDrawers();
-                return true;
-            }).setChecked(currentCategoryIndex == pos);
-            System.out.println("........................." + currentCategoryIndex);
-            System.out.println("........................." + pos);
-            pos++;
-        }
-        menu.setGroupCheckable(0, true, true);
+        if (currentCategoryIndex == -1) {
+            loadView(null);
+        } else {
+            for (Category cat : Category.getAll()) {
+                final int temp = pos;
+                menu.add(cat.getName()).setIcon(cat.getIcon()).setOnMenuItemClickListener(item -> {
+                    currentCategoryIndex = temp;
+                    setStyle(cat.getStyle());
+                    loadView(cat);
+                    item.setChecked(true);
+                    actionBar.setTitle(cat.getName());
+                    root.closeDrawers();
+                    return true;
+                }).setChecked(currentCategoryIndex == pos);
+                pos++;
+            }
+            menu.setGroupCheckable(0, true, true);
 
-        menu.add("");
+            menu.add("");
+            Category c = Category.getAll().get(currentCategoryIndex);
+            setStyle(c.getStyle());
+            loadView(c);
+        }
         menu.add(R.string.add_category).setIcon(R.drawable.ic_add).setOnMenuItemClickListener(item -> {
-            actionBar.setTitle(R.string.add_category);
-            setStyle(R.style.themeDark);
             fragmentManager.beginTransaction().replace(R.id.tasksContent, new AddCategory()).commit();
+            actionBar.setTitle(R.string.add_category);
             root.closeDrawers();
             return true;
         });
@@ -152,8 +147,10 @@ public class TasksScreen extends AppCompatActivity implements
 
     private void loadView(Category category) {
         if (category == null) {
-
+            actionBar.setTitle(R.string.tasks);
+            fragmentManager.beginTransaction().replace(R.id.tasksContent, new NoCategories()).commit();
         } else {
+            actionBar.setTitle(category.getName());
             fragmentManager.beginTransaction().replace(R.id.tasksContent, TasksCategory.newInstance(category)).commit();
         }
 
@@ -161,7 +158,7 @@ public class TasksScreen extends AppCompatActivity implements
 
     public void addTask(MenuItem item) {
         if (currentCategoryIndex == -1) {
-            Toast.makeText(this, "Seleccione primero una categoría", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No hay categorias registradas", Toast.LENGTH_SHORT).show();
         } else {
             fragmentManager.beginTransaction().replace(R.id.tasksContent, AddTask.newInstance(Category.getAll().get(currentCategoryIndex))).commit();
         }
@@ -171,9 +168,7 @@ public class TasksScreen extends AppCompatActivity implements
     public void onAddingOkay(Category category) {
         Toast.makeText(this, "Categoría agregada con éxito", Toast.LENGTH_SHORT).show();
         currentCategoryIndex = category.getPositionInList();
-        System.out.println("Nueva posicion " + currentCategoryIndex);
         loadCategories();
-        loadView(Category.getAll().get(currentCategoryIndex));
     }
 
     @Override
@@ -181,7 +176,6 @@ public class TasksScreen extends AppCompatActivity implements
         if (currentCategoryIndex >= 0) {
             loadView(Category.getAll().get(currentCategoryIndex));
         } else {
-            currentCategoryIndex = -1;
             loadView(null);
         }
     }

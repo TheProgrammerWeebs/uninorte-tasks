@@ -14,6 +14,7 @@
     <string name="add">Agregar</string>
 
     <string name="for_today">Para hoy</string>
+    <string name="all">Todo</string>
     <string name="tasks_for_today">Tareas pendientes para hoy</string>
     <string name="tasks">Tareas</string>
     <string name="categories">Categorías</string>
@@ -95,4 +96,7 @@
     <string name="dream_calculator">Calculadora de sueño</string>
     <string name="deleted">eliminada</string>
     <string name="undo">DESHACER</string>
+    <string name="zero_categories">No tiene categorías creadas en el momento.</string>
+    <string name="what_are_you_waiting">¿Qué esperas para crear una?</string>
+    <string name="create_first_pls">Crea la primera en la barra lateral</string>
 </resources>

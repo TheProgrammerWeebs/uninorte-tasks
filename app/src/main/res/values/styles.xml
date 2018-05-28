@@ -1,55 +1,76 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="themeDark">
-        <item name="android:colorControlNormal">@color/light</item>
-        <item name="android:colorControlActivated">@color/light</item>
-        <item name="android:textColor">@color/light</item>
-        <item name="android:textColorHint">@color/light</item>
-    </style>
-
-    <style name="themeLight">
-        <item name="android:colorControlNormal">@color/dark</item>
-        <item name="android:colorControlActivated">@color/dark</item>
-        <item name="android:textColor">@color/dark</item>
-        <item name="android:textColorHint">@color/dark</item>
-    </style>
-
     <style name="HomeTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="android:colorControlActivated">@color/light</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="textColor">@color/dark</item>
+        <item name="textColor2">@color/light</item>
+        <item name="colorControlNormal">@color/dark</item>
+        <item name="colorControlActivated">@color/cyan</item>
+        <item name="textColorHint">@color/dark</item>
     </style>
 
     <style name="redTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/darkRed</item>
         <item name="colorPrimaryDark">@color/darkRed2</item>
         <item name="colorAccent">@color/darkRed</item>
+
+        <item name="textColor">@color/dark</item>
+        <item name="textColor2">@color/light</item>
+        <item name="colorControlNormal">@color/dark</item>
+        <item name="colorControlActivated">@color/darkRed</item>
+        <item name="textColorHint">@color/dark</item>
     </style>
 
     <style name="cyanTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/cyan</item>
         <item name="colorPrimaryDark">@color/cyan2</item>
         <item name="colorAccent">@color/cyan</item>
+
+        <item name="textColor">@color/dark</item>
+        <item name="textColor2">@color/light</item>
+        <item name="colorControlNormal">@color/dark</item>
+        <item name="colorControlActivated">@color/cyan</item>
+        <item name="textColorHint">@color/dark</item>
     </style>
 
     <style name="purpleTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/purple</item>
         <item name="colorPrimaryDark">@color/purple2</item>
         <item name="colorAccent">@color/purple</item>
+
+        <item name="textColor">@color/dark</item>
+        <item name="textColor2">@color/light</item>
+        <item name="colorControlNormal">@color/dark</item>
+        <item name="colorControlActivated">@color/purple</item>
+        <item name="textColorHint">@color/dark</item>
     </style>
 
     <style name="greenTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/green</item>
         <item name="colorPrimaryDark">@color/green2</item>
         <item name="colorAccent">@color/green</item>
+
+        <item name="textColor">@color/dark</item>
+        <item name="textColor2">@color/light</item>
+        <item name="colorControlNormal">@color/dark</item>
+        <item name="colorControlActivated">@color/green</item>
+        <item name="textColorHint">@color/dark</item>
     </style>
 
     <style name="orangeTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/orange</item>
         <item name="colorPrimaryDark">@color/orange2</item>
         <item name="colorAccent">@color/orange</item>
+
+        <item name="textColor">@color/dark</item>
+        <item name="textColor2">@color/light</item>
+        <item name="colorControlNormal">@color/dark</item>
+        <item name="colorControlActivated">@color/orange</item>
+        <item name="textColorHint">@color/dark</item>
     </style>
 
     <style name="Splash" parent="Theme.AppCompat.NoActionBar">
