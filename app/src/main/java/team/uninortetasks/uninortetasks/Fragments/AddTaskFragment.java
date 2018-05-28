@@ -32,7 +32,7 @@ import team.uninortetasks.uninortetasks.Database.Task;
 import team.uninortetasks.uninortetasks.Database.Type;
 import team.uninortetasks.uninortetasks.R;
 
-public class AddTask extends Fragment {
+public class AddTaskFragment extends Fragment {
 
     private OnAddingTaskListener listener;
 
@@ -69,11 +69,11 @@ public class AddTask extends Fragment {
     private Animation show;
     private Animation hide;
 
-    public AddTask() {
+    public AddTaskFragment() {
     }
 
-    public static AddTask newInstance(Category category) {
-        AddTask fragment = new AddTask();
+    public static AddTaskFragment newInstance(Category category) {
+        AddTaskFragment fragment = new AddTaskFragment();
         Bundle args = new Bundle();
         args.putInt("category", category.getId());
         fragment.setArguments(args);

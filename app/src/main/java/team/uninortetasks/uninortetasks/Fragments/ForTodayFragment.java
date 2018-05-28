@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 
 import team.uninortetasks.uninortetasks.R;
 
-public class ForToday extends Fragment {
+public class ForTodayFragment extends Fragment {
 
-    public ForToday() {
+    public ForTodayFragment() {
     }
 
     @Override

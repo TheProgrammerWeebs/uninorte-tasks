@@ -19,7 +19,7 @@ import android.widget.Toast;
 import team.uninortetasks.uninortetasks.Database.Category;
 import team.uninortetasks.uninortetasks.R;
 
-public class AddCategory extends Fragment {
+public class AddCategoryFragment extends Fragment {
 
     private OnAddCategoryListener listener;
 
@@ -37,13 +37,13 @@ public class AddCategory extends Fragment {
     private boolean editMode = false;
     private int editId = 0;
 
-    public AddCategory() {
+    public AddCategoryFragment() {
     }
 
-    public static AddCategory newEditInstance(int id) {
+    public static AddCategoryFragment newEditInstance(int id) {
         Bundle b = new Bundle();
         b.putInt("id", id);
-        AddCategory fragment = new AddCategory();
+        AddCategoryFragment fragment = new AddCategoryFragment();
         fragment.setArguments(b);
         return fragment;
     }

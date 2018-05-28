@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 
 import team.uninortetasks.uninortetasks.R;
 
-public class NoCategories extends Fragment {
+public class NoCategoriesFragment extends Fragment {
 
-    public NoCategories() {
+    public NoCategoriesFragment() {
     }
 
     @Override

@@ -14,19 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Date;
-
-import io.realm.Realm;
 import team.uninortetasks.uninortetasks.Database.Category;
-import team.uninortetasks.uninortetasks.Database.Priority;
-import team.uninortetasks.uninortetasks.Database.State;
 import team.uninortetasks.uninortetasks.Database.Task;
-import team.uninortetasks.uninortetasks.Database.Type;
 import team.uninortetasks.uninortetasks.Others.RecyclerItemTouchHelper;
 import team.uninortetasks.uninortetasks.Others.TaskAdapter;
 import team.uninortetasks.uninortetasks.R;
 
-public class TasksCategory extends Fragment implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
+public class TasksFragment extends Fragment implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
 
     private int categoryId;
     private OnTasksCategoryListener mListener;
@@ -34,11 +28,11 @@ public class TasksCategory extends Fragment implements RecyclerItemTouchHelper.R
     private TaskAdapter adapter;
     private CoordinatorLayout coordinatorLayout;
 
-    public TasksCategory() {
+    public TasksFragment() {
     }
 
-    public static TasksCategory newInstance(Category category) {
-        TasksCategory fragment = new TasksCategory();
+    public static TasksFragment newInstance(Category category) {
+        TasksFragment fragment = new TasksFragment();
         Bundle args = new Bundle();
         args.putInt("category", category.getId());
         fragment.setArguments(args);

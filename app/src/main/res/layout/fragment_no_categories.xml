@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="30dp"
-    tools:context=".Fragments.NoCategories">
+    tools:context=".Fragments.NoCategoriesFragment">
 
     <ImageView
         android:layout_width="match_parent"

@@ -16,16 +16,16 @@ import android.view.Window;
 import android.widget.Toast;
 
 import team.uninortetasks.uninortetasks.Database.Category;
-import team.uninortetasks.uninortetasks.Fragments.AddCategory;
-import team.uninortetasks.uninortetasks.Fragments.AddTask;
-import team.uninortetasks.uninortetasks.Fragments.NoCategories;
-import team.uninortetasks.uninortetasks.Fragments.TasksCategory;
+import team.uninortetasks.uninortetasks.Fragments.AddCategoryFragment;
+import team.uninortetasks.uninortetasks.Fragments.AddTaskFragment;
+import team.uninortetasks.uninortetasks.Fragments.NoCategoriesFragment;
+import team.uninortetasks.uninortetasks.Fragments.TasksFragment;
 import team.uninortetasks.uninortetasks.R;
 
 public class TasksScreen extends AppCompatActivity implements
-        AddCategory.OnAddCategoryListener,
-        TasksCategory.OnTasksCategoryListener,
-        AddTask.OnAddingTaskListener {
+        AddCategoryFragment.OnAddCategoryListener,
+        TasksFragment.OnTasksCategoryListener,
+        AddTaskFragment.OnAddingTaskListener {
 
     private DrawerLayout root;
     private ActionBarDrawerToggle toogle;
@@ -101,7 +101,7 @@ public class TasksScreen extends AppCompatActivity implements
             loadView(c);
         }
         menu.add(R.string.add_category).setIcon(R.drawable.ic_add).setOnMenuItemClickListener(item -> {
-            fragmentManager.beginTransaction().replace(R.id.tasksContent, new AddCategory()).commit();
+            fragmentManager.beginTransaction().replace(R.id.tasksContent, new AddCategoryFragment()).commit();
             actionBar.setTitle(R.string.add_category);
             root.closeDrawers();
             return true;
@@ -111,7 +111,7 @@ public class TasksScreen extends AppCompatActivity implements
                 if (currentCategoryIndex == -1) {
                     Toast.makeText(this, "No hay categorías registradas", Toast.LENGTH_SHORT).show();
                 } else {
-                    fragmentManager.beginTransaction().replace(R.id.tasksContent, AddCategory.newEditInstance(Category.getAll().get(currentCategoryIndex).getId())).commit();
+                    fragmentManager.beginTransaction().replace(R.id.tasksContent, AddCategoryFragment.newEditInstance(Category.getAll().get(currentCategoryIndex).getId())).commit();
                 }
                 actionBar.setTitle(R.string.edit_category);
                 root.closeDrawers();
@@ -178,10 +178,10 @@ public class TasksScreen extends AppCompatActivity implements
     private void loadView(Category category) {
         if (category == null) {
             actionBar.setTitle(R.string.tasks);
-            fragmentManager.beginTransaction().replace(R.id.tasksContent, new NoCategories()).commit();
+            fragmentManager.beginTransaction().replace(R.id.tasksContent, new NoCategoriesFragment()).commit();
         } else {
             actionBar.setTitle(category.getName());
-            fragmentManager.beginTransaction().replace(R.id.tasksContent, TasksCategory.newInstance(category)).commit();
+            fragmentManager.beginTransaction().replace(R.id.tasksContent, TasksFragment.newInstance(category)).commit();
         }
 
     }
@@ -190,7 +190,7 @@ public class TasksScreen extends AppCompatActivity implements
         if (currentCategoryIndex == -1) {
             Toast.makeText(this, "No hay categorias registradas", Toast.LENGTH_SHORT).show();
         } else {
-            fragmentManager.beginTransaction().replace(R.id.tasksContent, AddTask.newInstance(Category.getAll().get(currentCategoryIndex))).commit();
+            fragmentManager.beginTransaction().replace(R.id.tasksContent, AddTaskFragment.newInstance(Category.getAll().get(currentCategoryIndex))).commit();
         }
     }
 
