@@ -1,5 +1,7 @@
 package team.uninortetasks.uninortetasks.Activities;
 
+import android.app.Dialog;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -13,7 +15,6 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.widget.Toast;
 
-import io.realm.exceptions.RealmException;
 import team.uninortetasks.uninortetasks.Database.Category;
 import team.uninortetasks.uninortetasks.Fragments.AddCategory;
 import team.uninortetasks.uninortetasks.Fragments.AddTask;
@@ -105,18 +106,47 @@ public class TasksScreen extends AppCompatActivity implements
             root.closeDrawers();
             return true;
         });
-        menu.add(R.string.edit_category).setIcon(R.drawable.ic_edit).setOnMenuItemClickListener(item -> {
+        if (currentCategoryIndex != -1) {
+            menu.add(R.string.edit_category).setIcon(R.drawable.ic_edit).setOnMenuItemClickListener(item -> {
+                if (currentCategoryIndex == -1) {
+                    Toast.makeText(this, "No hay categorías registradas", Toast.LENGTH_SHORT).show();
+                } else {
+                    fragmentManager.beginTransaction().replace(R.id.tasksContent, AddCategory.newEditInstance(Category.getAll().get(currentCategoryIndex).getId())).commit();
+                }
+                actionBar.setTitle(R.string.edit_category);
+                root.closeDrawers();
+                return true;
+            });
+            menu.add(R.string.delete_category).setIcon(R.drawable.ic_delete).setOnMenuItemClickListener(item -> {
+                if (currentCategoryIndex == -1) {
+                    Toast.makeText(this, "No hay categorías registradas", Toast.LENGTH_SHORT).show();
+                } else {
+                    showRemoveDialog();
+                }
+                actionBar.setTitle(R.string.delete_category);
+                root.closeDrawers();
+                return true;
+            });
+        }
+    }
 
-            actionBar.setTitle(R.string.edit_category);
-            root.closeDrawers();
-            return true;
+    private void showRemoveDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_delete_category);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.findViewById(R.id.noButton).setOnClickListener(e -> dialog.cancel());
+        dialog.findViewById(R.id.yesButton).setOnClickListener(e -> {
+            Category.remove(this, Category.getAll().get(currentCategoryIndex).getId());
+            Toast.makeText(this, "Categoría eliminada con éxito", Toast.LENGTH_SHORT).show();
+            if (Category.getAll().isEmpty()) {
+                currentCategoryIndex = -1;
+            } else {
+                currentCategoryIndex = 0;
+            }
+            loadCategories();
+            dialog.cancel();
         });
-        menu.add(R.string.delete_category).setIcon(R.drawable.ic_delete).setOnMenuItemClickListener(item -> {
-
-            actionBar.setTitle(R.string.delete_category);
-            root.closeDrawers();
-            return true;
-        });
+        dialog.show();
     }
 
     private void setStyle(int resource) {
@@ -165,14 +195,18 @@ public class TasksScreen extends AppCompatActivity implements
     }
 
     @Override
-    public void onAddingOkay(Category category) {
-        Toast.makeText(this, "Categoría agregada con éxito", Toast.LENGTH_SHORT).show();
+    public void onOperationOkay(Category category, boolean editMode) {
+        if (editMode) {
+            Toast.makeText(this, "Categoría editada con éxito", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Categoría agregada con éxito", Toast.LENGTH_SHORT).show();
+        }
         currentCategoryIndex = category.getPositionInList();
         loadCategories();
     }
 
     @Override
-    public void onAddingCanceled() {
+    public void onOperationCanceled() {
         if (currentCategoryIndex >= 0) {
             loadView(Category.getAll().get(currentCategoryIndex));
         } else {

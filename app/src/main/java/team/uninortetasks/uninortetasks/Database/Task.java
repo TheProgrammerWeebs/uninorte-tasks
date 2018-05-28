@@ -63,6 +63,10 @@ public class Task extends RealmObject {
         notes = null;
     }
 
+    public Task getEditableInstance() {
+        return Realm.getDefaultInstance().copyFromRealm(this);
+    }
+
     /**
      * Inicializa la base de datos de tareas y obtiene la lista de todas las tareas registradas.
      */

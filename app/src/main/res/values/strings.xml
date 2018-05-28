@@ -99,4 +99,8 @@
     <string name="zero_categories">No tiene categorías creadas en el momento.</string>
     <string name="what_are_you_waiting">¿Qué esperas para crear una?</string>
     <string name="create_first_pls">Crea la primera en la barra lateral</string>
+    <string name="sure_remove_category">¿Está seguro de eliminar esta categoría?</string>
+    <string name="no">No</string>
+    <string name="yes_delete">Sí, eliminar</string>
+    <string name="this_remove_category_tasks">Si lo hace eliminirá todas las tareas que ésta contenga</string>
 </resources>

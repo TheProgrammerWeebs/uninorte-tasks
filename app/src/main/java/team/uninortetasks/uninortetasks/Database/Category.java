@@ -23,7 +23,8 @@ public class Category extends RealmObject {
     private String name;
     private int icon;
     private int style;
-    private RealmList<Task> tasks;int a;
+    private RealmList<Task> tasks;
+    int a;
 
     public Category() {
     }
@@ -34,6 +35,10 @@ public class Category extends RealmObject {
         this.style = style;
         this.name = name;
         this.tasks = new RealmList<>();
+    }
+
+    public Category getEditableInstance() {
+        return Realm.getDefaultInstance().copyFromRealm(this);
     }
 
     /**
@@ -66,7 +71,7 @@ public class Category extends RealmObject {
         Realm.getDefaultInstance()
                 .executeTransaction(r -> {
                     try {
-                        r.insert(category);
+                        r.copyToRealmOrUpdate(category);
                     } catch (RealmPrimaryKeyConstraintException ignored) {
                         Toast.makeText(context, "ID Ingresado ya existe.", Toast.LENGTH_SHORT).show();
                     }
@@ -105,7 +110,9 @@ public class Category extends RealmObject {
         Realm.getDefaultInstance()
                 .executeTransaction(r -> {
                     try {
-                        r.where(Category.class).equalTo("id", id).findFirst().deleteFromRealm();
+                        Category cat = r.where(Category.class).equalTo("id", id).findFirst();
+                        cat.getTasks().deleteAllFromRealm();
+                        cat.deleteFromRealm();
                     } catch (NullPointerException ignored) {
                         Toast.makeText(context, "La tarea no existe.", Toast.LENGTH_SHORT).show();
                     }
@@ -118,7 +125,7 @@ public class Category extends RealmObject {
      * @param category Categoría a editar, la categoría debe tener el id de la que se va a editar
      * @deprecated
      */
-    public static void edit(final Context context, final Category category) {
+    public static Category edit(final Context context, final Category category) {
         Realm.getDefaultInstance()
                 .executeTransaction(r -> {
                             try {
@@ -128,6 +135,7 @@ public class Category extends RealmObject {
                             }
                         }
                 );
+        return category;
     }
 
     public Category addTask(Task task) {
@@ -181,8 +189,8 @@ public class Category extends RealmObject {
         return this.tasks;
     }
 
-    public void save(Context context) {
-        edit(context, this);
+    public Category save(Context context) {
+        return edit(context, this);
     }
 
 }

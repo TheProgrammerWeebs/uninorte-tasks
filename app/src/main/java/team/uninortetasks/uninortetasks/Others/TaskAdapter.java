@@ -1,13 +1,11 @@
 package team.uninortetasks.uninortetasks.Others;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -181,18 +179,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     }
 
     private void showDialog(int pos) {
-        Task task = data.get(pos);
-        Dialog dialog = new Dialog(context);
-        dialog.setContentView(R.layout.dialog_task);
-        TextView name = dialog.findViewById(R.id.name);
-        TextView state = dialog.findViewById(R.id.state);
-        TextView type = dialog.findViewById(R.id.type);
-        TextView priority = dialog.findViewById(R.id.task_priority);
-        TextView date = dialog.findViewById(R.id.date);
-        TextView progress = dialog.findViewById(R.id.progress);
-        Button report = dialog.findViewById(R.id.report);
-        report.setEnabled(task.getMaxSteps() > task.getSteps());
-        dialog.show();
+
+
     }
 
 }

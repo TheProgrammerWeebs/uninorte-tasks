@@ -34,12 +34,28 @@ public class AddCategory extends Fragment {
     private int style;
     private int icon;
 
+    private boolean editMode = false;
+    private int editId = 0;
+
     public AddCategory() {
+    }
+
+    public static AddCategory newEditInstance(int id) {
+        Bundle b = new Bundle();
+        b.putInt("id", id);
+        AddCategory fragment = new AddCategory();
+        fragment.setArguments(b);
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle b = getArguments();
+        if (b != null) {
+            editMode = true;
+            editId = b.getInt("id");
+        }
     }
 
     @Override
@@ -114,15 +130,54 @@ public class AddCategory extends Fragment {
         icon9.setOnClickListener(getDefaultIconClickListener(R.drawable.ic_home));
         backIcons.setOnClickListener(e -> icons.setState(BottomSheetBehavior.STATE_HIDDEN));
 
-        view.findViewById(R.id.cancelButton).setOnClickListener(e -> listener.onAddingCanceled());
+        view.findViewById(R.id.cancelButton).setOnClickListener(e -> listener.onOperationCanceled());
         view.findViewById(R.id.createButton).setOnClickListener(e -> {
             String name = this.name.getText().toString().trim();
             if (name.isEmpty()) {
                 Toast.makeText(getContext(), "Seleccione un nombre para la categoría", Toast.LENGTH_SHORT).show();
                 return;
             }
-            listener.onAddingOkay(Category.add(getContext(), name, this.icon, this.style));
+            if (editMode) {
+                listener.onOperationOkay(Category.get(editId).getEditableInstance().setName(name).setStyle(this.style).setIcon(this.icon).save(getContext()), editMode);
+            } else {
+                listener.onOperationOkay(Category.add(getContext(), name, this.icon, this.style), editMode);
+            }
         });
+
+        if (editMode) {
+            Category category = Category.get(this.editId);
+            selectColor(category);
+            selectedIcon.setImageDrawable(getResources().getDrawable(category.getIcon()));
+            this.icon = category.getIcon();
+            name.setText(category.getName());
+            ((Button) view.findViewById(R.id.createButton)).setText("Editar categoría");
+        }
+    }
+
+    private void selectColor(Category category) {
+        int style = category.getStyle();
+        switch (style) {
+            case R.style.redTheme:
+                selectedColor.setBackground(getResources().getDrawable(R.drawable.oval_dark_red));
+                this.style = style;
+                break;
+            case R.style.orangeTheme:
+                selectedColor.setBackground(getResources().getDrawable(R.drawable.oval_orange));
+                this.style = style;
+                break;
+            case R.style.greenTheme:
+                selectedColor.setBackground(getResources().getDrawable(R.drawable.oval_green));
+                this.style = style;
+                break;
+            case R.style.cyanTheme:
+                selectedColor.setBackground(getResources().getDrawable(R.drawable.oval_cyan));
+                this.style = style;
+                break;
+            case R.style.purpleTheme:
+                selectedColor.setBackground(getResources().getDrawable(R.drawable.oval_purple));
+                this.style = style;
+                break;
+        }
     }
 
     private View.OnClickListener getDefaultColorListener(int drawable, int style) {
@@ -154,8 +209,8 @@ public class AddCategory extends Fragment {
     }
 
     public interface OnAddCategoryListener {
-        void onAddingOkay(Category category);
+        void onOperationOkay(Category category, boolean editMode);
 
-        void onAddingCanceled();
+        void onOperationCanceled();
     }
 }
