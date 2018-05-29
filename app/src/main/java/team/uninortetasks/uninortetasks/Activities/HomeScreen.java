@@ -27,6 +27,8 @@ public class HomeScreen extends AppCompatActivity {
         adapter.addFragment(new ForTodayFragment(), getResources().getString(R.string.for_today));
         adapter.addFragment(new ForTodayFragment(), getResources().getString(R.string.for_today));
 
+
+
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
     }

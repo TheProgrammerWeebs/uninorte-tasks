@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:icon="@drawable/ic_clear"
-        android:onClick="removeTasks"
         android:title=""
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"
+        android:onClick="removeTasks"/>
+
+
     <item
         android:icon="@drawable/ic_add"
         android:onClick="addTask"

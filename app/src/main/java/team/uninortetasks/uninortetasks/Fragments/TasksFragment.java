@@ -57,6 +57,9 @@ public class TasksFragment extends Fragment implements RecyclerItemTouchHelper.R
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tasks, container, false);
+        Task.addDataChangeListener(TasksFragment.class, () ->{
+            tasksList.setAdapter(new TaskAdapter(this.getContext(), Category.get(categoryId).getTasks()));
+        });
         initialize(view);
         return view;
     }
@@ -70,7 +73,7 @@ public class TasksFragment extends Fragment implements RecyclerItemTouchHelper.R
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getActivity().getApplicationContext());
         tasksList.setLayoutManager(manager);
         tasksList.setItemAnimator(new DefaultItemAnimator());
-        tasksList.addItemDecoration(new DividerItemDecoration(this.getContext(), DividerItemDecoration.VERTICAL));
+        //tasksList.addItemDecoration(new DividerItemDecoration(this.getContext(), DividerItemDecoration.VERTICAL));
         tasksList.setAdapter(adapter);
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.RIGHT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(tasksList);
@@ -86,6 +89,7 @@ public class TasksFragment extends Fragment implements RecyclerItemTouchHelper.R
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        Task.removeChangeListener(TasksFragment.class);
     }
 
     @Override
