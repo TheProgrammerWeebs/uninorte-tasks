@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 import team.uninortetasks.uninortetasks.Database.Task;
 import team.uninortetasks.uninortetasks.Database.Type;
@@ -20,7 +21,6 @@ public class TaskForTodayAdapter extends RecyclerView.Adapter<TaskForTodayAdapte
     private RealmResults<Task> data;
 
     public TaskForTodayAdapter(Context context, RealmResults<Task> data) {
-        data.addChangeListener(e -> notifyDataSetChanged());
         this.context = context;
         this.data = data;
     }

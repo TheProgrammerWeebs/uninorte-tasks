@@ -22,6 +22,7 @@ import io.realm.exceptions.RealmPrimaryKeyConstraintException;
 public class Task extends RealmObject {
 
     private static RealmResults<Task> all;
+    private static ArrayList<OnDataChangeListener> listeners;
     @LinkingObjects("task")
     private final RealmResults<Note> notes;
     @PrimaryKey
@@ -68,8 +69,16 @@ public class Task extends RealmObject {
      * Inicializa la base de datos de tareas y obtiene la lista de todas las tareas registradas.
      */
     public static void init() {
+        listeners = new ArrayList<>();
         all = Realm.getDefaultInstance()
                 .where(Task.class).sort("limit").findAll();
+    }
+
+    private static void dataChanged() {
+        ArrayList<OnDataChangeListener> toRemove;
+        for (OnDataChangeListener listener : listeners) {
+            listener.onChangeListener();
+        }
     }
 
     /**
@@ -119,6 +128,7 @@ public class Task extends RealmObject {
                         Toast.makeText(context, "ID Ingresado ya existe.", Toast.LENGTH_SHORT).show();
                     }
                 });
+        dataChanged();
     }
 
     public static void add(final Context context, final Task task) {
@@ -134,6 +144,7 @@ public class Task extends RealmObject {
                         Toast.makeText(context, "ID Ingresado ya existe.", Toast.LENGTH_SHORT).show();
                     }
                 });
+        dataChanged();
     }
 
     /**
@@ -189,17 +200,20 @@ public class Task extends RealmObject {
                         Toast.makeText(context, "La tarea no existe.", Toast.LENGTH_SHORT).show();
                     }
                 });
+        dataChanged();
     }
 
     public static void remove(Context context, Task task) {
         Realm.getDefaultInstance()
                 .executeTransaction(r -> {
                     try {
+                        task.getCategory().getTasks().remove(task);
                         task.deleteFromRealm();
                     } catch (NullPointerException ignored) {
                         Toast.makeText(context, "La tarea no existe.", Toast.LENGTH_SHORT).show();
                     }
                 });
+        dataChanged();
     }
 
     /**
@@ -218,6 +232,11 @@ public class Task extends RealmObject {
                             }
                         }
                 );
+        dataChanged();
+    }
+
+    public static void addDataChangeListener(OnDataChangeListener listener) {
+        listeners.add(listener);
     }
 
     public Task addNote(Note note) {
@@ -333,6 +352,10 @@ public class Task extends RealmObject {
 
     public void save(Context context) {
         edit(context, this);
+    }
+
+    public interface OnDataChangeListener {
+        void onChangeListener();
     }
 
 }

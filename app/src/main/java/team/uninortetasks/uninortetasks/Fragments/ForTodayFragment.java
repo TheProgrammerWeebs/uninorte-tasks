@@ -34,12 +34,12 @@ public class ForTodayFragment extends Fragment {
     }
 
     private void initialize(View view) {
+        Task.addDataChangeListener(() -> tasksList.setAdapter(new TaskForTodayAdapter(getContext(), Task.tasksForToday())));
         tasksList = view.findViewById(R.id.tasksList);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
         tasksList.setLayoutManager(manager);
         tasksList.setItemAnimator(new DefaultItemAnimator());
         tasksList.setAdapter(new TaskForTodayAdapter(getContext(), Task.tasksForToday()));
-
     }
 
     @Override

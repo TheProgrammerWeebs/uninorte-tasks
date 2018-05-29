@@ -275,7 +275,7 @@
                 android:background="@drawable/background_button_styled"
                 android:elevation="3dp"
                 android:padding="8dp"
-                android:text="@string/create_category"
+                android:text="@string/create_task"
                 android:textColor="?attr/textColor2" />
 
         </LinearLayout>

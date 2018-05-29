@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.Date;
 
+import io.realm.Realm;
 import io.realm.RealmList;
 import team.uninortetasks.uninortetasks.Database.Day;
 import team.uninortetasks.uninortetasks.Database.Month;
@@ -56,18 +57,22 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     }
 
     public void removeTask(int position) {
-        Task.remove(context, data.get(position).getId());
+//        Realm realm = Realm.getDefaultInstance();
+//        realm.beginTransaction();
+//        data.remove(position);
+//        realm.commitTransaction();
+        Task.remove(context, data.get(position));
         this.notifyItemRemoved(position);
     }
 
     public void restoreTask(Task task, int position) {
-//        Realm realm = Realm.getDefaultInstance();
-//        realm.beginTransaction();
-//        data.add(position, task);
-//        realm.commitTransaction();
-        Task.add(context, task);
-        data.add(task);
-        notifyItemInserted(position);
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        realm.copyToRealm(task);
+        data.add(position, task);
+        realm.commitTransaction();
+//        Task.add(context, task);
+        this.notifyItemInserted(position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
