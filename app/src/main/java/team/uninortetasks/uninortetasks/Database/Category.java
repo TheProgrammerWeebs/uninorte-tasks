@@ -3,10 +3,11 @@ package team.uninortetasks.uninortetasks.Database;
 import android.content.Context;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import javax.annotation.Nullable;
 
 import io.realm.Realm;
-import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
 import io.realm.annotations.LinkingObjects;
@@ -18,6 +19,8 @@ import io.realm.exceptions.RealmPrimaryKeyConstraintException;
 public class Category extends RealmObject {
 
     private static RealmResults<Category> all;
+    private static ArrayList<OnDataChangeListener> listeners;
+    private static ArrayList<Class> listenerFathers;
     @PrimaryKey
     private int id;
     @Required
@@ -47,8 +50,31 @@ public class Category extends RealmObject {
      * Inicializa la base de datos de tareas y obtiene la lista de todas las tareas registradas.
      */
     public static void init() {
+        listeners = new ArrayList<>();
+        listenerFathers = new ArrayList<>();
         all = Realm.getDefaultInstance()
                 .where(Category.class).sort("name").findAll();
+    }
+
+    static void dataChanged() {
+        ArrayList<OnDataChangeListener> toRemove;
+        for (OnDataChangeListener listener : listeners) {
+            listener.onChange();
+        }
+    }
+
+    public static void addDataChangeListener(Class father, OnDataChangeListener listener) {
+        listeners.add(listener);
+        listenerFathers.add(father);
+    }
+
+    public static void removeChangeListener(Class father) {
+        for (int i = 0; i < listenerFathers.size(); i++) {
+            if (father == listenerFathers.get(i)) {
+                listenerFathers.remove(i);
+                listeners.remove(i);
+            }
+        }
     }
 
     /**
@@ -78,6 +104,7 @@ public class Category extends RealmObject {
                         Toast.makeText(context, "ID Ingresado ya existe.", Toast.LENGTH_SHORT).show();
                     }
                 });
+        dataChanged();
         return category;
     }
 
@@ -119,6 +146,7 @@ public class Category extends RealmObject {
                         Toast.makeText(context, "La tarea no existe.", Toast.LENGTH_SHORT).show();
                     }
                 });
+        dataChanged();
     }
 
     public static void remove(Context context, Category category) {
@@ -131,6 +159,7 @@ public class Category extends RealmObject {
                         Toast.makeText(context, "La tarea no existe.", Toast.LENGTH_SHORT).show();
                     }
                 });
+        dataChanged();
     }
 
     /**
@@ -149,7 +178,52 @@ public class Category extends RealmObject {
                             }
                         }
                 );
+        dataChanged();
         return category;
+    }
+
+    public int cleanDb(Context context, boolean all, boolean completed, boolean expired) {
+        int count = 0;
+        if (all) {
+            count = this.tasks.size();
+            Realm.getDefaultInstance()
+                    .executeTransaction(r -> {
+                        try {
+                            this.tasks.deleteAllFromRealm();
+                        } catch (NullPointerException ignored) {
+                            Toast.makeText(context, "La tarea no existe.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+            Task.dataChanged();
+        } else {
+            if (completed) {
+                final RealmResults<Task> toDelete = this.tasks.where().equalTo("type", Type.goal.toInt()).equalTo("state", State.completed.toInt()).findAll();
+                count += toDelete.size();
+                Realm.getDefaultInstance()
+                        .executeTransaction(r -> {
+                            try {
+                                toDelete.deleteAllFromRealm();
+                            } catch (NullPointerException ignored) {
+                                Toast.makeText(context, "La tarea no existe.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                Task.dataChanged();
+            }
+            if (expired) {
+                final RealmResults<Task> toDelete = this.tasks.where().equalTo("diaryTask", false).equalTo("state", State.expired.toInt()).findAll();
+                count += toDelete.size();
+                Realm.getDefaultInstance()
+                        .executeTransaction(r -> {
+                            try {
+                                toDelete.deleteAllFromRealm();
+                            } catch (NullPointerException ignored) {
+                                Toast.makeText(context, "La tarea no existe.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                Task.dataChanged();
+            }
+        }
+        return count;
     }
 
     public int getPositionInList() {
@@ -200,6 +274,10 @@ public class Category extends RealmObject {
 
     public Category save(Context context) {
         return edit(context, this);
+    }
+
+    public interface OnDataChangeListener {
+        void onChange();
     }
 
 }

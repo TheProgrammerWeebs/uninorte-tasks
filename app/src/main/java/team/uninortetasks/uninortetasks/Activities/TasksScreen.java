@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import team.uninortetasks.uninortetasks.Database.Category;
@@ -173,6 +174,30 @@ public class TasksScreen extends AppCompatActivity implements
         } else {
             fragmentManager.beginTransaction().replace(R.id.tasksContent, AddTaskFragment.newInstance(Category.getAll().get(currentCategoryIndex))).commit();
         }
+    }
+
+    public void removeTasks(MenuItem item) {
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_deleted_completed);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        final CheckBox completedGoals = dialog.findViewById(R.id.completedGoals);
+        final CheckBox expiredTasks = dialog.findViewById(R.id.expiredTasks);
+        final CheckBox allTasks = dialog.findViewById(R.id.allTasks);
+        dialog.findViewById(R.id.noButton).setOnClickListener(e -> dialog.cancel());
+        dialog.findViewById(R.id.yesButton).setOnClickListener(e -> {
+            if (currentCategoryIndex == -1) {
+                Toast.makeText(this, "No hay categorias registradas", Toast.LENGTH_SHORT).show();
+            } else {
+                if (allTasks.isChecked() || completedGoals.isChecked() || expiredTasks.isChecked()) {
+                    int deletes = Category.getAll().get(currentCategoryIndex).cleanDb(this, allTasks.isChecked(), completedGoals.isChecked(), expiredTasks.isChecked());
+                    dialog.cancel();
+                    Toast.makeText(this, "Operación completada, " + deletes + " tareas borradas", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Seleccione por lo menos una opción", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        dialog.show();
     }
 
     @Override

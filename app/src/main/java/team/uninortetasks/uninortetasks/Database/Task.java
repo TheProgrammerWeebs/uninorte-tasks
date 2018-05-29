@@ -23,6 +23,7 @@ public class Task extends RealmObject {
 
     private static RealmResults<Task> all;
     private static ArrayList<OnDataChangeListener> listeners;
+    private static ArrayList<Class> listenerFathers;
     @LinkingObjects("task")
     private final RealmResults<Note> notes;
     @PrimaryKey
@@ -86,14 +87,15 @@ public class Task extends RealmObject {
      */
     public static void init() {
         listeners = new ArrayList<>();
+        listenerFathers = new ArrayList<>();
         all = Realm.getDefaultInstance()
                 .where(Task.class).sort("limit").findAll();
     }
 
-    private static void dataChanged() {
+    static void dataChanged() {
         ArrayList<OnDataChangeListener> toRemove;
         for (OnDataChangeListener listener : listeners) {
-            listener.onChangeListener();
+            listener.onChange();
         }
     }
 
@@ -248,8 +250,18 @@ public class Task extends RealmObject {
         dataChanged();
     }
 
-    public static void addDataChangeListener(OnDataChangeListener listener) {
+    public static void addDataChangeListener(Class father, OnDataChangeListener listener) {
         listeners.add(listener);
+        listenerFathers.add(father);
+    }
+
+    public static void removeChangeListener(Class father) {
+        for (int i = 0; i < listenerFathers.size(); i++) {
+            if (father == listenerFathers.get(i)) {
+                listenerFathers.remove(i);
+                listeners.remove(i);
+            }
+        }
     }
 
     public Task addNote(Note note) {
@@ -368,7 +380,7 @@ public class Task extends RealmObject {
     }
 
     public interface OnDataChangeListener {
-        void onChangeListener();
+        void onChange();
     }
 
 }

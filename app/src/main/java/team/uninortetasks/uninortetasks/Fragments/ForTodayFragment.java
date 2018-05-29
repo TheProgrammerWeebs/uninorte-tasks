@@ -35,7 +35,7 @@ public class ForTodayFragment extends Fragment {
     }
 
     private void initialize(View view) {
-        Task.addDataChangeListener(() -> setContent());
+        Task.addDataChangeListener(ForTodayFragment.class, () -> setContent());
         tasksList = view.findViewById(R.id.tasksList);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
         tasksList.setLayoutManager(manager);
@@ -59,6 +59,7 @@ public class ForTodayFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        Task.removeChangeListener(ForTodayFragment.class);
     }
 
 }
