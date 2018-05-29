@@ -2,27 +2,22 @@ package team.uninortetasks.uninortetasks.Database;
 
 public enum Type {
 
-    goal("goal"),
-    activity("activity"),
-    homework("homework"),
-    other("other");
+    goal(0),
+    activity(1),
+    homework(2),
+    other(3);
 
-    private String text;
+    private int index;
 
-    Type(String text) {
-        this.text = text;
+    Type(int index) {
+        this.index = index;
     }
 
-    public static Type fromString(String type) {
-        for (Type t : Type.values()) {
-            if (t.text.equalsIgnoreCase(type)) return t;
-        }
-        return other;
+    public int toInt() {
+        return index;
     }
 
-    @Override
-    public String toString() {
-        return this.text;
+    public static Type fromInt(int index) {
+        return Type.values()[index];
     }
-
 }

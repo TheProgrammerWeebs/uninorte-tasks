@@ -13,8 +13,9 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.Date;
 
-import io.realm.Realm;
 import io.realm.RealmList;
+import team.uninortetasks.uninortetasks.Database.Day;
+import team.uninortetasks.uninortetasks.Database.Month;
 import team.uninortetasks.uninortetasks.Database.Task;
 import team.uninortetasks.uninortetasks.R;
 
@@ -31,7 +32,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         View view = LayoutInflater.from(context).inflate(R.layout.task_view_layout, parent, false);
         ViewHolder v = new ViewHolder(view);
         final int pos = v.getAdapterPosition();
@@ -56,18 +56,17 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     }
 
     public void removeTask(int position) {
-        Realm realm = Realm.getDefaultInstance();
-        realm.beginTransaction();
-        data.remove(position);
-        realm.commitTransaction();
+        Task.remove(context, data.get(position).getId());
         this.notifyItemRemoved(position);
     }
 
     public void restoreTask(Task task, int position) {
-        Realm realm = Realm.getDefaultInstance();
-        realm.beginTransaction();
-        data.add(position, task);
-        realm.commitTransaction();
+//        Realm realm = Realm.getDefaultInstance();
+//        realm.beginTransaction();
+//        data.add(position, task);
+//        realm.commitTransaction();
+        Task.add(context, task);
+        data.add(task);
         notifyItemInserted(position);
     }
 
@@ -107,71 +106,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         if (task.getLimit().equals(new Date())) {
             dia = "hoy";
         } else if (isDateInRange(task.getLimit(), Calendar.getInstance().getTime(), sieteDias.getTime())) {
-            switch (task.getLimit().getDay()) {
-                case 0:
-                    dia = context.getString(R.string.sunday);
-                    break;
-                case 1:
-                    dia = context.getString(R.string.monday);
-                    break;
-                case 2:
-                    dia = context.getString(R.string.tuesday);
-                    break;
-                case 3:
-                    dia = context.getString(R.string.wednesday);
-                    break;
-                case 4:
-                    dia = context.getString(R.string.thursday);
-                    break;
-                case 5:
-                    dia = context.getString(R.string.friday);
-                    break;
-                case 6:
-                    dia = context.getString(R.string.saturday);
-                    break;
-            }
+            dia = context.getResources().getString(Day.fromInt(task.getLimit().getDay()).toInt());
         } else {
             dia = task.getLimit().getDate() + " de ";
-            switch (task.getLimit().getMonth()) {
-                case 0:
-                    mes = context.getString(R.string.january);
-                    break;
-                case 1:
-                    mes = context.getString(R.string.february);
-                    break;
-                case 2:
-                    mes = context.getString(R.string.march);
-                    break;
-                case 3:
-                    mes = context.getString(R.string.april);
-                    break;
-                case 4:
-                    mes = context.getString(R.string.may);
-                    break;
-                case 5:
-                    mes = context.getString(R.string.june);
-                    break;
-                case 6:
-                    mes = context.getString(R.string.july);
-                    break;
-                case 7:
-                    mes = context.getString(R.string.august);
-                    break;
-                case 8:
-                    mes = context.getString(R.string.september);
-                    break;
-                case 9:
-                    mes = context.getString(R.string.october);
-                    break;
-                case 10:
-                    mes = context.getString(R.string.november);
-                    break;
-                case 11:
-                    mes = context.getString(R.string.august);
-                    break;
-            }
         }
-        return dia + mes;
+        return dia + context.getResources().getString(Month.fromInt(task.getLimit().getMonth()).toInt());
     }
 
     private boolean isDateInRange(Date date, Date first, Date last) {

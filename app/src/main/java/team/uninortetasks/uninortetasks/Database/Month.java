@@ -51,7 +51,7 @@ public enum Month {
         }
     }
 
-    public int getTextResource() {
+    public int toInt() {
         return text;
     }
 }

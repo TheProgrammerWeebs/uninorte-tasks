@@ -16,6 +16,7 @@ import android.view.Window;
 import android.widget.Toast;
 
 import team.uninortetasks.uninortetasks.Database.Category;
+import team.uninortetasks.uninortetasks.Database.Style;
 import team.uninortetasks.uninortetasks.Fragments.AddCategoryFragment;
 import team.uninortetasks.uninortetasks.Fragments.AddTaskFragment;
 import team.uninortetasks.uninortetasks.Fragments.NoCategoriesFragment;
@@ -82,7 +83,7 @@ public class TasksScreen extends AppCompatActivity implements
         } else {
             for (Category cat : Category.getAll()) {
                 final int temp = pos;
-                menu.add(cat.getName()).setIcon(cat.getIcon()).setOnMenuItemClickListener(item -> {
+                menu.add(cat.getName()).setIcon(cat.getIcon().getsrc()).setOnMenuItemClickListener(item -> {
                     currentCategoryIndex = temp;
                     setStyle(cat.getStyle());
                     loadView(cat);
@@ -136,7 +137,7 @@ public class TasksScreen extends AppCompatActivity implements
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.findViewById(R.id.noButton).setOnClickListener(e -> dialog.cancel());
         dialog.findViewById(R.id.yesButton).setOnClickListener(e -> {
-            Category.remove(this, Category.getAll().get(currentCategoryIndex).getId());
+            Category.remove(this, Category.getAll().get(currentCategoryIndex));
             Toast.makeText(this, "Categoría eliminada con éxito", Toast.LENGTH_SHORT).show();
             if (Category.getAll().isEmpty()) {
                 currentCategoryIndex = -1;
@@ -149,30 +150,10 @@ public class TasksScreen extends AppCompatActivity implements
         dialog.show();
     }
 
-    private void setStyle(int resource) {
-        setTheme(resource);
-        switch (resource) {
-            case R.style.greenTheme:
-                window.setStatusBarColor(getResources().getColor(R.color.green2));
-                actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.green)));
-                break;
-            case R.style.redTheme:
-                window.setStatusBarColor(getResources().getColor(R.color.darkRed2));
-                actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.darkRed)));
-                break;
-            case R.style.cyanTheme:
-                window.setStatusBarColor(getResources().getColor(R.color.cyan2));
-                actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.cyan)));
-                break;
-            case R.style.purpleTheme:
-                window.setStatusBarColor(getResources().getColor(R.color.purple2));
-                actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.purple)));
-                break;
-            case R.style.orangeTheme:
-                window.setStatusBarColor(getResources().getColor(R.color.orange2));
-                actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.orange)));
-                break;
-        }
+    private void setStyle(Style style) {
+        setTheme(style.getSrc());
+        window.setStatusBarColor(getResources().getColor(style.getColor2()));
+        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(style.getColor1())));
     }
 
     private void loadView(Category category) {
@@ -222,5 +203,9 @@ public class TasksScreen extends AppCompatActivity implements
     @Override
     public void addingFinished(Category category) {
         loadView(category);
+    }
+
+    public void removeTasksOkay(MenuItem item) {
+        //Eliminar ya completadas
     }
 }

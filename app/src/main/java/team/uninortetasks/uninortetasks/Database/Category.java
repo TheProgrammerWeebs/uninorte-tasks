@@ -29,10 +29,10 @@ public class Category extends RealmObject {
     public Category() {
     }
 
-    public Category(int id, int icon, int style, String name) {
+    public Category(int id, Icon icon, Style style, String name) {
         this.id = id;
-        this.icon = icon;
-        this.style = style;
+        this.icon = icon.toInt();
+        this.style = style.toInt();
         this.name = name;
         this.tasks = new RealmList<>();
     }
@@ -66,7 +66,7 @@ public class Category extends RealmObject {
      * @param context Contexto del que se llama al método (Activity).
      * @param name    Nombre de la tarea.
      */
-    public static Category add(final Context context, String name, int icon, int style) {
+    public static Category add(final Context context, String name, Icon icon, Style style) {
         final Category category = new Category(Category.generateId(), icon, style, name);
         Realm.getDefaultInstance()
                 .executeTransaction(r -> {
@@ -113,6 +113,18 @@ public class Category extends RealmObject {
                         Category cat = r.where(Category.class).equalTo("id", id).findFirst();
                         cat.getTasks().deleteAllFromRealm();
                         cat.deleteFromRealm();
+                    } catch (NullPointerException ignored) {
+                        Toast.makeText(context, "La tarea no existe.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    public static void remove(Context context, Category category) {
+        Realm.getDefaultInstance()
+                .executeTransaction(r -> {
+                    try {
+                        category.getTasks().deleteAllFromRealm();
+                        category.deleteFromRealm();
                     } catch (NullPointerException ignored) {
                         Toast.makeText(context, "La tarea no existe.", Toast.LENGTH_SHORT).show();
                     }
@@ -167,21 +179,21 @@ public class Category extends RealmObject {
         return this;
     }
 
-    public int getIcon() {
-        return this.icon;
+    public Icon getIcon() {
+        return Icon.fromInt(this.icon);
     }
 
-    public Category setIcon(int icon) {
-        this.icon = icon;
+    public Category setIcon(Icon icon) {
+        this.icon = icon.toInt();
         return this;
     }
 
-    public int getStyle() {
-        return this.style;
+    public Style getStyle() {
+        return Style.fromInt(this.style);
     }
 
-    public Category setStyle(int style) {
-        this.style = style;
+    public Category setStyle(Style style) {
+        this.style = style.toInt();
         return this;
     }
 

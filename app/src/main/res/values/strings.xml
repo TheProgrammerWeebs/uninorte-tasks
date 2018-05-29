@@ -103,4 +103,10 @@
     <string name="no">No</string>
     <string name="yes_delete">Sí, eliminar</string>
     <string name="this_remove_category_tasks">Si lo hace eliminirá todas las tareas que ésta contenga</string>
+    <string name="state">Estado</string>
+    <string name="progress_5_5">Progreso: 5/5</string>
+
+    <string name="completed">Completado</string>
+    <string name="pending">Pendiente</string>
+    <string name="expired">Expirado</string>
 </resources>

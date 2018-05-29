@@ -17,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import team.uninortetasks.uninortetasks.Database.Category;
+import team.uninortetasks.uninortetasks.Database.Icon;
+import team.uninortetasks.uninortetasks.Database.Style;
 import team.uninortetasks.uninortetasks.R;
 
 public class AddCategoryFragment extends Fragment {
@@ -31,8 +33,8 @@ public class AddCategoryFragment extends Fragment {
     private View selectedColor;
     private ImageView selectedIcon;
     private EditText name;
-    private int style;
-    private int icon;
+    private Style style;
+    private Icon icon;
 
     private boolean editMode = false;
     private int editId = 0;
@@ -66,8 +68,8 @@ public class AddCategoryFragment extends Fragment {
     }
 
     private void initialize(View view) {
-        icon = R.drawable.ic_item;
-        style = R.style.redTheme;
+        icon = Icon.defaultt;
+        style = Style.darkRed;
 
         colorsLayout = view.findViewById(R.id.colorSelector);
         iconsLayout = view.findViewById(R.id.iconSelector);
@@ -112,22 +114,22 @@ public class AddCategoryFragment extends Fragment {
             icons.setState(BottomSheetBehavior.STATE_EXPANDED);
         });
 
-        red.setOnClickListener(getDefaultColorListener(R.drawable.oval_dark_red, R.style.redTheme));
-        orange.setOnClickListener(getDefaultColorListener(R.drawable.oval_orange, R.style.orangeTheme));
-        green.setOnClickListener(getDefaultColorListener(R.drawable.oval_green, R.style.greenTheme));
-        cyan.setOnClickListener(getDefaultColorListener(R.drawable.oval_cyan, R.style.cyanTheme));
-        purple.setOnClickListener(getDefaultColorListener(R.drawable.oval_purple, R.style.purpleTheme));
+        red.setOnClickListener(getDefaultColorListener(R.drawable.oval_dark_red, Style.darkRed));
+        orange.setOnClickListener(getDefaultColorListener(R.drawable.oval_orange, Style.orange));
+        green.setOnClickListener(getDefaultColorListener(R.drawable.oval_green, Style.green));
+        cyan.setOnClickListener(getDefaultColorListener(R.drawable.oval_cyan, Style.cyan));
+        purple.setOnClickListener(getDefaultColorListener(R.drawable.oval_purple, Style.purple));
         backColors.setOnClickListener(e -> colors.setState(BottomSheetBehavior.STATE_HIDDEN));
 
-        icon1.setOnClickListener(getDefaultIconClickListener(R.drawable.ic_item));
-        icon2.setOnClickListener(getDefaultIconClickListener(R.drawable.ic_money));
-        icon3.setOnClickListener(getDefaultIconClickListener(R.drawable.ic_audio));
-        icon4.setOnClickListener(getDefaultIconClickListener(R.drawable.ic_book));
-        icon5.setOnClickListener(getDefaultIconClickListener(R.drawable.ic_laptop));
-        icon6.setOnClickListener(getDefaultIconClickListener(R.drawable.ic_flight));
-        icon7.setOnClickListener(getDefaultIconClickListener(R.drawable.ic_bed));
-        icon8.setOnClickListener(getDefaultIconClickListener(R.drawable.ic_gym));
-        icon9.setOnClickListener(getDefaultIconClickListener(R.drawable.ic_home));
+        icon1.setOnClickListener(getDefaultIconClickListener(Icon.defaultt));
+        icon2.setOnClickListener(getDefaultIconClickListener(Icon.money));
+        icon3.setOnClickListener(getDefaultIconClickListener(Icon.audio));
+        icon4.setOnClickListener(getDefaultIconClickListener(Icon.book));
+        icon5.setOnClickListener(getDefaultIconClickListener(Icon.laptop));
+        icon6.setOnClickListener(getDefaultIconClickListener(Icon.flight));
+        icon7.setOnClickListener(getDefaultIconClickListener(Icon.bed));
+        icon8.setOnClickListener(getDefaultIconClickListener(Icon.gym));
+        icon9.setOnClickListener(getDefaultIconClickListener(Icon.home));
         backIcons.setOnClickListener(e -> icons.setState(BottomSheetBehavior.STATE_HIDDEN));
 
         view.findViewById(R.id.cancelButton).setOnClickListener(e -> listener.onOperationCanceled());
@@ -147,7 +149,7 @@ public class AddCategoryFragment extends Fragment {
         if (editMode) {
             Category category = Category.get(this.editId);
             selectColor(category);
-            selectedIcon.setImageDrawable(getResources().getDrawable(category.getIcon()));
+            selectedIcon.setImageDrawable(getResources().getDrawable(category.getIcon().getsrc()));
             this.icon = category.getIcon();
             name.setText(category.getName());
             ((Button) view.findViewById(R.id.createButton)).setText("Editar categoría");
@@ -155,32 +157,32 @@ public class AddCategoryFragment extends Fragment {
     }
 
     private void selectColor(Category category) {
-        int style = category.getStyle();
+        Style style = category.getStyle();
         switch (style) {
-            case R.style.redTheme:
+            case darkRed:
                 selectedColor.setBackground(getResources().getDrawable(R.drawable.oval_dark_red));
                 this.style = style;
                 break;
-            case R.style.orangeTheme:
+            case orange:
                 selectedColor.setBackground(getResources().getDrawable(R.drawable.oval_orange));
                 this.style = style;
                 break;
-            case R.style.greenTheme:
+            case green:
                 selectedColor.setBackground(getResources().getDrawable(R.drawable.oval_green));
                 this.style = style;
                 break;
-            case R.style.cyanTheme:
+            case cyan:
                 selectedColor.setBackground(getResources().getDrawable(R.drawable.oval_cyan));
                 this.style = style;
                 break;
-            case R.style.purpleTheme:
+            case purple:
                 selectedColor.setBackground(getResources().getDrawable(R.drawable.oval_purple));
                 this.style = style;
                 break;
         }
     }
 
-    private View.OnClickListener getDefaultColorListener(int drawable, int style) {
+    private View.OnClickListener getDefaultColorListener(int drawable, Style style) {
         return (e -> {
             selectedColor.setBackground(getResources().getDrawable(drawable));
             this.style = style;
@@ -188,10 +190,10 @@ public class AddCategoryFragment extends Fragment {
         });
     }
 
-    private View.OnClickListener getDefaultIconClickListener(int drawable) {
+    private View.OnClickListener getDefaultIconClickListener(Icon icon) {
         return (e -> {
-            selectedIcon.setImageDrawable(getResources().getDrawable(drawable));
-            this.icon = drawable;
+            selectedIcon.setImageDrawable(getResources().getDrawable(icon.getsrc()));
+            this.icon = icon;
             icons.setState(BottomSheetBehavior.STATE_HIDDEN);
         });
     }

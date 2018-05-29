@@ -1,27 +1,30 @@
 package team.uninortetasks.uninortetasks.Database;
 
+import team.uninortetasks.uninortetasks.R;
+
 public enum State {
 
-    completed("completed"),
-    pending("pending"),
-    expired("expired");
+    completed(0, R.string.completed),
+    pending(1, R.string.pending),
+    expired(2, R.string.expired);
 
-    private String text;
+    private int index;
+    private int source;
 
-    State(String text) {
-        this.text = text;
+    State(int index, int source) {
+        this.index = index;
+        this.source = source;
     }
 
-    public static State fromString(String state) {
-        for (State s : State.values()) {
-            if (s.text.equalsIgnoreCase(state)) return s;
-        }
-        return expired;
+    public int getSrc() {
+        return source;
     }
 
-    @Override
-    public String toString() {
-        return this.text;
+    public int toInt() {
+        return this.index;
     }
 
+    public static State fromInt(int index) {
+        return State.values()[index];
+    }
 }

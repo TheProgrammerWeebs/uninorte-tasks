@@ -47,7 +47,7 @@ public class TasksFragment extends Fragment implements RecyclerItemTouchHelper.R
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tasks_category, container, false);
+        View view = inflater.inflate(R.layout.fragment_tasks, container, false);
         initialize(view);
         return view;
     }

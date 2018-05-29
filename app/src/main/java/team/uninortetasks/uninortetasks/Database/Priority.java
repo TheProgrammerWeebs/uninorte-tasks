@@ -4,32 +4,27 @@ import team.uninortetasks.uninortetasks.R;
 
 public enum Priority {
 
-    high("high", R.color.darkRed),
-    medium("medium", R.color.orange),
-    low("low", R.color.yellow);
+    high(0, R.color.darkRed),
+    medium(1, R.color.orange),
+    low(2, R.color.yellow);
 
-    private String text;
+    private int index;
     private int color;
 
-    Priority(String text, int color) {
-        this.text = text;
+    Priority(int index, int color) {
+        this.index = index;
         this.color = color;
     }
 
-    public static Priority fromString(String priority) {
-        for (Priority p : Priority.values()) {
-            if (p.text.equalsIgnoreCase(priority)) return p;
-        }
-        return high;
-    }
-
-    @Override
-    public String toString() {
-        return this.text;
+    public int toInt() {
+        return this.index;
     }
 
     public int getColor() {
         return color;
     }
 
+    public static Priority fromInt(int index) {
+        return Priority.values()[index];
+    }
 }

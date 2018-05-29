@@ -101,7 +101,7 @@ public class AddTaskFragment extends Fragment {
                 getContext(),
                 (view1, year, month, dayOfMonth) -> {
                     limit = new Date(year, month, dayOfMonth);
-                    dateLabel.setText(dayOfMonth + " " + getResources().getString(R.string.of) + " " + getResources().getString(Month.fromInt(month).getTextResource()) + " " + getResources().getString(R.string.of) + " " + year);
+                    dateLabel.setText(dayOfMonth + " " + getResources().getString(R.string.of) + " " + getResources().getString(Month.fromInt(month).toInt()) + " " + getResources().getString(R.string.of) + " " + year);
                 },
                 today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH)
         );
@@ -128,7 +128,7 @@ public class AddTaskFragment extends Fragment {
         diary = diaryOrUnique.findViewById(R.id.diary);
         unique = diaryOrUnique.findViewById(R.id.unique);
 
-        dateLabel.setText(today.get(Calendar.DAY_OF_MONTH) + " " + getResources().getString(R.string.of) + " " + getResources().getString(Month.fromInt(today.get(Calendar.MONTH)).getTextResource()) + " " + getResources().getString(R.string.of2) + " " + today.get(Calendar.YEAR));
+        dateLabel.setText(today.get(Calendar.DAY_OF_MONTH) + " " + getResources().getString(R.string.of) + " " + getResources().getString(Month.fromInt(today.get(Calendar.MONTH)).toInt()) + " " + getResources().getString(R.string.of2) + " " + today.get(Calendar.YEAR));
 
         daysLayout = view.findViewById(R.id.daysLayout);
         dateLayout = view.findViewById(R.id.dateLayout);

@@ -30,12 +30,9 @@ public class Task extends RealmObject {
     private String name;
     private RealmList<Integer> days;
     private Category category;
-    @Required
-    private String priority;
-    @Required
-    private String state;
-    @Required
-    private String type;
+    private int priority;
+    private int state;
+    private int type;
     @Required
     private Date limit;
     private boolean haveSteps;
@@ -50,9 +47,9 @@ public class Task extends RealmObject {
     public Task(int id, String name, Priority priority, State state, Type type, Date limit, boolean haveSteps, boolean diaryTask, int maxSteps, Category category) {
         this.id = id;
         this.name = name;
-        this.priority = priority.toString();
-        this.state = state.toString();
-        this.type = type.toString();
+        this.priority = priority.toInt();
+        this.state = state.toInt();
+        this.type = type.toInt();
         this.limit = limit;
         this.haveSteps = haveSteps;
         this.diaryTask = diaryTask;
@@ -124,6 +121,21 @@ public class Task extends RealmObject {
                 });
     }
 
+    public static void add(final Context context, final Task task) {
+        Realm.getDefaultInstance()
+                .executeTransaction(r -> {
+                    try {
+                        r.copyToRealm(task);
+                        task.getCategory().addTask(task);
+                        for (Day i : task.getDays()) {
+                            task.addDay(i.toInt());
+                        }
+                    } catch (RealmPrimaryKeyConstraintException ignored) {
+                        Toast.makeText(context, "ID Ingresado ya existe.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
     /**
      * Obtiene la tarea con el ID pasado como parámetro.
      *
@@ -143,16 +155,14 @@ public class Task extends RealmObject {
         return tasks;
     }
 
-    public static RealmList<Task> tasksForToday() {
-        RealmList<Task> tasks = new RealmList<>();
-        Date hoy = Calendar.getInstance().getTime();
-        for (Task task : all) {
-            Date date = task.getLimit();
-            if (hoy.getDay() == date.getDay() && hoy.getMonth() == date.getMonth() && hoy.getYear() == date.getYear()) {
-                tasks.add(task);
-            }
-        }
-        return tasks;
+    public static RealmResults<Task> tasksForToday() {
+        Date today = Calendar.getInstance().getTime();
+        Date now = Calendar.getInstance().getTime();
+        today.setHours(0);
+        today.setMinutes(0);
+        today.setSeconds(0);
+        return Realm.getDefaultInstance()
+                .where(Task.class).between("limit", today, now).sort("priority").findAll();
     }
 
     /**
@@ -175,6 +185,17 @@ public class Task extends RealmObject {
                 .executeTransaction(r -> {
                     try {
                         all.where().equalTo("id", id).findFirst().deleteFromRealm();
+                    } catch (NullPointerException ignored) {
+                        Toast.makeText(context, "La tarea no existe.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    public static void remove(Context context, Task task) {
+        Realm.getDefaultInstance()
+                .executeTransaction(r -> {
+                    try {
+                        task.deleteFromRealm();
                     } catch (NullPointerException ignored) {
                         Toast.makeText(context, "La tarea no existe.", Toast.LENGTH_SHORT).show();
                     }
@@ -235,29 +256,29 @@ public class Task extends RealmObject {
     }
 
     public Priority getPriority() {
-        return Priority.fromString(this.priority);
+        return Priority.fromInt(this.priority);
     }
 
     public Task setPriority(Priority priority) {
-        this.priority = priority.toString();
+        this.priority = priority.toInt();
         return this;
     }
 
     public State getState() {
-        return State.fromString(this.state);
+        return State.fromInt(this.state);
     }
 
     public Task setState(State state) {
-        this.state = state.toString();
+        this.state = state.toInt();
         return this;
     }
 
     public Type getType() {
-        return Type.fromString(this.type);
+        return Type.fromInt(this.type);
     }
 
     public Task setType(Type type) {
-        this.type = type.toString();
+        this.type = type.toInt();
         return this;
     }
 
