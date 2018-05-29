@@ -204,8 +204,4 @@ public class TasksScreen extends AppCompatActivity implements
     public void addingFinished(Category category) {
         loadView(category);
     }
-
-    public void removeTasksOkay(MenuItem item) {
-        //Eliminar ya completadas
-    }
 }

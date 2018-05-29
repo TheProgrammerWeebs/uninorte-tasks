@@ -10,22 +10,28 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmList;
+import io.realm.RealmResults;
+import team.uninortetasks.uninortetasks.Database.Category;
 import team.uninortetasks.uninortetasks.Database.Day;
 import team.uninortetasks.uninortetasks.Database.Month;
+import team.uninortetasks.uninortetasks.Database.Priority;
+import team.uninortetasks.uninortetasks.Database.State;
 import team.uninortetasks.uninortetasks.Database.Task;
+import team.uninortetasks.uninortetasks.Database.Type;
 import team.uninortetasks.uninortetasks.R;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     private Context context;
-    private RealmList<Task> data;
+    private RealmResults<Task> data;
 
-    public TaskAdapter(Context context, RealmList<Task> data) {
+    public TaskAdapter(Context context, RealmResults<Task> data) {
         this.context = context;
         this.data = data;
     }
@@ -59,19 +65,28 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     public void removeTask(int position) {
 //        Realm realm = Realm.getDefaultInstance();
 //        realm.beginTransaction();
-//        data.remove(position);
+//        this.data.get(position).deleteFromRealm();
 //        realm.commitTransaction();
-        Task.remove(context, data.get(position));
+        Task.remove(context, this.data.get(position));
         this.notifyItemRemoved(position);
     }
 
-    public void restoreTask(Task task, int position) {
-        Realm realm = Realm.getDefaultInstance();
-        realm.beginTransaction();
-        realm.copyToRealm(task);
-        data.add(position, task);
-        realm.commitTransaction();
-//        Task.add(context, task);
+    public void restoreTask(String name,
+                            Priority priority,
+                            State state,
+                            Type type,
+                            Date limit,
+                            boolean haveSteps,
+                            boolean diaryTask,
+                            int maxSteps,
+                            Category category,
+                            ArrayList<Integer> days,
+                            int position) {
+//        Realm realm = Realm.getDefaultInstance();
+//        realm.beginTransaction();
+//        this.data.add(position, task);
+//        realm.commitTransaction();
+        Task.add(context, name, priority, state, type, limit, haveSteps, diaryTask, maxSteps, category, days);
         this.notifyItemInserted(position);
     }
 

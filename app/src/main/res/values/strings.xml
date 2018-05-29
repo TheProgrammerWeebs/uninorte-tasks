@@ -110,4 +110,11 @@
     <string name="pending">Pendiente</string>
     <string name="expired">Expirado</string>
     <string name="create_task">Crear tarea</string>
+    <string name="time_to_socialize">Llegó la hora de socializar...</string>
+    <string name="no_tasks_for_today">No tiene tareas para hoy</string>
+    <string name="delete_all_tasks">Borrar todas la tareas</string>
+    <string name="delete_expired_tasks">Borrar tareas expiradas</string>
+    <string name="delete_complete_goals">Borrar metas completadas</string>
+    <string name="choose_options">Escoja la(s) opciones deseadas a continuación</string>
+    <string name="delete_complete_tasks">Eliminar tareas completadas de la categoría</string>
 </resources>

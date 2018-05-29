@@ -9,6 +9,7 @@ import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
+import io.realm.annotations.LinkingObjects;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 import io.realm.exceptions.RealmException;
@@ -23,10 +24,11 @@ public class Category extends RealmObject {
     private String name;
     private int icon;
     private int style;
-    private RealmList<Task> tasks;
-    int a;
+    @LinkingObjects("category")
+    private final RealmResults<Task> tasks;
 
     public Category() {
+        tasks = null;
     }
 
     public Category(int id, Icon icon, Style style, String name) {
@@ -34,7 +36,7 @@ public class Category extends RealmObject {
         this.icon = icon.toInt();
         this.style = style.toInt();
         this.name = name;
-        this.tasks = new RealmList<>();
+        tasks = null;
     }
 
     public Category getEditableInstance() {
@@ -150,11 +152,6 @@ public class Category extends RealmObject {
         return category;
     }
 
-    public Category addTask(Task task) {
-        this.tasks.add(task);
-        return this;
-    }
-
     public int getPositionInList() {
         int pos = 0;
         for (Category c : all) {
@@ -197,7 +194,7 @@ public class Category extends RealmObject {
         return this;
     }
 
-    public RealmList<Task> getTasks() {
+    public RealmResults<Task> getTasks() {
         return this.tasks;
     }
 

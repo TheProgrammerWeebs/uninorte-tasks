@@ -41,6 +41,7 @@ public class TaskForTodayAdapter extends RecyclerView.Adapter<TaskForTodayAdapte
         holder.name.setText(task.getName());
         holder.progress.setText((task.getType() == Type.goal) ? ("Progreso: " + task.getSteps() + "/" + task.getMaxSteps()) : "");
         holder.state.setText(context.getResources().getString(task.getState().getSrc()));
+
     }
 
     @Override

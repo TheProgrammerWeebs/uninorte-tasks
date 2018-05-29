@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:icon="@drawable/ic_delete"
-        android:onClick="removeTasksOkay"
+        android:icon="@drawable/ic_clear"
+        android:onClick="removeTasks"
         android:title=""
         app:showAsAction="ifRoom" />
     <item

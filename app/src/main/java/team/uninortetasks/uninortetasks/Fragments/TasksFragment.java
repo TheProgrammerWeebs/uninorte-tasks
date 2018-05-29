@@ -14,8 +14,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+
 import team.uninortetasks.uninortetasks.Database.Category;
+import team.uninortetasks.uninortetasks.Database.Day;
+import team.uninortetasks.uninortetasks.Database.Priority;
+import team.uninortetasks.uninortetasks.Database.State;
 import team.uninortetasks.uninortetasks.Database.Task;
+import team.uninortetasks.uninortetasks.Database.Type;
 import team.uninortetasks.uninortetasks.Others.RecyclerItemTouchHelper;
 import team.uninortetasks.uninortetasks.Others.TaskAdapter;
 import team.uninortetasks.uninortetasks.R;
@@ -84,14 +93,25 @@ public class TasksFragment extends Fragment implements RecyclerItemTouchHelper.R
         System.out.println("Swiped");
         if (viewHolder instanceof TaskAdapter.ViewHolder) {
             System.out.println("Is a viewholder");
-            Category category = Category.get(categoryId);
+            final Category category = Category.get(categoryId);
             int deletedPosition = viewHolder.getAdapterPosition();
-            Task task = category.getTasks().get(deletedPosition);
-            String name = task.getName();
-            adapter.removeTask(deletedPosition);
+            final Task task = new Task(category.getTasks().get(deletedPosition));
+            final String name = task.getName();
+            final Priority priority = task.getPriority();
+            final State state = task.getState();
+            final Type type = task.getType();
+            final Date limit = task.getLimit();
+            final boolean haveSteps = task.haveSteps();
+            final boolean diaryTask = task.isDiaryTask();
+            final int maxSteps = task.getMaxSteps();
+            final ArrayList<Integer> days = new ArrayList<>();
+            for (Day day : task.getDays()) {
+                days.add(day.toInt());
+            }
             Snackbar snackbar = Snackbar.make(coordinatorLayout, name + getString(R.string.deleted), Snackbar.LENGTH_LONG);
+            snackbar.setAction(getString(R.string.undo), view -> adapter.restoreTask(name, priority, state, type, limit, haveSteps, diaryTask, maxSteps, category, days, deletedPosition));
             snackbar.show();
-            snackbar.setAction(getString(R.string.undo), view -> adapter.restoreTask(task, deletedPosition));
+            adapter.removeTask(deletedPosition);
         }
     }
 

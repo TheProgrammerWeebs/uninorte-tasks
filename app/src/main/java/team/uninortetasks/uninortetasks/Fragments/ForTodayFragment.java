@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import team.uninortetasks.uninortetasks.Database.Task;
+import team.uninortetasks.uninortetasks.Others.NotTasksForTodayAdapter;
 import team.uninortetasks.uninortetasks.Others.TaskForTodayAdapter;
 import team.uninortetasks.uninortetasks.R;
 
@@ -34,12 +35,20 @@ public class ForTodayFragment extends Fragment {
     }
 
     private void initialize(View view) {
-        Task.addDataChangeListener(() -> tasksList.setAdapter(new TaskForTodayAdapter(getContext(), Task.tasksForToday())));
+        Task.addDataChangeListener(() -> setContent());
         tasksList = view.findViewById(R.id.tasksList);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext());
         tasksList.setLayoutManager(manager);
         tasksList.setItemAnimator(new DefaultItemAnimator());
-        tasksList.setAdapter(new TaskForTodayAdapter(getContext(), Task.tasksForToday()));
+        setContent();
+    }
+
+    private void setContent() {
+        if (Task.getAll().size() == 0) {
+            tasksList.setAdapter(new NotTasksForTodayAdapter(getContext()));
+        } else {
+            tasksList.setAdapter(new TaskForTodayAdapter(getContext(), Task.tasksForToday()));
+        }
     }
 
     @Override

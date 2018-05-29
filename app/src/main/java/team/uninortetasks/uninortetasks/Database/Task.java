@@ -45,6 +45,22 @@ public class Task extends RealmObject {
         notes = null;
     }
 
+    public Task(Task task) {
+        notes = task.notes;
+        id = generateId();
+        name = task.name;
+        days = task.days;
+        category = task.category;
+        priority = task.priority;
+        state = task.state;
+        type = task.type;
+        limit = task.limit;
+        haveSteps = task.haveSteps;
+        diaryTask = task.diaryTask;
+        steps = task.steps;
+        maxSteps = task.maxSteps;
+    }
+
     public Task(int id, String name, Priority priority, State state, Type type, Date limit, boolean haveSteps, boolean diaryTask, int maxSteps, Category category) {
         this.id = id;
         this.name = name;
@@ -86,7 +102,7 @@ public class Task extends RealmObject {
      *
      * @return ID generado.
      */
-    private static int generateId() {
+    public static int generateId() {
         Number maxID = Realm.getDefaultInstance()
                 .where(Task.class).max("id");
         return (maxID == null) ? 1 : maxID.intValue() + 1;
@@ -120,7 +136,6 @@ public class Task extends RealmObject {
                 .executeTransaction(r -> {
                     try {
                         r.copyToRealm(task);
-                        category.addTask(task);
                         for (int i : days) {
                             task.addDay(i);
                         }
@@ -136,7 +151,6 @@ public class Task extends RealmObject {
                 .executeTransaction(r -> {
                     try {
                         r.copyToRealm(task);
-                        task.getCategory().addTask(task);
                         for (Day i : task.getDays()) {
                             task.addDay(i.toInt());
                         }
@@ -207,7 +221,6 @@ public class Task extends RealmObject {
         Realm.getDefaultInstance()
                 .executeTransaction(r -> {
                     try {
-                        task.getCategory().getTasks().remove(task);
                         task.deleteFromRealm();
                     } catch (NullPointerException ignored) {
                         Toast.makeText(context, "La tarea no existe.", Toast.LENGTH_SHORT).show();
@@ -310,7 +323,7 @@ public class Task extends RealmObject {
         return this;
     }
 
-    public boolean haveStepes() {
+    public boolean haveSteps() {
         return haveSteps;
     }
 
