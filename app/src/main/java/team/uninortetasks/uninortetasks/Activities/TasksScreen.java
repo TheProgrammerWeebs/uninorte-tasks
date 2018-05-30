@@ -177,17 +177,17 @@ public class TasksScreen extends AppCompatActivity implements
     }
 
     public void removeTasks(MenuItem item) {
-        final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_deleted_completed);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        final CheckBox completedGoals = dialog.findViewById(R.id.completedGoals);
-        final CheckBox expiredTasks = dialog.findViewById(R.id.expiredTasks);
-        final CheckBox allTasks = dialog.findViewById(R.id.allTasks);
-        dialog.findViewById(R.id.noButton).setOnClickListener(e -> dialog.cancel());
-        dialog.findViewById(R.id.yesButton).setOnClickListener(e -> {
-            if (currentCategoryIndex == -1) {
-                Toast.makeText(this, "No hay categorias registradas", Toast.LENGTH_SHORT).show();
-            } else {
+        if (currentCategoryIndex == -1) {
+            Toast.makeText(this, "No hay categorias registradas", Toast.LENGTH_SHORT).show();
+        } else {
+            final Dialog dialog = new Dialog(this);
+            dialog.setContentView(R.layout.dialog_delete_completed);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            final CheckBox completedGoals = dialog.findViewById(R.id.completedGoals);
+            final CheckBox expiredTasks = dialog.findViewById(R.id.expiredTasks);
+            final CheckBox allTasks = dialog.findViewById(R.id.allTasks);
+            dialog.findViewById(R.id.noButton).setOnClickListener(e -> dialog.cancel());
+            dialog.findViewById(R.id.yesButton).setOnClickListener(e -> {
                 if (allTasks.isChecked() || completedGoals.isChecked() || expiredTasks.isChecked()) {
                     int deletes = Category.getAll().get(currentCategoryIndex).cleanDb(this, allTasks.isChecked(), completedGoals.isChecked(), expiredTasks.isChecked());
                     dialog.cancel();
@@ -195,9 +195,9 @@ public class TasksScreen extends AppCompatActivity implements
                 } else {
                     Toast.makeText(this, "Seleccione por lo menos una opción", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-        dialog.show();
+            });
+            dialog.show();
+        }
     }
 
     @Override

@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import io.realm.Realm;
-import io.realm.RealmList;
 import io.realm.RealmResults;
 import team.uninortetasks.uninortetasks.Database.Category;
 import team.uninortetasks.uninortetasks.Database.Day;
@@ -51,10 +49,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         holder.taskName.setText(data.get(position).getName());
         holder.taskDate.setText(getDate(data.get(position)));
         holder.priority.setBackgroundColor(context.getResources().getColor(data.get(position).getPriority().getColor()));
-        //holder.priority.setText(data.get(position).getPriority().toString());
-        //holder.state.setText(data.get(position).getState().toString());
-        //holder.date.setText(data.get(position).getLimit().toString());
-        //holder.progress.setText(data.get(position).getSteps() + "/" + data.get(position).getMaxSteps());
     }
 
     @Override
@@ -63,10 +57,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     }
 
     public void removeTask(int position) {
-//        Realm realm = Realm.getDefaultInstance();
-//        realm.beginTransaction();
-//        this.data.get(position).deleteFromRealm();
-//        realm.commitTransaction();
         Task.remove(context, this.data.get(position));
         this.notifyItemRemoved(position);
     }
@@ -82,10 +72,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                             Category category,
                             ArrayList<Integer> days,
                             int position) {
-//        Realm realm = Realm.getDefaultInstance();
-//        realm.beginTransaction();
-//        this.data.add(position, task);
-//        realm.commitTransaction();
         Task.add(context, name, priority, state, type, limit, haveSteps, diaryTask, maxSteps, category, days);
         this.notifyItemInserted(position);
     }
@@ -97,10 +83,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         private View priority;
         private TextView taskDate;
 
-        //private TextView state;
-
-        //private TextView progress;
-
         public ViewHolder(View itemView) {
             super(itemView);
             taskName = itemView.findViewById(R.id.task_name);
@@ -108,9 +90,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             priority = itemView.findViewById(R.id.priority);
             root = itemView.findViewById(R.id.parent);
             foreground = itemView.findViewById(R.id.foreground);
-            //state = itemView.findViewById(R.id.state);
-            //date = itemView.findViewById(R.id.date);
-            //progress = itemView.findViewById(R.id.progress);
         }
 
         public RelativeLayout getForeground() {
@@ -119,8 +98,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     }
 
     private String getDate(Task task) {
-        String dia = "";
-        String mes = "";
+        String dia;
         Calendar sieteDias = Calendar.getInstance();
         sieteDias.add(Calendar.DATE, 7);
         if (task.getLimit().equals(new Date())) {

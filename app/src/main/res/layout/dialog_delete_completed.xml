@@ -36,34 +36,42 @@
             android:textSize="13sp"
             android:textStyle="italic" />
 
-        <CheckBox
-            android:id="@+id/completedGoals"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:checked="true"
-            android:text="@string/delete_complete_goals"
-            android:textColor="?attr/textColor" />
+            android:layout_marginStart="5dp"
+            android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/expiredTasks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/delete_expired_tasks"
-            android:textColor="?attr/textColor" />
+            <CheckBox
+                android:id="@+id/completedGoals"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:checked="true"
+                android:text="@string/delete_complete_goals"
+                android:textColor="?attr/textColor" />
 
-        <CheckBox
-            android:id="@+id/allTasks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/background_red_round"
-            android:paddingEnd="10dp"
-            android:paddingStart="15dp"
-            android:text="@string/delete_all_tasks"
-            android:textColor="?attr/textColor" />
+            <CheckBox
+                android:id="@+id/expiredTasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/delete_expired_tasks"
+                android:textColor="?attr/textColor" />
+
+            <CheckBox
+                android:id="@+id/allTasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/background_red_round"
+                android:paddingEnd="10dp"
+                android:paddingStart="15dp"
+                android:text="@string/delete_all_tasks"
+                android:textColor="?attr/textColor" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
