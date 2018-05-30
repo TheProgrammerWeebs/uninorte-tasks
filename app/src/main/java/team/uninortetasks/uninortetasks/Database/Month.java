@@ -51,7 +51,7 @@ public enum Month {
         }
     }
 
-    public int toInt() {
+    public int getSrc() {
         return text;
     }
 }

@@ -24,6 +24,7 @@
             android:text="@string/select_hour"
             android:textAllCaps="false"
             android:textSize="10dp" />
+
         <Button
             android:id="@+id/bt_wake_sleep"
             android:text="@string/wake_up"
@@ -33,20 +34,21 @@
             android:background="@color/dark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical" />
     </LinearLayout>
+
     <Button
         android:id="@+id/calculate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/calculate"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp" />
 
     <TextView
         android:id="@+id/you_should"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -60,9 +62,9 @@
             android:layout_marginRight="20dp"
             android:textSize="40dp" />
 
+        <!--android:background="@drawable/despertador"-->
         <Button
             android:id="@+id/bt_five_cycles"
-            android:background="@drawable/despertador"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center_vertical" />
@@ -80,9 +82,9 @@
             android:layout_marginRight="20dp"
             android:textSize="40dp" />
 
+        <!--android:background="@drawable/despertador"-->
         <Button
             android:id="@+id/bt_four_cycles"
-            android:background="@drawable/despertador"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center_vertical" />
@@ -101,9 +103,9 @@
             android:layout_marginRight="20dp"
             android:textSize="40dp" />
 
+        <!--android:background="@drawable/despertador"-->
         <Button
             android:id="@+id/bt_three_cycles"
-            android:background="@drawable/despertador"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center_vertical" />
@@ -122,9 +124,9 @@
             android:layout_marginRight="20dp"
             android:textSize="40dp" />
 
+        <!--android:background="@drawable/despertador"-->
         <Button
             android:id="@+id/bt_two_cycles"
-            android:background="@drawable/despertador"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center_vertical" />

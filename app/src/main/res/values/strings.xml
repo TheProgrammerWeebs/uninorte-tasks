@@ -124,4 +124,9 @@
     <string name="calculate">calcular</string>
     <string name="next_hours">en las siguientes horas:</string>
     <string name="you_should">Deberías</string>
+    <string name="save">Guardar</string>
+    <string name="back">Volver</string>
+    <string name="advance">Avance</string>
+    <string name="report_progress">Reportar progreso</string>
+    <string name="new_limit_date">Nueva fecha límite</string>
 </resources>

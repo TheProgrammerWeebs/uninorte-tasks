@@ -295,6 +295,11 @@ public class Task extends RealmObject {
         return Day.toArray(this.days);
     }
 
+    public Task setDays(RealmList<Integer> days) {
+        this.days = days;
+        return this;
+    }
+
     public Category getCategory() {
         return this.category;
     }

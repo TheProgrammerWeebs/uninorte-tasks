@@ -30,7 +30,6 @@ public class TaskForTodayAdapter extends RecyclerView.Adapter<TaskForTodayAdapte
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(this.context).inflate(R.layout.for_today_task_view, parent, false);
         ViewHolder holder = new ViewHolder(view);
-
         return holder;
     }
 
@@ -58,6 +57,7 @@ public class TaskForTodayAdapter extends RecyclerView.Adapter<TaskForTodayAdapte
 
         public ViewHolder(View view) {
             super(view);
+            view.findViewById(R.id.root).setOnClickListener(e -> DialogHelper.taskDialog(context, data.get(getAdapterPosition())));
             categoryColor = view.findViewById(R.id.categoryColor);
             name = view.findViewById(R.id.name);
             state = view.findViewById(R.id.state);

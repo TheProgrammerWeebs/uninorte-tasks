@@ -39,8 +39,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.task_view_layout, parent, false);
         ViewHolder v = new ViewHolder(view);
-        final int pos = v.getAdapterPosition();
-        v.root.setOnClickListener(e -> showDialog(pos));
         return v;
     }
 
@@ -83,13 +81,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         private View priority;
         private TextView taskDate;
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-            taskName = itemView.findViewById(R.id.task_name);
-            taskDate = itemView.findViewById(R.id.task_date);
-            priority = itemView.findViewById(R.id.priority);
-            root = itemView.findViewById(R.id.parent);
-            foreground = itemView.findViewById(R.id.foreground);
+        public ViewHolder(View view) {
+            super(view);
+            view.findViewById(R.id.foreground).setOnClickListener(e -> DialogHelper.taskDialog(context, data.get(getAdapterPosition())));
+            taskName = view.findViewById(R.id.task_name);
+            taskDate = view.findViewById(R.id.task_date);
+            priority = view.findViewById(R.id.priority);
+            root = view.findViewById(R.id.parent);
+            foreground = view.findViewById(R.id.foreground);
         }
 
         public RelativeLayout getForeground() {
@@ -108,7 +107,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         } else {
             dia = task.getLimit().getDate() + " de ";
         }
-        return dia + context.getResources().getString(Month.fromInt(task.getLimit().getMonth()).toInt());
+        return dia + context.getResources().getString(Month.fromInt(task.getLimit().getMonth()).getSrc());
     }
 
     private boolean isDateInRange(Date date, Date first, Date last) {
