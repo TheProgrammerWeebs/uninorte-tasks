@@ -29,9 +29,9 @@
                     android:layout_width="140dp"
                     android:layout_height="170dp"
                     android:layout_margin="7dp"
-                    android:onClick="onTasksClick"
                     android:clickable="true"
                     android:foreground="?attr/selectableItemBackground"
+                    android:onClick="onTasksClick"
                     app:cardElevation="4dp">
 
                     <LinearLayout
@@ -183,7 +183,9 @@
                         <ImageView
                             android:layout_width="63dp"
                             android:layout_height="63dp"
+                            android:background="@drawable/oval_light"
                             android:padding="10dp"
+                            android:scaleType="centerCrop"
                             android:src="@drawable/calculadora" />
 
                         <TextView
@@ -199,7 +201,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Calcula cuánto vas a dormir y cuánto necesitas dormir"
+                            android:text="@string/how_much_sleep"
                             android:textAlignment="center"
                             android:textColor="?attr/textColor"
                             android:textSize="12sp" />

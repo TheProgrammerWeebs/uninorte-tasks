@@ -117,4 +117,11 @@
     <string name="delete_complete_goals">Borrar metas completadas</string>
     <string name="choose_options">Escoja la(s) opciones deseadas a continuación</string>
     <string name="delete_complete_tasks">Eliminar tareas completadas de la categoría</string>
+    <string name="how_much_sleep">¿Cuánto tengo que dormir?</string>
+    <string name="select_hour">Selecciona la hora a la que te vas a</string>
+    <string name="sleep">dormir</string>
+    <string name="wake_up">despertar</string>
+    <string name="calculate">calcular</string>
+    <string name="next_hours">en las siguientes horas:</string>
+    <string name="you_should">Deberías</string>
 </resources>

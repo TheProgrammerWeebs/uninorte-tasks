@@ -32,6 +32,7 @@ public class DashboardFragment extends Fragment {
 
     private void initialize(View view) {
         view.findViewById(R.id.tasks).setOnClickListener(e -> startActivity(new Intent(getActivity(), TasksScreen.class)));
+        view.findViewById(R.id.sleep).setOnClickListener(e -> startActivity(new Intent(getActivity(), DreamCalculatorScreen.class)));
         //Categories listener...
     }
 
