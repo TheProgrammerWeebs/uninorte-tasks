@@ -18,6 +18,10 @@ public enum Priority {
         this.source = source;
     }
 
+    public static Priority fromInt(int index) {
+        return Priority.values()[index];
+    }
+
     public int getSrc() {
         return this.source;
     }
@@ -28,9 +32,5 @@ public enum Priority {
 
     public int getColor() {
         return this.color;
-    }
-
-    public static Priority fromInt(int index) {
-        return Priority.values()[index];
     }
 }

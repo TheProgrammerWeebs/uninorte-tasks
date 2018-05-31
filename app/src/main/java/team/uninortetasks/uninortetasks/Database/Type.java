@@ -13,11 +13,11 @@ public enum Type {
         this.index = index;
     }
 
-    public int toInt() {
-        return index;
-    }
-
     public static Type fromInt(int index) {
         return Type.values()[index];
+    }
+
+    public int toInt() {
+        return index;
     }
 }

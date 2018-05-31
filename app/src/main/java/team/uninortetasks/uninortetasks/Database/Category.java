@@ -21,14 +21,14 @@ public class Category extends RealmObject {
     private static RealmResults<Category> all;
     private static ArrayList<OnDataChangeListener> listeners;
     private static ArrayList<Class> listenerFathers;
+    @LinkingObjects("category")
+    private final RealmResults<Task> tasks;
     @PrimaryKey
     private int id;
     @Required
     private String name;
     private int icon;
     private int style;
-    @LinkingObjects("category")
-    private final RealmResults<Task> tasks;
 
     public Category() {
         tasks = null;
@@ -42,10 +42,6 @@ public class Category extends RealmObject {
         tasks = null;
     }
 
-    public Category getEditableInstance() {
-        return Realm.getDefaultInstance().copyFromRealm(this);
-    }
-
     /**
      * Inicializa la base de datos de tareas y obtiene la lista de todas las tareas registradas.
      */
@@ -56,18 +52,31 @@ public class Category extends RealmObject {
                 .where(Category.class).sort("name").findAll();
     }
 
+    /**
+     * Método que se llama cuando se realizan cambios en la base de datos, llama a todos los listeners añadidos
+     */
     static void dataChanged() {
-        ArrayList<OnDataChangeListener> toRemove;
         for (OnDataChangeListener listener : listeners) {
             listener.onChange();
         }
     }
 
+    /**
+     * Agregar un ChangeListener a la base de datos
+     *
+     * @param father   Clase padre
+     * @param listener Listener
+     */
     public static void addDataChangeListener(Class father, OnDataChangeListener listener) {
         listeners.add(listener);
         listenerFathers.add(father);
     }
 
+    /**
+     * Elimina todos los listener de un padre
+     *
+     * @param father Clase padre del listener a eliminar
+     */
     public static void removeChangeListener(Class father) {
         for (int i = 0; i < listenerFathers.size(); i++) {
             if (father == listenerFathers.get(i)) {
@@ -149,6 +158,12 @@ public class Category extends RealmObject {
         dataChanged();
     }
 
+    /**
+     * Eliminar una categoría de la base de datos
+     *
+     * @param context  Context desde el que se llama al método
+     * @param category Categoría a eliminar
+     */
     public static void remove(Context context, Category category) {
         Realm.getDefaultInstance()
                 .executeTransaction(r -> {
@@ -182,6 +197,24 @@ public class Category extends RealmObject {
         return category;
     }
 
+    /**
+     * Obtener una instancia de la categoría editable
+     *
+     * @return Categoría editable copiada de la base de datos
+     */
+    public Category getEditableInstance() {
+        return Realm.getDefaultInstance().copyFromRealm(this);
+    }
+
+    /**
+     * Limpia la base de datos de las tareas de la categoría segun los flags pasados por parametro
+     *
+     * @param context   Context desde el que se llama al método
+     * @param all       Determina si se eliminarán todas las tareas
+     * @param completed Determina si se eliminarán las tareas completadas
+     * @param expired   Determina si se eliminarán las tareas expiradas
+     * @return Retorna el número de tareas eliminadas
+     */
     public int cleanDb(Context context, boolean all, boolean completed, boolean expired) {
         int count = 0;
         if (all) {
@@ -226,6 +259,11 @@ public class Category extends RealmObject {
         return count;
     }
 
+    /**
+     * Obtiene la posición que ocupa esta categoría en la base de datos
+     *
+     * @return Entero que representa la posición en la lista
+     */
     public int getPositionInList() {
         int pos = 0;
         for (Category c : all) {
@@ -276,6 +314,9 @@ public class Category extends RealmObject {
         return edit(context, this);
     }
 
+    /**
+     * Interface listener para cambios en la base de datos
+     */
     public interface OnDataChangeListener {
         void onChange();
     }

@@ -78,10 +78,6 @@ public class Task extends RealmObject {
         notes = null;
     }
 
-    public Task getEditableInstance() {
-        return Realm.getDefaultInstance().copyFromRealm(this);
-    }
-
     /**
      * Inicializa la base de datos de tareas y obtiene la lista de todas las tareas registradas.
      */
@@ -92,6 +88,9 @@ public class Task extends RealmObject {
                 .where(Task.class).sort("limit").findAll();
     }
 
+    /**
+     * Método que se llama cuando se realizan cambios en la base de datos, llama a todos los listeners añadidos
+     */
     static void dataChanged() {
         ArrayList<OnDataChangeListener> toRemove;
         for (OnDataChangeListener listener : listeners) {
@@ -148,6 +147,12 @@ public class Task extends RealmObject {
         dataChanged();
     }
 
+    /**
+     * Agregar una tarea a la base de datos
+     *
+     * @param context Contexto del que se llama al método
+     * @param task Tarea a agregar
+     */
     public static void add(final Context context, final Task task) {
         Realm.getDefaultInstance()
                 .executeTransaction(r -> {
@@ -175,6 +180,12 @@ public class Task extends RealmObject {
                 .where(Task.class).equalTo("id", id).findFirst();
     }
 
+    /**
+     * Obtiene una lista de tareas segun una categoría
+     *
+     * @param id ID de la categoría
+     * @return Retorna un RealmList de tareas que cuya clase es la indicada
+     */
     public static RealmList<Task> getByCategory(int id) {
         RealmList<Task> tasks = new RealmList<>();
         tasks.addAll(Realm.getDefaultInstance()
@@ -182,6 +193,11 @@ public class Task extends RealmObject {
         return tasks;
     }
 
+    /**
+     * Obtiene una lista de tareas para hoy
+     *
+     * @return Retorna una RealmList de tareas para el día actual
+     */
     public static RealmResults<Task> tasksForToday() {
         Date today = Calendar.getInstance().getTime();
         Date now = Calendar.getInstance().getTime();
@@ -219,6 +235,12 @@ public class Task extends RealmObject {
         dataChanged();
     }
 
+    /**
+     * Elimia una tarea de la base de datos
+     *
+     * @param context Contexto del que se llama al método
+     * @param task Tarea a eliminar
+     */
     public static void remove(Context context, Task task) {
         Realm.getDefaultInstance()
                 .executeTransaction(r -> {
@@ -250,11 +272,22 @@ public class Task extends RealmObject {
         dataChanged();
     }
 
+    /**
+     * Agregar un listener de cambios en la base de datos
+     *
+     * @param father Clase padre del listener
+     * @param listener ChangeListener para cambios
+     */
     public static void addDataChangeListener(Class father, OnDataChangeListener listener) {
         listeners.add(listener);
         listenerFathers.add(father);
     }
 
+    /**
+     * Elimina todos los listener pertenecientes a una clase padre
+     *
+     * @param father Clase padre
+     */
     public static void removeChangeListener(Class father) {
         for (int i = 0; i < listenerFathers.size(); i++) {
             if (father == listenerFathers.get(i)) {
@@ -264,11 +297,32 @@ public class Task extends RealmObject {
         }
     }
 
+    /**
+     * Obtiene una instancia para edición
+     *
+     * @return Tarea lista para editar
+     */
+    public Task getEditableInstance() {
+        return Realm.getDefaultInstance().copyFromRealm(this);
+    }
+
+    /**
+     * Agrega una nota a la tarea
+     *
+     * @param note Nota a agregar
+     * @return Retorna una nota a la tarea
+     */
     public Task addNote(Note note) {
         this.notes.add(note);
         return this;
     }
 
+    /**
+     * Agrega un día a las tareas de tipo diarias
+     *
+     * @param day Día a agregar
+     * @return Retorna la tarea
+     */
     public Task addDay(int day) {
         days.add(day);
         return this;
@@ -380,10 +434,18 @@ public class Task extends RealmObject {
         return this;
     }
 
+    /**
+     * Guarda los cambios realizados
+     *
+     * @param context
+     */
     public void save(Context context) {
         edit(context, this);
     }
 
+    /**
+     *
+     */
     public interface OnDataChangeListener {
         void onChange();
     }

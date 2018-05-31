@@ -22,6 +22,10 @@ public enum Style {
         this.color2 = color2;
     }
 
+    public static Style fromInt(int index) {
+        return Style.values()[index];
+    }
+
     public int getSrc() {
         return this.source;
     }
@@ -36,9 +40,5 @@ public enum Style {
 
     public int toInt() {
         return this.index;
-    }
-
-    public static Style fromInt(int index) {
-        return Style.values()[index];
     }
 }

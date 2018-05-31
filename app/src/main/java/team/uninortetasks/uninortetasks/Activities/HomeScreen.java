@@ -25,7 +25,10 @@ public class HomeScreen extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabLayout);
         TabsAdapter adapter = new TabsAdapter(getSupportFragmentManager());
 
-        ((TextView) findViewById(R.id.nForToday)).setText("Tareas para hoy: " + Task.tasksForToday().size());
+        final TextView tasks = findViewById(R.id.nForToday);
+        tasks.setText("Tareas para hoy: " + Task.tasksForToday().size());
+
+        Task.addDataChangeListener(HomeScreen.class, () -> tasks.setText("Tareas para hoy: " + Task.tasksForToday().size()));
 
         adapter.addFragment(new ForTodayFragment(), getResources().getString(R.string.for_today));
         adapter.addFragment(new DashboardFragment(), getResources().getString(R.string.all));

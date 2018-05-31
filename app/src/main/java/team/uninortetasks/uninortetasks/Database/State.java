@@ -16,15 +16,15 @@ public enum State {
         this.source = source;
     }
 
+    public static State fromInt(int index) {
+        return State.values()[index];
+    }
+
     public int getSrc() {
         return source;
     }
 
     public int toInt() {
         return this.index;
-    }
-
-    public static State fromInt(int index) {
-        return State.values()[index];
     }
 }

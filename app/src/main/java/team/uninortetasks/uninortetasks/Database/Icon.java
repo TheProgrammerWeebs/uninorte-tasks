@@ -22,15 +22,15 @@ public enum Icon {
         this.index = index;
     }
 
+    public static Icon fromInt(int index) {
+        return Icon.values()[index];
+    }
+
     public int getsrc() {
         return resource;
     }
 
     public int toInt() {
         return index;
-    }
-
-    public static Icon fromInt(int index) {
-        return Icon.values()[index];
     }
 }
