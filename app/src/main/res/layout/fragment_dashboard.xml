@@ -88,10 +88,11 @@
                         <ImageView
                             android:layout_width="63dp"
                             android:layout_height="63dp"
-                            android:background="@drawable/oval_light"
+                            android:background="@drawable/oval_cyan"
                             android:padding="10dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/calculadora" />
+                            android:src="@drawable/calculadora"
+                            android:tint="#fff" />
 
                         <TextView
                             android:layout_width="wrap_content"
