@@ -32,9 +32,10 @@
                     android:tint="?attr/textColor2" />
 
                 <TextView
-                    android:layout_marginTop="-8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="-8dp"
+                    android:fontFamily="sans-serif-light"
                     android:text="@string/app_name"
                     android:textColor="?attr/textColor2"
                     android:textSize="40sp" />
@@ -43,6 +44,7 @@
                     android:id="@+id/nForToday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-regular"
                     android:text="@string/tasks_for_today"
                     android:textColor="?attr/textColor2"
                     android:textSize="20sp"

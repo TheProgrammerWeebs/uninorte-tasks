@@ -11,10 +11,6 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
-import team.uninortetasks.uninortetasks.Database.Category;
-import team.uninortetasks.uninortetasks.Database.Task;
 import team.uninortetasks.uninortetasks.R;
 
 public class SplashScreen extends AppCompatActivity {
@@ -24,12 +20,6 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_splash);
         int header = setSplash();
-        //Inicializa la conexion con la base de datos de Realm
-        Realm.init(this);
-        RealmConfiguration config = new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
-        Realm.setDefaultConfiguration(config);
-        Task.init();
-        Category.init();
         startApp(header);
     }
 

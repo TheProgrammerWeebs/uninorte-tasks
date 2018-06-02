@@ -110,7 +110,7 @@
     <string name="pending">Pendiente</string>
     <string name="expired">Expirado</string>
     <string name="create_task">Crear tarea</string>
-    <string name="time_to_socialize">Llegó la hora de socializar...</string>
+    <string name="time_to_socialize">Llegó la hora de socializar…</string>
     <string name="no_tasks_for_today">No tiene tareas para hoy</string>
     <string name="delete_all_tasks">Borrar todas la tareas</string>
     <string name="delete_expired_tasks">Borrar tareas expiradas</string>
@@ -130,4 +130,6 @@
     <string name="report_progress">Reportar progreso</string>
     <string name="new_limit_date">Nueva fecha límite</string>
     <string name="welcome">Bienvenido</string>
+    <string name="notification_info">Revisa tu agenda y prográmate responsablemente</string>
+    <string name="notification_title">¿Qué planes tienes para hoy?</string>
 </resources>
